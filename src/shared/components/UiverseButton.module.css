@@ -1,0 +1,223 @@
+.btnWrapper {
+    --width: 100%;
+    --height: 65px;
+    --padding: 8px;
+    --border-radius: 24px;
+    --dot-size: 8px;
+    /* Blue/Cyan Project Accent */
+    --btn-color: #007BFF;
+    --hue: 210deg;
+    /* Cyan for the pulse light to contrast with Blue */
+    --pulse-hue: 180deg;
+    --animation-duration: 1.2s;
+    --btn-font-size: 16px;
+    /* Default font size */
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius);
+    border: none;
+
+    /* Slightly warm background for wrapper */
+    background-color: rgba(0, 123, 255, 0.1);
+
+    box-shadow:
+        1px 1px 2px 0 rgba(255, 255, 255, 0.2),
+        2px 2px 2px rgba(0, 0, 0, 0.1) inset,
+        2px 2px 4px rgba(0, 0, 0, 0.1) inset,
+        2px 2px 8px rgba(0, 0, 0, 0.1) inset;
+
+    transition: box-shadow 50ms linear;
+    perspective: 150px;
+    perspective-origin: center;
+    user-select: none;
+    z-index: 10;
+
+    /* CRITICAL FOR CLICK FUNCTIONALITY */
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    text-align: center;
+    padding: 0 calc(var(--padding) * 2);
+
+    width: calc(100% - 2 * var(--padding));
+    height: calc(100% - 2 * var(--padding));
+    border-radius: calc(var(--border-radius) - var(--padding));
+    border: none;
+    cursor: pointer;
+
+    /* Blue Gradient */
+    background: linear-gradient(135deg, #007BFF, #00C6FF);
+
+    box-shadow:
+        1px 1px 2px -1px #fff inset,
+        0 2px 1px rgba(0, 0, 0, 0.1),
+        0 4px 2px rgba(0, 0, 0, 0.1),
+        0 8px 4px rgba(0, 0, 0, 0.1),
+        0 16px 8px rgba(0, 0, 0, 0.1),
+        0 32px 16px rgba(0, 0, 0, 0.1);
+
+    transition:
+        transform 0.25s cubic-bezier(0.25, 1.5, 0.5, 2.2),
+        box-shadow 0.25s cubic-bezier(0.25, 1.5, 0.5, 1),
+        filter 0.3s cubic-bezier(0.25, 1.5, 0.5, 1);
+    will-change: transform, filter;
+
+    z-index: 20;
+}
+
+.btnTxt {
+    display: inline-block;
+    font-size: var(--btn-font-size);
+    font-weight: 900;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    /* White text for contrast on Blue */
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.dot {
+    position: absolute;
+    top: calc(50% - var(--dot-size) / 2);
+    right: calc(var(--height) / 2 - var(--padding) / 2);
+    width: var(--dot-size);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background-color: hsla(var(--pulse-hue), 0%, 50%, 0.1);
+
+    border: 1px solid hsla(var(--pulse-hue), 0%, 60%, 0.6);
+    box-sizing: border-box;
+
+    box-shadow:
+        1px 1px 2px -1px rgba(255, 255, 255, 0.9) inset,
+        0 2px 1px rgba(0, 0, 0, 0.1),
+        0 4px 2px rgba(0, 0, 0, 0.1),
+        0 8px 4px rgba(0, 0, 0, 0.1);
+
+    pointer-events: none;
+    z-index: 30;
+}
+
+.dot::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--padding) / -2);
+    left: calc(var(--padding) / -2);
+    width: calc(100% + var(--padding));
+    height: calc(100% + var(--padding));
+    border-radius: inherit;
+    background-color: rgba(0, 0, 0, 0.1);
+    mask-image: radial-gradient(circle at 50% 60%, transparent 50%, black);
+}
+
+.dot::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--padding) / -2);
+    left: calc(var(--padding) / -2);
+    width: calc(100% + var(--padding));
+    height: calc(100% + var(--padding));
+    border-radius: inherit;
+    background-color: transparent;
+
+    box-shadow:
+        0 0 10px 2px hsla(var(--pulse-hue), 80%, 50%, 0.3),
+        0 0 20px 10px hsla(var(--pulse-hue), 80%, 50%, 0.5),
+        0 0 50px 20px hsla(var(--pulse-hue), 80%, 50%, 0.5),
+        0 0 16px 1px hsla(var(--pulse-hue), 100%, 60%, 0.9) inset;
+
+    opacity: 0;
+}
+
+.pulse {
+    transition: transform 200ms ease-in;
+}
+
+.pulse.dot {
+    animation: bg-anim var(--animation-duration) ease-in-out infinite;
+}
+
+.pulse::after {
+    animation: opacity-anim var(--animation-duration) ease-in-out infinite;
+}
+
+@keyframes bg-anim {
+
+    0%,
+    100% {
+        background-color: hsla(var(--pulse-hue), 50%, 50%, 0);
+    }
+
+    50% {
+        background-color: hsla(var(--pulse-hue), 100%, 50%, 1);
+    }
+}
+
+@keyframes opacity-anim {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Hover States */
+.btnWrapper:hover .btn,
+.btnWrapper:focus-visible .btn {
+    /* Blue Glow */
+    filter: drop-shadow(var(--padding) 0 var(--padding) rgba(0, 123, 255, 0.6));
+    transform: translate3d(0, -2px, 2px);
+}
+
+.btnWrapper:hover .btnTxt {
+    /* Keep white on hover */
+    color: #fff;
+}
+
+.btnWrapper:hover .dot.pulse {
+    animation: none;
+    background-color: hsla(var(--pulse-hue), 100%, 50%, 1);
+}
+
+.btnWrapper:hover .dot.pulse::after {
+    animation: none;
+    opacity: 1;
+}
+
+.btn:active {
+    filter: drop-shadow(var(--padding) 0 var(--padding) rgba(0, 123, 255, 0.8));
+    transform: translate3d(0, 0, -4px);
+}
+
+/* Success State - Blue Button with Green Pulse */
+.success {
+    --pulse-hue: 120deg;
+    /* Green Pulse */
+}
+
+/* Disabled State - Cortar funcionalidad manteniéndo estética */
+.disabled {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+.disabled .btn {
+    cursor: default !important;
+}

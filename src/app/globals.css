@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F0F4F8;
+  /* Cool off-white */
+  --foreground: #031e39;
+  /* Brand Blue for text */
+
+  /* Vibrant Blue Palette (Light Mode) */
+  --vibrant-blue: #007BFF;
+  --vibrant-cyan: #00FFFF;
+  --vibrant-sky: #0EA5E9;
+
+  /* Liquid Glass Physics - Light Mode */
+  --glass-border: rgba(3, 30, 57, 0.1);
+  --glass-surface: rgba(255, 255, 255, 0.6);
+  --glass-highlight: rgba(255, 255, 255, 0.8);
+  --glass-shadow: rgba(3, 30, 57, 0.1);
+
+  /* Semantic Colors */
+  --accent: #007BFF;
+  --accent-light: #60A5FA;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+  --error: #EF4444;
+}
+
+[data-theme='dark'],
+.dark {
+  --background: #020b14;
+  /* Very dark blue, almost black */
+  --foreground: #ffffff;
+
+  /* Liquid Glass Physics - Dark Mode */
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-surface: rgba(3, 30, 57, 0.3);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.5);
+
+  --accent: #00FFFF;
+  /* Electric Cyan for dark mode contrast */
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Hide Utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Liquid Glass Utility Keyframes */
+  .glass-panel {
+    @apply bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-lg shadow-cyan-500/5 dark:shadow-black/20;
+  }
+
+  .glass-card {
+    @apply bg-white/40 dark:bg-white/5 backdrop-blur-md border border-white/30 dark:border-white/5 hover:bg-white/60 dark:hover:bg-white/10 transition-all duration-300;
+  }
+
+  .text-vibrant {
+    @apply text-[#2D1810] dark:text-white;
+  }
+
+  .bg-vibrant-gradient {
+    @apply bg-gradient-to-br from-blue-600 to-cyan-500;
+  }
+}
+
+@layer utilities {
+  .animate-float-bg {
+    animation: float-bg 15s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 8s ease-in-out infinite;
+  }
+}
+
+@keyframes float-bg {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}

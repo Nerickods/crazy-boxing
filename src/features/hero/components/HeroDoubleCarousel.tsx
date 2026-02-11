@@ -1,0 +1,108 @@
+import { motion } from 'framer-motion';
+import InfiniteCarouselRow from './InfiniteCarouselRow';
+import { heroCarouselRows } from '../services/heroData';
+import { GlassCard } from '@/shared/components/ui/GlassCard';
+import { GlassButton } from '@/shared/components/ui/GlassButton';
+
+export default function HeroDoubleCarousel() {
+    const handleCtaClick = () => {
+        // Direct implementation to ensure functionality
+        const formElement = document.getElementById('formulario');
+        if (formElement) {
+            formElement.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            console.error('Formulario element not found');
+        }
+    };
+
+    return (
+        <section id="inicio" className="relative w-full min-h-[100dvh] bg-[var(--background)] overflow-hidden flex flex-col font-['Poppins']">
+
+            {/* 1. TOP CAROUSEL (Left) */}
+            <div className="w-full h-[50dvh] relative z-0 border-b border-white/5">
+                <InfiniteCarouselRow
+                    images={heroCarouselRows[0].images}
+                    direction="left"
+                    duration={heroCarouselRows[0].animation.duration}
+                />
+            </div>
+
+            {/* 2. BOTTOM CAROUSEL (Right) */}
+            <div className="w-full h-[50dvh] relative z-0 border-t border-white/5">
+                <InfiniteCarouselRow
+                    images={heroCarouselRows[1].images}
+                    direction="right"
+                    duration={heroCarouselRows[1].animation.duration}
+                />
+            </div>
+
+            {/* 3. CENTRAL OVERLAY - GLASSMORPHISM BOX */}
+            <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center p-3 md:p-6">
+
+                {/* Glassmorphism Box */}
+                <GlassCard
+                    variant="premium"
+                    className="relative z-20 max-w-5xl w-full mx-auto px-4 py-8 md:p-16 flex flex-col items-center text-center shadow-[0_0_50px_rgba(0,0,0,0.6)] animate-in fade-in zoom-in duration-1000"
+                >
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent opacity-50"></div>
+
+                    {/* Title */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white italic tracking-tighter mb-4 md:mb-8 uppercase leading-[1.1] md:leading-[0.9]"
+                    >
+                        LA MEJOR ACADEMIA DE <br />
+                        <span className="text-[var(--accent)] drop-shadow-[0_0_25px_rgba(255,215,0,0.4)]">
+                            MMA EN GUADALAJARA
+                        </span>
+                    </motion.h1>
+
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                        className="text-sm sm:text-base md:text-xl text-white font-normal max-w-3xl mb-6 md:mb-10 leading-relaxed tracking-wide drop-shadow-sm px-2"
+                    >
+                        Domina el <span className="font-bold text-[var(--accent)]">Jiu-Jitsu, Muay Thai y Boxeo</span>. <br className="hidden sm:block" />
+                        Transforma tu mentalidad y físico en Crazy Boxing. <br className="hidden md:block" />
+                        <span className="font-bold border-b-2 border-[var(--accent)] block mt-2 sm:inline sm:mt-0">Agenda tu visita gratuita hoy mismo.</span>
+                    </motion.p>
+
+                    {/* Compact & Alive CTA */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                    >
+                        <GlassButton
+                            variant="glow"
+                            size="lg"
+                            onClick={handleCtaClick}
+                            className="pointer-events-auto w-full sm:w-auto text-sm sm:text-base md:text-lg py-4 sm:py-3"
+                        >
+                            RESERVA VISITA GRATIS
+                        </GlassButton>
+                    </motion.div>
+
+                </GlassCard>
+            </div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, y: [0, 10, 0] }}
+                transition={{ duration: 2, delay: 1, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-20 text-white/30 pointer-events-none"
+            >
+                <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
+                    <div className="w-1 h-1.5 md:h-2 bg-white/40 rounded-full animate-scroll"></div>
+                </div>
+            </motion.div>
+
+        </section>
+    );
+}
