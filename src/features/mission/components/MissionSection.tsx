@@ -27,7 +27,27 @@ export default function MissionSection() {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="max-w-5xl mx-auto text-center drop-shadow-lg">
 
-                    {/* Header */}
+                    {/* 1. Header with Logo Shield (Restored) */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1 }}
+                        viewport={{ once: true }}
+                        className="mb-12 flex justify-center relative z-10"
+                    >
+                        <div className="relative group cursor-pointer">
+                            {/* Glowing Effect - Blue */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-600 blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 rounded-full pointer-events-none"></div>
+
+                            <img
+                                src="/assets/logo.png"
+                                alt="Crazy Boxing Authority Logo"
+                                className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-[0_0_15px_rgba(37,99,235,0.5)] relative z-10 transition-transform duration-500 group-hover:scale-110"
+                            />
+                        </div>
+                    </motion.div>
+
+                    {/* Header Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -36,7 +56,7 @@ export default function MissionSection() {
                         className="mb-12"
                     >
                         <span className="inline-block py-1 px-3 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/30 text-[var(--accent)] font-bold tracking-[0.2em] text-xs uppercase mb-6 backdrop-blur-sm">
-                            Nuestra Filosofía (El Credo)
+                            Nuestra Filosofía
                         </span>
                         <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight uppercase leading-tight drop-shadow-xl">
                             NO ENTRENAMOS PARA EL ESPEJO. <br />
@@ -122,16 +142,19 @@ export default function MissionSection() {
                         </motion.div>
                     </div>
 
-                    {/* Minimalist Cross */}
+                    {/* Minimalist Cross with Glow */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.8 }}
                         viewport={{ once: true }}
-                        className="mt-24 flex justify-center opacity-30 hover:opacity-100 transition-opacity duration-500"
+                        className="mt-24 flex justify-center items-center relative group"
                     >
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2V22M7 8H17" stroke="currentColor" strokeWidth="1" strokeLinecap="square" className="text-white" />
+                        {/* Minimalist Glow Effect for Cross */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[var(--accent)] blur-[25px] opacity-20 group-hover:opacity-50 transition-opacity duration-500 rounded-full pointer-events-none"></div>
+
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 opacity-40 group-hover:opacity-100 transition-all duration-500 text-white group-hover:text-[var(--accent)] group-hover:drop-shadow-[0_0_8px_rgba(255,215,0,0.5)]">
+                            <path d="M12 2V22M7 8H17" stroke="currentColor" strokeWidth="1" strokeLinecap="square" />
                         </svg>
                     </motion.div>
 

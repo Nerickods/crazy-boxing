@@ -219,8 +219,8 @@ export default function FacilitiesSection() {
                                     <div>
                                         <h4 className="text-white font-bold uppercase tracking-wider mb-1">Lunes a Viernes</h4>
                                         <div className="space-y-1">
-                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">07:00 AM - 11:00 AM</p>
-                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">05:00 PM - 09:00 PM</p>
+                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">08:00 AM - 01:00 PM</p>
+                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">04:00 PM - 10:00 PM</p>
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@ export default function FacilitiesSection() {
                                     </div>
                                     <div>
                                         <h4 className="text-white font-bold uppercase tracking-wider mb-1">Sábados</h4>
-                                        <p className="text-[var(--accent)] font-mono text-lg font-bold">09:00 AM - 01:00 PM</p>
+                                        <p className="text-[var(--accent)] font-mono text-lg font-bold">09:00 AM - 12:00 PM</p>
                                     </div>
                                 </div>
                             </div>

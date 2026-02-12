@@ -58,9 +58,7 @@ export default function HeroDoubleCarousel() {
                         <span className="text-[var(--accent)] drop-shadow-[0_0_25px_rgba(255,215,0,0.4)]">
                             APRENDE A PELEAR POR TUS OBJETIVOS
                         </span>
-                        <span className="block text-xl sm:text-2xl md:text-3xl mt-2 text-white/80 not-italic normal-case tracking-normal">
-                            (Literalmente)
-                        </span>
+
                     </motion.h1>
 
                     {/* Subtitle */}
