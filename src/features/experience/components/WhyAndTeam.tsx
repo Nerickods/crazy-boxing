@@ -10,43 +10,63 @@ import { useScrollAnchor } from '@/shared/hooks/use-scroll-anchor';
 const journeyStages = [
     {
         id: 'stage-1',
-        title: "EL UMBRAL",
+        title: "EL DESBLOQUEO",
         period: "Día 1 - Mes 1",
         focus: "Seguridad y Pertenencia",
         icon: DoorOpen,
-        copy: "Dudas si perteneces aquí. Te recibimos no como un cliente, sino como alguien listo para dejar de mentirse sobre su seguridad. Tu misión: cruzar el umbral del miedo y descubrir que no estás hecho de cristal.",
-        methodology: "Metodología 'Zero-Daño'. Ese miedo a ser lastimado es lo primero que desmontamos. Sin sparring agresivo. Te sumergimos en drills técnicos donde 'sobrevivir' es simplemente aprender a caer y levantarte. Reprogramamos el pánico por técnica.",
-        tags: ["SeguridadTotal", "Fundamentos"]
+        headline: "El problema no es tu cuerpo, es tu miedo a romperte.",
+        copy: "La mayoría abandona el boxeo la primera semana por miedo al dolor o al ridículo. Nosotros eliminamos esa barrera de entrada.",
+        mechanism: {
+            title: "Sistema 'Zero-Daño'",
+            action: "Aprenderás a moverte, cubrirte y caer sin recibir un solo golpe real.",
+            result: "En 30 días, tu cerebro deja de ver el gimnasio como una amenaza y empieza a verlo como tu zona segura.",
+            reality: "Dejas de verte debil al espejo."
+        }
     },
     {
         id: 'stage-2',
-        title: "LA FORJA",
+        title: "LA INOCULACIÓN",
         period: "Mes 1 - Mes 3",
         focus: "Disciplina y Adaptación",
         icon: Hammer,
-        copy: "La comodidad que dejaste atrás empieza a sentirse vacía. Aquí, el dolor muscular es el precio de tu nueva armadura. Descubres que la \"versión segura\" de ti mismo era una cárcel. En La Forja, rompes los límites físicos que creías tener.",
-        methodology: "Inoculación de Estrés Programada. Drills de 'Tiburón'. Te ponemos en situaciones de desventaja controlada (cansado, acorralado) para que tu mente aprenda a resolver problemas bajo presión. Dejas de congelarte; empiezas a calcular.",
-        tags: ["Resistencia", "TecnicaPura"]
+        headline: "La técnica sin presión es solo baile. Aquí empieza la realidad.",
+        copy: "Ya sabes golpear al saco, ahora te enseñamos a pensar bajo fuego. Tu mente aprenderá a resolver problemas mientras tu cuerpo se agota.",
+        mechanism: {
+            title: "Drills de Estrés Controlado",
+            action: "Ejercicios donde limitamos tu espacio o tu energía para obligarte a usar la técnica, no la fuerza bruta.",
+            result: "Dejas de congelarte ante la presión. Aprendes a calcular en medio del caos.",
+            reality: "Descubres que aguantas 10 veces más de lo que creías."
+        }
     },
     {
         id: 'stage-3',
-        title: "EL DESPERTAR",
+        title: "EL AJEDREZ FÍSICO",
         period: "Mes 3 - Mes 6",
         focus: "Confianza y Reacción",
         icon: BrainCircuit,
-        copy: "Ya no eres el mismo que entró temblando. Ahora caminas con una seguridad que se nota antes de que abras la boca; te paras diferente, ocupas tu espacio. Has despertado una conciencia nueva: en el caos del combate has aprendido a filtrar el ruido y concentrarte solo en lo que realmente importa. Esa claridad mental se traslada a tus estudios o trabajo; dejas de reaccionar a las urgencias de otros para darle prioridad a tu propio propósito.",
-        methodology: "Ajedrez Humano (Sparring Situacional). Esta calma nace del control absoluto. Al desglosar la pelea en situaciones específicas, obligamos a tu cerebro a mantener el foco bajo presión extrema. La concentración que desarrollas para escapar de una posición difícil es la misma 'herramienta' que usarás para dominar tus retos fuera del tatami.",
-        tags: ["FlowState", "Control"]
+        headline: "La fuerza bruta tiene un límite. La inteligencia no.",
+        copy: "Aquí es donde los \"peleadores de bar\" pierden y los verdaderos boxeadores nacen. Peleas con reglas matemáticas, no a ver quién pega más fuerte.",
+        mechanism: {
+            title: "Sparring Situacional",
+            action: "Combates lentos y estratégicos donde el objetivo es anular al oponente, no lastimarlo.",
+            result: "Desarrollas la famosa \"visión de túnel\". El ruido desaparece y solo ves objetivos.",
+            reality: "Esa calma mental te la llevas a tu trabajo y a tu vida. Ya no reaccionas, respondes."
+        }
     },
     {
         id: 'stage-4',
-        title: "LA TRANSFORMACIÓN",
+        title: "LA IDENTIDAD GUERRERA",
         period: "Año 1+",
         focus: "Identidad y Liderazgo",
         icon: Crown,
-        copy: "Has matado al impostor que vivía en tu cabeza. El mayor beneficio no es saber pelear, sino la libertad emocional de conocer tu verdadera identidad. Al entrar a cualquier lugar, proyectas la certeza de alguien que ha pasado por el fuego y ha salido íntegro; es imposible que pasas desapercibido. Dejas de buscar validación externa porque has encontrado tu verdad en el esfuerzo. Ya no entrenas para ser fuerte, sino para ser libre.",
-        methodology: "El Código de la Tribu. Tu evolución se completa al convertirte en el espejo para los demás. Al mentorear a los nuevos que llegan con las mismas dudas que tú tenías, validas tu propia maestría. Tu liderazgo no es un título, es una radiación de carácter que infecta positivamente cada área de tu vida. te conviertes en un auténtico Guerrero.",
-        tags: ["Liderazgo", "NuevaIdentidad"]
+        headline: "Ya no entrenas para demostrar nada. Entrenas porque es quien eres.",
+        copy: "Has matado al impostor. No necesitas validación externa porque tu confianza nace de tu competencia real.",
+        mechanism: {
+            title: "El Código de la Tribu",
+            action: "Perfeccionar tu estilo propio y mentorear a los nuevos iniciados para que pierdan el miedo, tal como tú lo hiciste.",
+            result: "Una seguridad silenciosa. Entras a cualquier habitación sabiendo que, pase lo que pase, podrás manejarlo.",
+            reality: "Paz mental absoluta."
+        }
     }
 ];
 
@@ -214,26 +234,43 @@ function JourneyStageItem({ stage, index, isExpanded, onToggle }: JourneyStageIt
                         <div className="px-6 md:px-8 pb-8 pt-0 border-t border-white/10 mx-6 md:mx-8">
                             <div className="mt-6 flex flex-col gap-6">
                                 {/* Narrative Copy */}
-                                <p className="text-white text-base leading-relaxed font-medium">
-                                    {stage.copy}
-                                </p>
-
-                                {/* Methodology Block */}
-                                <div className="bg-white/5 p-6 rounded-lg border-l-2 border-[var(--accent)] bg-gradient-to-r from-[var(--accent)]/10 to-transparent">
-                                    <p className="text-gray-200 text-sm leading-relaxed italic">
-                                        <span className="text-[var(--accent)] font-bold not-italic mr-2">Cómo lo logramos:</span>
-                                        {stage.methodology}
+                                <div className="space-y-4">
+                                    <h5 className="text-white font-bold text-lg leading-tight">
+                                        {stage.headline}
+                                    </h5>
+                                    <p className="text-gray-300 text-base leading-relaxed">
+                                        {stage.copy}
                                     </p>
                                 </div>
 
-                                {/* Tags */}
-                                <div className="flex flex-wrap gap-2">
-                                    {stage.tags.map((tag: string) => (
-                                        <span key={tag} className="text-[10px] font-bold uppercase bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20 px-2 py-1 rounded tracking-wider">
-                                            #{tag}
-                                        </span>
-                                    ))}
+                                {/* Methodology Block */}
+                                <div className="bg-white/5 p-6 rounded-xl border border-white/10 relative overflow-hidden group hover:border-[var(--accent)]/30 transition-colors">
+                                    <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)]" />
+
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <span className="text-xl">🛠️</span>
+                                        <h6 className="text-[var(--accent)] font-bold uppercase tracking-wider text-sm">
+                                            El Mecanismo: {stage.mechanism.title}
+                                        </h6>
+                                    </div>
+
+                                    <ul className="space-y-3">
+                                        <li className="text-sm text-gray-300 leading-relaxed">
+                                            <strong className="text-white block mb-1">Lo que harás:</strong>
+                                            {stage.mechanism.action}
+                                        </li>
+                                        <li className="text-sm text-gray-300 leading-relaxed">
+                                            <strong className="text-white block mb-1">El Resultado:</strong>
+                                            {stage.mechanism.result}
+                                        </li>
+                                        <li className="text-sm text-gray-300 leading-relaxed pt-2 border-t border-white/5 mt-2">
+                                            <strong className="text-[var(--accent)] block mb-1">Tu nueva realidad:</strong>
+                                            <span className="italic">{stage.mechanism.reality}</span>
+                                        </li>
+                                    </ul>
                                 </div>
+
+
                             </div>
                         </div>
                     </motion.div>

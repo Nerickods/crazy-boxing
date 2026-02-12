@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised } from 'react-icons/fa';
 import { Instagram, Facebook } from 'lucide-react';
 import { cn, glass } from '@/shared/lib/utils';
 
@@ -190,30 +190,68 @@ export default function FacilitiesSection() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1 }}
+                        transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="aspect-[4/5] overflow-hidden rounded-2xl border border-zinc-800 relative group">
-                            <img
-                                src="/images/facilities/octagono/octagono-1.jpg"
-                                alt="Main Facility Teaser"
-                                className="w-full h-full object-cover transition-all duration-1000 scale-110 group-hover:scale-100"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                            <div className="absolute bottom-8 left-8 right-8">
-                                <p className="text-[var(--accent)] font-bold text-xs tracking-widest uppercase mb-2">En nuestro Octágono</p>
-                                <h3 className="text-3xl font-black text-white uppercase italic leading-none mb-4">
-                                    GANA TUS PROPIAS <br /> VICTORIAS EN LA JAULA
-                                </h3>
-                                <p className="text-zinc-300 text-sm font-medium leading-relaxed max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-4 group-hover:translate-y-0">
-                                    Para superar todos tus retos solo necesitarás activar el <span className="text-white font-bold">Modo Blackbird</span> dentro de estas paredes. Aquí se forjará tu carácter.
+                        {/* Decorative Elements */}
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
+
+                        <div className="relative bg-zinc-900/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl h-full flex flex-col justify-center">
+                            <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
+                                <div>
+                                    <h3 className="text-2xl font-black text-white uppercase italic">Horarios</h3>
+                                    <p className="text-sm text-gray-400">Siempre listos para ti</p>
+                                </div>
+                                <div className="w-12 h-12 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)]">
+                                    <FaClock size={24} />
+                                </div>
+                            </div>
+
+                            <div className="space-y-6 flex-grow">
+                                {/* Weekdays */}
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                                        L-V
+                                    </div>
+                                    <div>
+                                        <h4 className="text-white font-bold uppercase tracking-wider mb-1">Lunes a Viernes</h4>
+                                        <div className="space-y-1">
+                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">07:00 AM - 11:00 AM</p>
+                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">05:00 PM - 09:00 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Saturdays */}
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                                        S
+                                    </div>
+                                    <div>
+                                        <h4 className="text-white font-bold uppercase tracking-wider mb-1">Sábados</h4>
+                                        <p className="text-[var(--accent)] font-mono text-lg font-bold">09:00 AM - 01:00 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-10 pt-8 border-t border-white/10">
+                                <button
+                                    onClick={() => document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })}
+                                    className="w-full bg-[var(--accent)] text-black font-black uppercase tracking-widest py-4 rounded-xl hover:bg-white hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(255,215,0,0.3)] flex items-center justify-center gap-2 group"
+                                >
+                                    Agendar Clase de Prueba
+                                    <FaFistRaised className="group-hover:rotate-12 transition-transform" />
+                                </button>
+                                <p className="text-center text-xs text-gray-500 mt-4">
+                                    * La primera clase es cortesía de la casa.
                                 </p>
                             </div>
                         </div>
-                        {/* Decorative background elements */}
+
+                        {/* Ambient Glows */}
                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-[var(--accent)]/10 blur-[100px] z-0" />
                         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[var(--accent)]/10 blur-[100px] z-0" />
                     </motion.div>

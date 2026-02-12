@@ -52,7 +52,7 @@ export default function HeroDoubleCarousel() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white italic tracking-tighter mb-4 md:mb-8 uppercase leading-[1.1] md:leading-[0.9]"
+                        className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white italic tracking-tighter mb-4 md:mb-8 uppercase leading-[1.1] md:leading-[0.9] text-center mx-auto"
                     >
                         DEJA DE "INTENTAR" PONERTE EN FORMA. <br />
                         <span className="text-[var(--accent)] drop-shadow-[0_0_25px_rgba(255,215,0,0.4)]">
@@ -68,7 +68,7 @@ export default function HeroDoubleCarousel() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                        className="text-sm sm:text-base md:text-xl text-white font-normal max-w-3xl mb-6 md:mb-10 leading-relaxed tracking-wide drop-shadow-sm px-2"
+                        className="text-sm sm:text-base md:text-xl text-white font-normal max-w-3xl mb-6 md:mb-10 leading-relaxed tracking-wide drop-shadow-sm px-2 text-center mx-auto"
                     >
                         Prueba el entrenamiento de los profesionales adaptado a ti. <br className="hidden md:block" />
                         <span className="text-[var(--accent)] font-bold">Adrenalina, técnica y un ambiente que te empuja a ser mejor.</span> <br />

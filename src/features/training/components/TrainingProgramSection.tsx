@@ -21,9 +21,33 @@ export default function TrainingProgramSection() {
     // CRAZY BOXING IDENTITY DATA
     const activeDisciplineInfo = {
         name: "CRAZY BOXING ACADEMY",
-        subtitle: "¿POR QUÉ BOXEO? PORQUE HABLAR NO SIEMPRE FUNCIONA.",
-        description: "Crazy Boxing no es un gimnasio tradicional. Es un espacio diseñado para una generación bajo presión. Elegimos el boxeo porque es la única terapia donde golpear tus problemas es la solución. Aquí, tu ansiedad no es un defecto, es combustible. Abrazamos tu intensidad y te enseñamos a usarla. Ser 'Crazy' es atreverse a exponerse a la incomodidad.",
-        benefits: ["Terapia de Impacto", "Comunidad Sin Juicios", "Tu Versión Más Fuerte", "Desconexión Total"],
+        subtitle: "¿POR QUÉ BOXEO? PORQUE A VECES, HABLAR NO ES SUFICIENTE.",
+        description: (
+            <>
+                <p className="mb-4 font-bold text-white">Olvídate del gimnasio tradicional. Esto es el Nuevo Estándar.</p>
+                <p className="mb-4">No estás aquí solo por deporte. Estás aquí porque formas parte de una generación bajo presión y necesitas una válvula de escape.</p>
+                <p className="mb-4">Elegimos el boxeo porque es la única terapia donde <strong className="text-white">golpear tus problemas es la solución.</strong></p>
+                <p className="mb-4">En <strong className="text-white">Crazy Boxing Academy</strong>, tu ansiedad no es un defecto, es tu combustible. No venimos a "hablar de ello". Venimos a sudarlo, a soltarlo y a transformarlo en poder.</p>
+                <p className="font-bold italic text-white">"Ser 'Crazy' no es estar loco. Es atreverse a estar incómodo para volverse invencible."</p>
+            </>
+        ),
+        benefits: [
+            {
+                title: "Terapia de Impacto",
+                text: "No pagues un psicólogo para que te diga que respires. Aquí liberas el estrés de la semana en el primer asalto.",
+                icon: "🥊"
+            },
+            {
+                title: 'Comunidad "Zero-Judgment"',
+                text: "Nadie te mira mal. Aquí todos luchamos contra algo. Entras solo, pero peleas acompañado.",
+                icon: "🛡️"
+            },
+            {
+                title: "Tu Versión Más Letal",
+                text: "Deja de ser la persona que \"aguanta\" todo. Conviértete en quien tiene la confianza para devolver el golpe (en el ring y en la vida).",
+                icon: "🔥"
+            }
+        ],
         image: "/assets/generated/boxing_luxury_bw.png",
         mobileImage: "/assets/generated/boxing_mobile_recreation.png",
         accentColor: "text-indigo-500",
@@ -40,28 +64,28 @@ export default function TrainingProgramSection() {
             icon: <Brain className="w-6 h-6 md:w-8 md:h-8" />,
             title: "MENTALIDAD",
             subtitle: "Del miedo al poder",
-            copy: "Cambiamos la narrativa de 'víctima' a 'protagonista'. A través del combate, entenderás que tu seguridad no depende de la suerte, sino de tu capacidad para desarrollarla."
+            copy: "Deja de ser la 'víctima' de tu historia y conviértete en el protagonista. En el combate aprendes que tu seguridad no depende de la suerte, sino de tu capacidad para defenderte."
         },
         {
             key: 'identity',
             icon: <Fingerprint className="w-6 h-6 md:w-8 md:h-8" />,
             title: "IDENTIDAD",
             subtitle: "De la confusión a la verdad",
-            copy: "En un mundo que te dice quién crees que eres, el tatami te revelara quién REALMENTE podrias llegar a ser. Sin máscaras. Las Artes Marciales Mixtas serán tu espejo más honesto."
+            copy: "El mundo te dice quién \"deberías\" ser; el ring te revela quién eres realmente. Sin filtros ni máscaras. Aquí encontrarás tu versión más honesta cuando el cansancio aprieta y decides no rendirte."
         },
         {
             key: 'discipline',
             icon: <Mountain className="w-6 h-6 md:w-8 md:h-8" />,
             title: "DISCIPLINA",
             subtitle: "Del caos al rumbo",
-            copy: "La motivación es efímera; la disciplina será eterna. Te daremos la estructura inquebrantable para cumplir tus promesas contigo mismo, dentro y fuera del gym."
+            copy: "La motivación es efímera; la disciplina es eterna. Creamos la estructura inquebrantable que necesitas para dejar de fallarte y empezar a cumplir las promesas que te haces a ti mismo."
         },
         {
             key: 'vision',
             icon: <Eye className="w-6 h-6 md:w-8 md:h-8" />,
             title: "VISIÓN",
             subtitle: "De la ceguera al propósito",
-            copy: "Aprenderás a ver caminos donde otros ven muros. Desarrollarás la capacidad de anticipar, reaccionar y avanzar, tanto en las peleas como en la vida diaria."
+            copy: "Entrena tu mente para ver caminos donde otros solo ven muros. Desarrolla la capacidad de anticipar, reaccionar y avanzar, tanto esquivando golpes como superando problemas diarios."
         }
     ];
 
@@ -103,115 +127,61 @@ export default function TrainingProgramSection() {
             {/* --- 2. MAIN CONTENT (Z-10) --- */}
             <div className="container mx-auto px-6 relative z-10">
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                <div className="max-w-5xl mx-auto mb-24 relative z-10">
 
-                    {/* LEFT COLUMN: IDENTITY & PHILOSOPHY */}
+                    {/* CENTERED IDENTITY HEADER */}
+                    <div className="text-center mb-16">
+                        <span className="text-[var(--accent)] font-bold tracking-[0.3em] text-xs uppercase mb-4 block animate-fade-in">
+                            THE NEW STANDARD
+                        </span>
+                        <h2 className="text-5xl md:text-8xl font-black text-white leading-[0.9] italic uppercase tracking-tighter mb-8">
+                            CRAZY <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] to-white">
+                                BOXING ACADEMY
+                            </span>
+                        </h2>
+                        <div className="h-1 w-24 bg-[var(--accent)] rounded-full mx-auto" />
+                    </div>
+
+                    {/* CENTERED MANIFESTO */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="space-y-8"
+                        className="bg-white/5 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-3xl relative overflow-hidden group hover:border-[var(--accent)] transition-colors duration-500 mb-12 text-center"
                     >
-                        <div>
-                            <span className="text-[var(--accent)] font-bold tracking-[0.3em] text-xs uppercase mb-4 block animate-fade-in">
-                                THE NEW STANDARD
-                            </span>
-                            <h2 className="text-5xl md:text-7xl font-black text-white leading-[0.9] italic uppercase tracking-tighter mb-4">
-                                CRAZY <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] to-white">
-                                    BOXING ACADEMY
-                                </span>
-                            </h2>
-                            <div className="h-1 w-24 bg-[var(--accent)] rounded-full" />
+                        <div className="absolute -right-10 -top-10 text-white/5 text-[15rem] rotate-12 pointer-events-none">
+                            <FaFistRaised />
                         </div>
 
-                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl relative overflow-hidden group hover:border-[var(--accent)] transition-colors duration-300">
-                            <div className="absolute -right-10 -top-10 text-white/5 text-9xl">
-                                <FaFistRaised />
-                            </div>
-
-                            <h3 className="text-xl font-bold text-white mb-4 relative z-10 flex items-center gap-3">
-                                {activeDisciplineInfo.subtitle}
-                            </h3>
-                            <p className="text-gray-300 leading-relaxed relative z-10">
-                                {activeDisciplineInfo.description}
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            {activeDisciplineInfo.benefits.map((benefit, i) => (
-                                <div key={i} className="flex items-center gap-3 text-sm font-bold text-white/90 bg-black/40 border border-white/5 px-4 py-3 rounded-lg hover:bg-[var(--accent)]/10 hover:border-[var(--accent)] transition-all cursor-default">
-                                    <FaStar className="text-[var(--accent)] text-xs" />
-                                    {benefit}
-                                </div>
-                            ))}
+                        <h3 className="text-2xl md:text-3xl font-black text-white mb-6 relative z-10 uppercase italic">
+                            {activeDisciplineInfo.subtitle}
+                        </h3>
+                        <div className="text-gray-300 leading-relaxed relative z-10 text-lg md:text-xl font-light max-w-3xl mx-auto space-y-6">
+                            {activeDisciplineInfo.description}
                         </div>
                     </motion.div>
 
-
-                    {/* RIGHT COLUMN: OPENING HOURS CARD */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="relative"
-                    >
-                        {/* Decorative Elements */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
-
-                        <div className="relative bg-black/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl">
-                            <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
-                                <div>
-                                    <h3 className="text-2xl font-black text-white uppercase italic">Horarios</h3>
-                                    <p className="text-sm text-gray-400">Siempre listos para ti</p>
+                    {/* BENEFITS GRID (3 Columns) */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {activeDisciplineInfo.benefits.map((benefit, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="bg-black/40 border border-white/5 p-8 rounded-2xl hover:bg-[var(--accent)]/10 hover:border-[var(--accent)] transition-all group cursor-default text-center hover:-translate-y-2 duration-300"
+                            >
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 mb-6 group-hover:bg-[var(--accent)] group-hover:text-black transition-colors text-3xl">
+                                    {benefit.icon}
                                 </div>
-                                <div className="w-12 h-12 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)]">
-                                    <FaClock size={24} />
-                                </div>
-                            </div>
-
-                            <div className="space-y-6">
-                                {/* Weekdays */}
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm">
-                                        L-V
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-bold uppercase tracking-wider mb-1">Lunes a Viernes</h4>
-                                        <div className="space-y-1">
-                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">07:00 AM - 11:00 AM</p>
-                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">05:00 PM - 09:00 PM</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Saturdays */}
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm">
-                                        S
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-bold uppercase tracking-wider mb-1">Sábados</h4>
-                                        <p className="text-[var(--accent)] font-mono text-lg font-bold">09:00 AM - 01:00 PM</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="mt-10 pt-8 border-t border-white/10">
-                                <button
-                                    onClick={handleReserve}
-                                    className="w-full bg-[var(--accent)] text-black font-black uppercase tracking-widest py-4 rounded-xl hover:bg-white hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(255,215,0,0.3)] flex items-center justify-center gap-2"
-                                >
-                                    Agendar Clase de Prueba <FaFistRaised />
-                                </button>
-                                <p className="text-center text-xs text-gray-500 mt-4">
-                                    * La primera clase es cortesía de la casa.
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
+                                <h4 className="font-bold text-white text-xl mb-3 group-hover:text-[var(--accent)] transition-colors uppercase italic">{benefit.title}</h4>
+                                <p className="text-sm text-gray-400 leading-relaxed">{benefit.text}</p>
+                            </motion.div>
+                        ))}
+                    </div>
 
                 </div>
 
