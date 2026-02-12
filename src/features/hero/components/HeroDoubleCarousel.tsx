@@ -52,11 +52,14 @@ export default function HeroDoubleCarousel() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white italic tracking-tighter mb-4 md:mb-8 uppercase leading-[1.1] md:leading-[0.9]"
+                        className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white italic tracking-tighter mb-4 md:mb-8 uppercase leading-[1.1] md:leading-[0.9]"
                     >
-                        LA MEJOR ACADEMIA DE <br />
+                        DEJA DE "INTENTAR" PONERTE EN FORMA. <br />
                         <span className="text-[var(--accent)] drop-shadow-[0_0_25px_rgba(255,215,0,0.4)]">
-                            MMA EN GUADALAJARA
+                            APRENDE A PELEAR POR TUS OBJETIVOS
+                        </span>
+                        <span className="block text-xl sm:text-2xl md:text-3xl mt-2 text-white/80 not-italic normal-case tracking-normal">
+                            (Literalmente)
                         </span>
                     </motion.h1>
 
@@ -67,9 +70,9 @@ export default function HeroDoubleCarousel() {
                         transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                         className="text-sm sm:text-base md:text-xl text-white font-normal max-w-3xl mb-6 md:mb-10 leading-relaxed tracking-wide drop-shadow-sm px-2"
                     >
-                        Domina el <span className="font-bold text-[var(--accent)]">Jiu-Jitsu, Muay Thai y Boxeo</span>. <br className="hidden sm:block" />
-                        Transforma tu mentalidad y físico en Crazy Boxing. <br className="hidden md:block" />
-                        <span className="font-bold border-b-2 border-[var(--accent)] block mt-2 sm:inline sm:mt-0">Agenda tu visita gratuita hoy mismo.</span>
+                        Prueba el entrenamiento de los profesionales adaptado a ti. <br className="hidden md:block" />
+                        <span className="text-[var(--accent)] font-bold">Adrenalina, técnica y un ambiente que te empuja a ser mejor.</span> <br />
+                        Si buscas resultados rápidos y divertidos, tu sitio está aquí. <strong className="text-white">Crazy Boxing</strong>
                     </motion.p>
 
                     {/* Compact & Alive CTA */}
@@ -82,9 +85,12 @@ export default function HeroDoubleCarousel() {
                             variant="glow"
                             size="lg"
                             onClick={handleCtaClick}
-                            className="pointer-events-auto w-full sm:w-auto text-sm sm:text-base md:text-lg py-4 sm:py-3"
+                            className="pointer-events-auto w-full sm:w-auto text-xs sm:text-sm md:text-base py-4 sm:py-3 px-6 md:px-8 font-bold tracking-wider"
                         >
-                            RESERVA VISITA GRATIS
+                            🚀 RESERVAR CLASE DE PRUEBA <br className="sm:hidden" />
+                            <span className="font-normal opacity-80 text-[10px] md:text-xs ml-2 normal-case block sm:inline">
+                                (Te prestamos todo el equipo)
+                            </span>
                         </GlassButton>
                     </motion.div>
 
