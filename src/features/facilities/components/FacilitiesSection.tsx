@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised } from 'react-icons/fa';
 import { Instagram, Facebook } from 'lucide-react';
 import { cn, glass } from '@/shared/lib/utils';
+import { GymHour } from '@/features/facilities/services/hoursService';
 
 interface Facility {
     id: number;
@@ -77,7 +78,11 @@ const coaches = [
     }
 ];
 
-export default function FacilitiesSection() {
+interface FacilitiesSectionProps {
+    gymHours: GymHour[];
+}
+
+export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) {
     const [selectedFacility, setSelectedFacility] = useState<number | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
     const [isFullGalleryMode, setIsFullGalleryMode] = useState(false);
@@ -211,30 +216,23 @@ export default function FacilitiesSection() {
                             </div>
 
                             <div className="space-y-6 flex-grow">
-                                {/* Weekdays */}
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm shrink-0">
-                                        L-V
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-bold uppercase tracking-wider mb-1">Lunes a Viernes</h4>
-                                        <div className="space-y-1">
-                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">08:00 AM - 01:00 PM</p>
-                                            <p className="text-[var(--accent)] font-mono text-lg font-bold">04:00 PM - 10:00 PM</p>
+                                {gymHours.map((hour) => (
+                                    <div key={hour.id} className="flex items-start gap-4">
+                                        <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                                            {hour.label}
+                                        </div>
+                                        <div>
+                                            <h4 className="text-white font-bold uppercase tracking-wider mb-1">{hour.title}</h4>
+                                            <div className="space-y-1">
+                                                {hour.schedule.map((time, idx) => (
+                                                    <p key={idx} className="text-[var(--accent)] font-mono text-lg font-bold">
+                                                        {time}
+                                                    </p>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                {/* Saturdays */}
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm shrink-0">
-                                        S
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-bold uppercase tracking-wider mb-1">Sábados</h4>
-                                        <p className="text-[var(--accent)] font-mono text-lg font-bold">09:00 AM - 12:00 PM</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
 
                             <div className="mt-10 pt-8 border-t border-white/10">

@@ -15,7 +15,13 @@ import EssenceSection from "@/features/essence/components/EssenceSection";
 import PlansSection from "@/features/plans/components/PlansSection";
 
 
-export default function LandingPageContent() {
+import { GymHour } from "@/features/facilities/services/hoursService";
+
+interface LandingPageProps {
+    gymHours: GymHour[];
+}
+
+export default function LandingPageContent({ gymHours }: LandingPageProps) {
     return (
         <div className="min-h-screen font-['Poppins'] bg-[var(--background)] text-[var(--foreground)]">
             <Header />
@@ -37,7 +43,7 @@ export default function LandingPageContent() {
                 <WhyAndTeam />
 
                 {/* 2. INSTALACIONES - Bento Grid con Lightbox */}
-                <FacilitiesSection />
+                <FacilitiesSection gymHours={gymHours} />
 
                 {/* 4. PLANES - Pricing */}
                 <PlansSection />

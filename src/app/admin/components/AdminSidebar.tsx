@@ -90,8 +90,8 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
                     <NavLink href="/admin" icon="home">
                         Dashboard
                     </NavLink>
-                    <NavLink href="/admin/disciplines" icon="dumbbell">
-                        Disciplinas
+                    <NavLink href="/admin/hours" icon="clock">
+                        Horarios
                     </NavLink>
                     <NavLink href="/admin/enrollments" icon="users">
                         Inscripciones
@@ -162,7 +162,7 @@ function NavLink({
     children,
 }: {
     href: string
-    icon: 'home' | 'chat' | 'chart' | 'settings' | 'list' | 'tag' | 'dumbbell' | 'users' | 'ticket'
+    icon: 'home' | 'chat' | 'chart' | 'settings' | 'list' | 'tag' | 'dumbbell' | 'users' | 'ticket' | 'clock'
     children: React.ReactNode
 }) {
     const icons = {
@@ -192,6 +192,9 @@ function NavLink({
         ),
         ticket: (
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h8a2 2 0 012 2zm0 14v-2a2 2 0 01-2-2H5a2 2 0 01-2 2v2a2 2 0 012 2h8a2 2 0 012-2zm-2-8a2 2 0 00-2 2v2a2 2 0 002 2 2 2 0 002-2v-2a2 2 0 00-2-2zm7-7v20M20 7v2a2 2 0 100 4v2a2 2 0 100 4v2" />
+        ),
+        clock: (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         ),
     }
 
