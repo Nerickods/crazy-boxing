@@ -72,7 +72,7 @@ export default function HeroDoubleCarousel() {
                     >
                         Prueba el entrenamiento de los profesionales adaptado a ti. <br className="hidden md:block" />
                         <span className="text-[var(--accent)] font-bold">Adrenalina, técnica y un ambiente que te empuja a ser mejor.</span> <br />
-                        Si buscas resultados rápidos y divertidos, tu sitio está aquí. <strong className="text-white">Crazy Boxing</strong>
+                        Si buscas resultados rápidos y divertidos, tu sitio está aquí. <strong className="text-[var(--accent)] font-black uppercase tracking-wider text-lg md:text-2xl ml-1">Crazy Boxing</strong>
                     </motion.p>
 
                     {/* Compact & Alive CTA */}
@@ -80,6 +80,7 @@ export default function HeroDoubleCarousel() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                        className="flex flex-col items-center gap-3"
                     >
                         <GlassButton
                             variant="glow"
@@ -87,11 +88,11 @@ export default function HeroDoubleCarousel() {
                             onClick={handleCtaClick}
                             className="pointer-events-auto w-full sm:w-auto text-xs sm:text-sm md:text-base py-4 sm:py-3 px-6 md:px-8 font-bold tracking-wider"
                         >
-                            🚀 RESERVAR CLASE DE PRUEBA <br className="sm:hidden" />
-                            <span className="font-normal opacity-80 text-[10px] md:text-xs ml-2 normal-case block sm:inline">
-                                (Te prestamos todo el equipo)
-                            </span>
+                            🚀 RESERVAR CLASE DE PRUEBA
                         </GlassButton>
+                        <span className="text-xs sm:text-sm text-white/60 font-light tracking-wide animate-pulse-slow">
+                            (Te prestamos todo el equipo)
+                        </span>
                     </motion.div>
 
                 </GlassCard>
