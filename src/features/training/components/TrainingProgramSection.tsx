@@ -6,6 +6,7 @@ import {
     FaFistRaised,
     FaClock, FaStar
 } from 'react-icons/fa';
+import { Brain, Fingerprint, Mountain, Eye } from 'lucide-react';
 
 
 
@@ -29,6 +30,40 @@ export default function TrainingProgramSection() {
         gradient: "from-indigo-900/20 to-black",
         icon: FaFistRaised
     };
+
+    // PILLARS DATA moved from EssenceSection
+    const [activePillar, setActivePillar] = useState<string | null>(null);
+
+    const pillars = [
+        {
+            key: 'mindset',
+            icon: <Brain className="w-6 h-6 md:w-8 md:h-8" />,
+            title: "MENTALIDAD",
+            subtitle: "Del miedo al poder",
+            copy: "Cambiamos la narrativa de 'víctima' a 'protagonista'. A través del combate, entenderás que tu seguridad no depende de la suerte, sino de tu capacidad para desarrollarla."
+        },
+        {
+            key: 'identity',
+            icon: <Fingerprint className="w-6 h-6 md:w-8 md:h-8" />,
+            title: "IDENTIDAD",
+            subtitle: "De la confusión a la verdad",
+            copy: "En un mundo que te dice quién crees que eres, el tatami te revelara quién REALMENTE podrias llegar a ser. Sin máscaras. Las Artes Marciales Mixtas serán tu espejo más honesto."
+        },
+        {
+            key: 'discipline',
+            icon: <Mountain className="w-6 h-6 md:w-8 md:h-8" />,
+            title: "DISCIPLINA",
+            subtitle: "Del caos al rumbo",
+            copy: "La motivación es efímera; la disciplina será eterna. Te daremos la estructura inquebrantable para cumplir tus promesas contigo mismo, dentro y fuera del gym."
+        },
+        {
+            key: 'vision',
+            icon: <Eye className="w-6 h-6 md:w-8 md:h-8" />,
+            title: "VISIÓN",
+            subtitle: "De la ceguera al propósito",
+            copy: "Aprenderás a ver caminos donde otros ven muros. Desarrollarás la capacidad de anticipar, reaccionar y avanzar, tanto en las peleas como en la vida diaria."
+        }
+    ];
 
     return (
         <section id="programa" className="relative min-h-[100dvh] flex flex-col justify-center bg-black overflow-hidden py-16 md:py-24">
@@ -68,7 +103,7 @@ export default function TrainingProgramSection() {
             {/* --- 2. MAIN CONTENT (Z-10) --- */}
             <div className="container mx-auto px-6 relative z-10">
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
 
                     {/* LEFT COLUMN: IDENTITY & PHILOSOPHY */}
                     <motion.div
@@ -179,6 +214,97 @@ export default function TrainingProgramSection() {
                     </motion.div>
 
                 </div>
+
+                {/* --- 3. MOVED PILLARS SECTION --- */}
+                <div className="mt-12 pt-12 border-t border-white/10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-12"
+                    >
+                        <h3 className="text-2xl md:text-3xl font-black text-white italic uppercase tracking-tighter mb-2">
+                            NUESTROS <span className="text-[var(--accent)]">FUNDAMENTOS</span>
+                        </h3>
+                        <p className="text-gray-400 text-sm uppercase tracking-widest">El código del guerrero</p>
+                    </motion.div>
+
+                    {/* Dock Container */}
+                    <div className="flex justify-center gap-4 md:gap-8 mb-8">
+                        {pillars.map((pillar) => {
+                            const isActive = activePillar === pillar.key;
+                            return (
+                                <motion.button
+                                    key={pillar.key}
+                                    onClick={() => setActivePillar(isActive ? null : pillar.key)}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className={`
+                                            relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center border transition-all duration-300
+                                            ${isActive
+                                            ? 'bg-[var(--accent)] border-[var(--accent)] text-black shadow-[0_0_30px_-5px_var(--accent)]'
+                                            : 'bg-zinc-900 border-white/10 text-gray-400 hover:border-white/30 hover:text-white'
+                                        }
+                                        `}
+                                >
+                                    {pillar.icon}
+
+                                    {/* Tooltip Label (Visible only when NOT active & Hovered? Optional, keeping simple) */}
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="active-dot"
+                                            className="absolute -bottom-3 w-1.5 h-1.5 rounded-full bg-[var(--accent)]"
+                                        />
+                                    )}
+                                </motion.button>
+                            );
+                        })}
+                    </div>
+
+                    {/* --- DETAIL PANEL (EXPANDER) --- */}
+                    <div className="h-[200px] md:h-[150px] relative">
+                        <AnimatePresence mode="wait">
+                            {activePillar ? (
+                                (() => {
+                                    const pillar = pillars.find(p => p.key === activePillar)!;
+                                    return (
+                                        <motion.div
+                                            key={pillar.key}
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="text-center max-w-2xl mx-auto p-6 rounded-2xl border border-[var(--accent)]/20 bg-zinc-900/50 backdrop-blur-md"
+                                        >
+                                            <h3 className="text-2xl font-black text-white mb-2 uppercase tracking-tight">
+                                                {pillar.title}
+                                            </h3>
+                                            <p className="text-[var(--accent)] text-xs font-bold uppercase tracking-widest mb-4">
+                                                {pillar.subtitle}
+                                            </p>
+                                            <p className="text-gray-300 leading-relaxed font-light">
+                                                {pillar.copy}
+                                            </p>
+                                        </motion.div>
+                                    );
+                                })()
+                            ) : (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="flex flex-col items-center justify-center h-full text-gray-600 gap-2"
+                                >
+                                    <span className="text-sm uppercase tracking-widest">
+                                        Selecciona un pilar
+                                    </span>
+                                    <div className="w-1 h-8 bg-gradient-to-b from-gray-800 to-transparent" />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                </div>
+
             </div>
         </section >
     );

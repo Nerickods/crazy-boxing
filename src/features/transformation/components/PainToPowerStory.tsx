@@ -48,7 +48,7 @@ export default function PainToPowerStory() {
                     className="text-center md:text-left md:ml-0 md:mr-auto md:w-3/4"
                 >
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
-                        DEJA DE SER UN ESPECTADOR <span className="text-white/30">Y RENACE EN VIDA MMA.</span>
+                        DEJA DE SER UN ESPECTADOR <span className="text-white/30">Y RENACE EN VIDA CRAZY.</span>
                     </h2>
                     <div className="w-20 h-1 bg-[var(--accent)] mb-8 mx-auto md:mx-0" />
 
@@ -57,7 +57,7 @@ export default function PainToPowerStory() {
                     </h3>
                     <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light leading-relaxed">
                         Has pasado la vida en las gradas, viendo cómo otros toman acción, cómo otros se hacen fuertes.
-                        Mientras tú sigues ahí, estático, <strong className="text-white font-medium">vulnerable</strong>.
+                        Mientras tú sigues ahí, estancado, <strong className="text-white font-medium">vulnerable</strong>.
                         Esperando que el mundo sea amable contigo. Spoiler: No lo será.
                     </p>
                 </motion.div>
@@ -76,9 +76,8 @@ export default function PainToPowerStory() {
                         </h3>
                     </div>
                     <p className="text-base sm:text-lg md:text-2xl text-gray-300 leading-relaxed font-medium">
-                        ¿Te duele leer esto? Debería. Ese dolor es tu orgullo intentando despertar. Es la parte de ti que sabe que
-                        <strong className="text-white font-medium"> puedes ser más, que DEBES ser más</strong>.
-                        No ahogues esa voz. Es la única parte de ti que quiere salvarte.
+                        Tienes dos opciones: cerrar esta página y seguir siendo quien eres, con todas tus inseguridades intactas.
+                        O venir a Crazy Boxing a matar a tu antiguo yo. <strong className="text-[var(--accent)] font-bold">Decide.</strong>
                     </p>
                 </motion.div>
 
@@ -94,8 +93,11 @@ export default function PainToPowerStory() {
                         Tu Última Oportunidad
                     </h3>
                     <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light leading-relaxed mb-8">
-                        Tienes dos opciones: cerrar esta página y seguir siendo quien eres, con todas tus inseguridades intactas.
-                        O venir a la real Crazy Boxing y matar a tu antiguo yo. <strong className="text-[var(--accent)] font-bold">Decide.</strong>
+                        En Crazy Boxing, hemos visto esta historia cientos de veces. Vemos llegar a personas con la mirada baja, convencidas de que su "fuego" se apagó para siempre.
+                        <br /><br />
+                        Y te seremos honestos: <strong className="text-white font-medium">antes de dedicarnos al boxeo, también sentíamos que el ejercicio era una obligación pesada</strong>, una tortura más en una vida gris.
+                        <br /><br />
+                        <strong className="text-[var(--accent)] font-bold">Hoy, hemos ayudado a más de 500 alumnos</strong> no solo a bajar de peso, sino a recuperar esa hambre de vivir, a caminar con una seguridad inquebrantable por la vida y a dormir como bebés tranquilos por las noches.
                     </p>
                 </motion.div>
 

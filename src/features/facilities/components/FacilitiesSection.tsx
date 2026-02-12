@@ -2,8 +2,9 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaLock } from 'react-icons/fa';
-import { cn } from '@/shared/utils/cn';
+import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Instagram, Facebook } from 'lucide-react';
+import { cn, glass } from '@/shared/lib/utils';
 
 interface Facility {
     id: number;
@@ -55,6 +56,33 @@ const facilities: Facility[] = [
     }
 ];
 
+const coaches = [
+    {
+        id: 1,
+        name: "CARLOS MENDEZ",
+        role: "HEAD COACH",
+        image: "/images/trainer_carlos.png",
+        record: "42-0",
+        social: { instagram: "#", facebook: "#" }
+    },
+    {
+        id: 2,
+        name: "ANA RODRIGUEZ",
+        role: "BJJ BLACK BELT",
+        image: "/images/trainer_ana.png",
+        record: "200+ SUBS",
+        social: { instagram: "#", facebook: "#" }
+    },
+    {
+        id: 3,
+        name: "MIGUEL TORRES",
+        role: "BOXING ELITE",
+        image: "/images/trainer_miguel.png",
+        record: "18 CHAMPS",
+        social: { instagram: "#", facebook: "#" }
+    }
+];
+
 export default function FacilitiesSection() {
     const [selectedFacility, setSelectedFacility] = useState<number | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -102,7 +130,7 @@ export default function FacilitiesSection() {
                     <source srcSet="/assets/mobile/temple_mobile.png" media="(max-width: 768px)" />
                     <img
                         src="/assets/backgrounds/facilities.png"
-                        alt="Crazy Boxing Facilities"
+                        alt="Blackbird House Facilities"
                         className="w-full h-full object-cover fixed-background"
                     />
                 </picture>
@@ -132,7 +160,7 @@ export default function FacilitiesSection() {
                             SILENCIOSO
                         </h2>
                         <p className="text-zinc-400 text-xl md:text-2xl font-medium leading-relaxed max-w-xl mb-10">
-                            En Crazy Boxing no vendemos membresías de gimnasio. Vendemos acceso al laboratorio donde tu debilidad es procesada y transformada en disciplina.
+                            En Blackbird House no vendemos membresías de gimnasio. Vendemos acceso al laboratorio donde tu debilidad es procesada y transformada en disciplina.
                         </p>
                     </motion.div>
 
@@ -156,7 +184,7 @@ export default function FacilitiesSection() {
                                     GANA TUS PROPIAS <br /> VICTORIAS EN LA JAULA
                                 </h3>
                                 <p className="text-zinc-300 text-sm font-medium leading-relaxed max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-4 group-hover:translate-y-0">
-                                    Para superar todos tus retos solo necesitarás activar el <span className="text-white font-bold">Modo Crazy</span> dentro de estas paredes. Aquí se forjará tu carácter.
+                                    Para superar todos tus retos solo necesitarás activar el <span className="text-white font-bold">Modo Blackbird</span> dentro de estas paredes. Aquí se forjará tu carácter.
                                 </p>
                             </div>
                         </div>
@@ -213,6 +241,72 @@ export default function FacilitiesSection() {
                         </motion.div>
                     </div>
 
+                </div>
+
+                {/* 3. THE SQUAD (TEAM) */}
+                <div className="max-w-6xl mx-auto mt-32">
+                    <div className="flex items-center gap-4 mb-12">
+                        <div className="w-1 h-12 bg-[var(--accent)]" />
+                        <div>
+                            <h3 className="text-3xl font-black text-white uppercase tracking-tight">
+                                El Escuadrón
+                            </h3>
+                            <p className="text-zinc-500 text-sm font-medium tracking-widest uppercase">
+                                Mentores de Élite
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {coaches.map((coach, index) => (
+                            <motion.div
+                                key={coach.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                                className={cn(
+                                    glass.card,
+                                    "group relative h-[400px] md:h-[450px] overflow-hidden rounded-sm bg-zinc-900 border-none block"
+                                )}
+                            >
+                                {/* Image */}
+                                <img
+                                    src={coach.image}
+                                    alt={coach.name}
+                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 object-top"
+                                />
+
+                                {/* Overlay Gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+                                {/* Content */}
+                                <div className="absolute bottom-0 left-0 w-full p-6">
+                                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <div className="inline-block px-2 py-1 bg-[var(--accent)] text-black text-xs font-black uppercase mb-3">
+                                            {coach.record}
+                                        </div>
+                                        <h4 className="text-2xl font-black text-white italic uppercase mb-1 leading-none">
+                                            {coach.name}
+                                        </h4>
+                                        <p className="text-[var(--accent)] text-xs font-bold tracking-widest uppercase mb-4">
+                                            {coach.role}
+                                        </p>
+
+                                        {/* Socials (Reveal on Hover) */}
+                                        <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                            <a href={coach.social.instagram} className="text-white hover:text-[var(--accent)] transition-colors">
+                                                <Instagram size={20} />
+                                            </a>
+                                            <a href={coach.social.facebook} className="text-white hover:text-[var(--accent)] transition-colors">
+                                                <Facebook size={20} />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -334,4 +428,3 @@ export default function FacilitiesSection() {
         </section>
     );
 }
-

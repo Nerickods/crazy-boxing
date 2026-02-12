@@ -13,13 +13,9 @@ import Footer from "@/shared/components/layout/Footer";
 import TransformationSection from "@/features/transformation/components/TransformationSection";
 import EssenceSection from "@/features/essence/components/EssenceSection";
 import PlansSection from "@/features/plans/components/PlansSection";
-import { ClassSchedule } from "@/features/training/types";
 
-interface LandingPageContentProps {
-    schedule: ClassSchedule[];
-}
 
-export default function LandingPageContent({ schedule }: LandingPageContentProps) {
+export default function LandingPageContent() {
     return (
         <div className="min-h-screen font-['Poppins'] bg-[var(--background)] text-[var(--foreground)]">
             <Header />
@@ -29,7 +25,7 @@ export default function LandingPageContent({ schedule }: LandingPageContentProps
                 <HeroDoubleCarousel />
 
                 {/* 3. PROGRAMA DE ENTRENAMIENTO - Unified Disciplines & Schedule */}
-                <TrainingProgramSection schedule={schedule} />
+                <TrainingProgramSection />
 
                 {/* 1.2 ESENCIA - Crazy Boxing Code (Interactive) */}
                 <EssenceSection />
