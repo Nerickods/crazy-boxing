@@ -17,34 +17,17 @@ export default function MissionSection() {
                     />
                 </picture>
                 {/* Suavizado de capas para máxima visibilidad de la foto real */}
-                {/* Capa base más clara */}
-                <div className="absolute inset-0 bg-black/30"></div>
-                {/* Degradados mucho más sutiles */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_40%,_rgba(0,0,0,0.6)_100%)]"></div>
+                {/* Capa base más clara pero con contraste suficiente */}
+                <div className="absolute inset-0 bg-black/50"></div>
+                {/* Degradados sutiles */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_40%,_rgba(0,0,0,0.8)_100%)]"></div>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
-                <div className="max-w-4xl mx-auto text-center">
+                <div className="max-w-5xl mx-auto text-center drop-shadow-lg">
 
-                    {/* Header with Logo Shield */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1 }}
-                        viewport={{ once: true }}
-                        className="mb-8 flex justify-center"
-                    >
-                        <div className="relative group">
-                            <div className="absolute inset-0 bg-[var(--accent)] blur-[100px] opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <img
-                                src="/assets/logo.png"
-                                alt="Crazy Boxing Authority Logo"
-                                className="w-32 h-32 md:w-48 md:h-48 object-contain drop-shadow-[0_0_30px_rgba(255,183,0,0.3)] relative z-10"
-                            />
-                        </div>
-                    </motion.div>
-
+                    {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -52,12 +35,18 @@ export default function MissionSection() {
                         viewport={{ once: true }}
                         className="mb-12"
                     >
-                        <span className="inline-block py-1 px-3 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/30 text-[var(--accent)] font-bold tracking-[0.2em] text-sm uppercase mb-6">
-                            Nuestra Filosofía
+                        <span className="inline-block py-1 px-3 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/30 text-[var(--accent)] font-bold tracking-[0.2em] text-xs uppercase mb-6 backdrop-blur-sm">
+                            Nuestra Filosofía (El Credo)
                         </span>
-                        <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-2 tracking-tight">
-                            TU TRANSFORMACIÓN <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] to-sky-600">COMIENZA AQUÍ</span>
+                        <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight uppercase leading-tight drop-shadow-xl">
+                            NO ENTRENAMOS PARA EL ESPEJO. <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white text-xl md:text-3xl block mt-2 drop-shadow-none">
+                                EL FISICO ES LA RECOMPENSA DE CONSOLACION
+                            </span>
                         </h2>
+                        <h3 className="text-[var(--accent)] text-xl md:text-2xl font-bold tracking-widest uppercase mt-4 drop-shadow-md">
+                            ENTRENAMOS PARA LA BATALLA DIARIA.
+                        </h3>
                     </motion.div>
 
                     {/* Manifesto Text */}
@@ -66,31 +55,84 @@ export default function MissionSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                         viewport={{ once: true }}
-                        className="relative"
+                        className="relative mb-16"
                     >
-                        <FaQuoteLeft className="text-[var(--accent)] text-4xl absolute -top-8 -left-4 md:-left-12 opacity-20" />
-
-                        <div className="space-y-6 text-base sm:text-lg md:text-xl text-gray-300 font-light leading-relaxed text-left md:text-center">
+                        <div className="space-y-6 text-lg md:text-xl text-gray-100 font-normal leading-relaxed max-w-3xl mx-auto drop-shadow-md">
                             <p>
-                                Nuestra misión es formar personas íntegras más que atletas y obtener valores más que medallas, como: mejorar la autoestima, tener disciplina, el respeto, la lealtad, la honestidad, la fortaleza, la disciplina y la responsabilidad; creemos que los alumnos deben obtener una visión real de la vida mediante de la práctica de las Artes Marciales, ya que no siempre se alcanzan las metas en un día, que la vida no es siempre justa y no es siempre fácil, que algunas veces se pierde y otras se gana, y sobre todo; que si no trabajamos, no conseguimos lo que siempre debemos contar con: la humildad, humildad y el respeto a nosotros mismos y a los demás.
+                                Vivimos en una sociedad adicta a la comodidad y a la queja. En <span className="text-[var(--accent)] font-bold">Crazy Boxing</span>, elegimos la fricción.
                             </p>
                             <p>
-                                Black Bird House MMA es un centro de Artes Marciales Mixtas y acondicionamiento físico, cumpliendo nuestra misión que es trabajar:
+                                Creemos que el ring es el único lugar donde no puedes mentirte a ti mismo. Allí arriba se caen las máscaras y solo queda tu verdad.
+                                No buscamos "cuerpos perfectos", buscamos <span className="text-[var(--accent)] font-bold">caracteres indestructibles</span>.
+                            </p>
+                            <p>
+                                Queremos que la fuerza que ganas aquí dentro sea la que uses fuera para proteger a los tuyos, liderar tu vida y mantenerte en pie cuando el mundo te golpee.
+                            </p>
+                            <p className="font-medium text-white pt-4 text-xl">
+                                Esto no es fitness. Esto es ingeniería humana basada en tres pilares innegociables:
                             </p>
                         </div>
                     </motion.div>
 
-                    {/* Footer / Core Values */}
+                    {/* Pillars Grid */}
+                    <div className="grid md:grid-cols-3 gap-8 mt-12 pt-12 border-t border-white/10">
+                        {/* 1. IDENTIDAD */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.0 }}
+                            viewport={{ once: true }}
+                            className="space-y-3"
+                        >
+                            <div className="text-4xl mb-2">🛡️</div>
+                            <h4 className="text-xl font-black text-white uppercase tracking-wider">IDENTIDAD</h4>
+                            <p className="text-sm text-gray-400 leading-relaxed">
+                                Saber quién eres realmente cuando estás cansado, acorralado y bajo presión.
+                            </p>
+                        </motion.div>
+
+                        {/* 2. RESILIENCIA */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            viewport={{ once: true }}
+                            className="space-y-3"
+                        >
+                            <div className="text-4xl mb-2">⚓</div>
+                            <h4 className="text-xl font-black text-white uppercase tracking-wider">RESILIENCIA</h4>
+                            <p className="text-sm text-gray-400 leading-relaxed">
+                                La capacidad de recibir el golpe más duro de la vida, sonreír y seguir avanzando.
+                            </p>
+                        </motion.div>
+
+                        {/* 3. FE */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            viewport={{ once: true }}
+                            className="space-y-3"
+                        >
+                            <div className="text-4xl mb-2">🙏</div>
+                            <h4 className="text-xl font-black text-white uppercase tracking-wider">FE</h4>
+                            <p className="text-sm text-gray-400 leading-relaxed">
+                                La certeza absoluta de creer en ti mismo y en tu proceso, incluso antes de ver los resultados.
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    {/* Minimalist Cross */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.8 }}
                         viewport={{ once: true }}
-                        className="mt-16 pt-12 border-t border-white/10"
+                        className="mt-24 flex justify-center opacity-30 hover:opacity-100 transition-opacity duration-500"
                     >
-                        <h3 className="text-3xl md:text-5xl font-black text-white tracking-widest uppercase">
-                            MENTE, <span className="text-[var(--accent)]">CUERPO</span> Y ESPÍRITU
-                        </h3>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2V22M7 8H17" stroke="currentColor" strokeWidth="1" strokeLinecap="square" className="text-white" />
+                        </svg>
                     </motion.div>
 
                 </div>
