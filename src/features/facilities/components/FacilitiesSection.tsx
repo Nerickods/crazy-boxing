@@ -18,41 +18,35 @@ interface Facility {
 const facilities: Facility[] = [
     {
         id: 1,
-        title: "OCTÁGONO PROFESIONAL",
-        description: "El Epicentro de la Verdad.",
-        details: "Jaula de medidas oficiales diseñada para simular las condiciones de combate de las ligas más importantes del mundo (UFC/PFL). Aquí no hay donde esconderse. Forjamos la distancia, el control de reja y la transición bajo fuego real.",
+        title: "RING PROFESIONAL",
+        description: "Adrenalina y Seguridad.",
+        details: "Para que sientas la adrenalina de los profesionales, incluso si es tu primer día (seguridad total con suelo acolchado).",
         gallery: ["/images/facilities/octagono/octagono-1.jpg"],
-        category: "Combate"
+        category: "Competición"
     },
     {
         id: 2,
-        title: "TATAMI OLÍMPICO",
-        description: "Grappling sin límites.",
-        details: "Superficie Dollamur de última generación con absorción de impacto biomecánica. El espacio sagrado para el Jiu Jitsu Brasileño y Lucha. Diseñado para sesiones de rolling intensas minimizando el riesgo de abrasión y lesiones articulares.",
-        gallery: [
-            "/images/facilities/tatami/tatami-1.jpg",
-            "/images/facilities/tatami/tatami-2.jpg",
-            "/images/facilities/tatami/tatami-3.jpg",
-            "/images/facilities/tatami/tatami-4.jpg",
-            "/images/facilities/tatami/tatami-5.jpg"
-        ],
-        category: "Técnica"
+        title: "ZONA HEAVY BAG",
+        description: "Impacto Premium.",
+        details: "Material que absorbe el impacto para proteger tus muñecas y articulaciones mientras descargas todo el estrés del día.",
+        gallery: ["/images/facilities/sacos/sacos-1.jpg"],
+        category: "Stess Relief"
     },
     {
         id: 3,
-        title: "ZONA DE STRIKING",
-        description: "Poder y Precisión.",
-        details: "Equipada con sacos de agua Aqua Training Bag para simular la densidad del cuerpo humano y bananas tailandesas para acondicionamiento de espinillas. Espacio optimizado para el footwork técnico y combinaciones de Muay Thai nivel élite.",
-        gallery: ["/images/facilities/sacos/sacos-1.jpg"],
-        category: "Striking"
+        title: "HIGIENE IMPECABLE",
+        description: "Suda Sin Riesgos.",
+        details: "Limpiamos y desinfectamos el material después de cada sesión. Aquí vienes a sudar, no a compartir gérmenes.",
+        gallery: ["/images/facilities/tatami/tatami-1.jpg"],
+        category: "Salud"
     },
     {
         id: 4,
-        title: "THE FORGE (PESAS)",
-        description: "Fuerza Explosiva.",
-        details: "Zona de preparación física con equipamiento Rogue Fitness. Kettlebells, racks de potencia y estaciones de acondicionamiento metabólico. Construimos el motor físico que respalda tu técnica marcial.",
+        title: "CLIMATIZACIÓN",
+        description: "Aire Puro.",
+        details: "Entrena duro sin sentir que te falta el aire. Sistema de ventilación avanzado para mantener el oxígeno fluyendo.",
         gallery: ["/images/facilities/pesas/pesas-1.jpg"],
-        category: "Fuerza"
+        category: "Confort"
     }
 ];
 
@@ -160,8 +154,39 @@ export default function FacilitiesSection() {
                             SILENCIOSO
                         </h2>
                         <p className="text-zinc-400 text-xl md:text-2xl font-medium leading-relaxed max-w-xl mb-10">
-                            En Blackbird House no vendemos membresías de gimnasio. Vendemos acceso al laboratorio donde tu debilidad es procesada y transformada en disciplina.
+                            Olvídate de los gimnasios oscuros, sucios y con mal ambiente. En Crazy Boxing hemos creado un santuario para el deporte:
                         </p>
+
+                        <ul className="space-y-6">
+                            <li className="flex gap-4 items-start">
+                                <div className="mt-1 w-2 h-2 rounded-full bg-[var(--accent)] shrink-0" />
+                                <div>
+                                    <strong className="text-white block mb-1">Ring Profesional de Competición:</strong>
+                                    <span className="text-zinc-400 text-sm leading-relaxed">Para que sientas la adrenalina de los profesionales, incluso si es tu primer día (seguridad total con suelo acolchado).</span>
+                                </div>
+                            </li>
+                            <li className="flex gap-4 items-start">
+                                <div className="mt-1 w-2 h-2 rounded-full bg-[var(--accent)] shrink-0" />
+                                <div>
+                                    <strong className="text-white block mb-1">Zona de Sacos "Heavy Bag" Premium:</strong>
+                                    <span className="text-zinc-400 text-sm leading-relaxed">Material que absorbe el impacto para proteger tus muñecas y articulaciones mientras descargas todo el estrés del día.</span>
+                                </div>
+                            </li>
+                            <li className="flex gap-4 items-start">
+                                <div className="mt-1 w-2 h-2 rounded-full bg-[var(--accent)] shrink-0" />
+                                <div>
+                                    <strong className="text-white block mb-1">Higiene Impecable:</strong>
+                                    <span className="text-zinc-400 text-sm leading-relaxed">Limpiamos y desinfectamos el material después de cada sesión. Aquí vienes a sudar, no a compartir gérmenes.</span>
+                                </div>
+                            </li>
+                            <li className="flex gap-4 items-start">
+                                <div className="mt-1 w-2 h-2 rounded-full bg-[var(--accent)] shrink-0" />
+                                <div>
+                                    <strong className="text-white block mb-1">Ventilación y Climatización:</strong>
+                                    <span className="text-zinc-400 text-sm leading-relaxed">Entrena duro sin sentir que te falta el aire.</span>
+                                </div>
+                            </li>
+                        </ul>
                     </motion.div>
 
                     <motion.div
@@ -193,6 +218,8 @@ export default function FacilitiesSection() {
                         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[var(--accent)]/10 blur-[100px] z-0" />
                     </motion.div>
                 </div>
+
+
 
                 {/* 2. THE VAULT (Interactive Gallery) */}
                 <div className="relative">
@@ -425,6 +452,6 @@ export default function FacilitiesSection() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </section>
+        </section >
     );
 }

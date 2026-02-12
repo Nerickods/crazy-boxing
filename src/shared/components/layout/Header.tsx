@@ -25,8 +25,8 @@ export default function Header() {
   const navigationItems = [
     { name: 'PROGRAMA', id: 'programa' },
     { name: 'EXPERIENCIA', id: 'experiencia' },
-    { name: 'MISIÓN', id: 'mision' },
     { name: 'INSTALACIONES', id: 'instalaciones' },
+    { name: 'MISIÓN', id: 'mision' },
     { name: 'FAQ', id: 'faq' },
   ];
 

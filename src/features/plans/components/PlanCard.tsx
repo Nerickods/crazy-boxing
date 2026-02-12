@@ -75,7 +75,7 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
                             ${plan.price}
                         </span>
                         <span className="text-zinc-500 font-bold text-sm uppercase tracking-widest">
-                            {plan.period === 'día' ? ' / ÚNICO' : ` / ${plan.period}`}
+                            {plan.period === 'visita' ? ' / CLASE' : plan.period === 'pareja' ? '' : ` / ${plan.period}`}
                         </span>
                     </div>
                     <p className="text-zinc-400 text-sm mt-4 leading-relaxed font-medium">
@@ -110,22 +110,33 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
                 {/* Action Section */}
                 <div className="mt-auto">
                     <UiverseButton
-                        text={plan.id === 'visita' ? 'RESERVAR CORTESIA' : 'NO DISPONIBLE ONLINE'}
-                        onClick={plan.id === 'visita' ? handleCtaClick : undefined}
+                        text={
+                            plan.ctaText ||
+                            (plan.key === 'visita' ? 'RESERVAR 1 CLASE' :
+                                plan.key === 'semanal' ? 'COMPRAR SEMANA' :
+                                    plan.key === 'mensual' ? 'QUIERO TRANSFORMARME' :
+                                        plan.key === 'pareja' ? 'PROMO PAREJAS' :
+                                            'NO DISPONIBLE ONLINE')
+                        }
+                        onClick={handleCtaClick}
                         style={{
-                            '--pulse-hue': plan.id === 'visita' ? '130deg' : '0deg', // 130deg Green, 0deg Red
-                            '--btn-font-size': plan.id === 'visita' ? '16px' : '12px', // Smaller font for long text
-                            ...(plan.id !== 'visita' && { cursor: 'default' })
+                            '--pulse-hue': plan.highlight ? '130deg' : '0deg', // Pulse green if highlighted
+                            '--btn-font-size': '12px',
+                            cursor: 'pointer' // Always actionable
                         } as React.CSSProperties}
                         className={cn(
-                            "w-full transition-all duration-300", // Removed py-4 and flex/justify (handled by component)
-                            plan.id === 'visita' ? "group-hover:scale-[1.02]" : "hover:scale-[1.01]"
+                            "w-full transition-all duration-300 hover:scale-[1.02]"
                         )}
                     />
 
-                    {plan.id === 'visita' && (
+                    {plan.period === 'semana' && (
                         <p className="text-[10px] text-zinc-500 text-center mt-3 font-bold tracking-widest uppercase">
-                            Sin compromisos ni plazos
+                            7 días naturales
+                        </p>
+                    )}
+                    {plan.period === 'visita' && (
+                        <p className="text-[10px] text-zinc-500 text-center mt-3 font-bold tracking-widest uppercase">
+                            Sin compromisos
                         </p>
                     )}
                 </div>

@@ -78,19 +78,19 @@ export default function EssenceSection() {
                             <ul className="space-y-4 my-6">
                                 <li className="flex items-start gap-3">
                                     <span className="text-red-500 mt-1.5">▪</span>
-                                    <span>Te empiezas a convencer de que "El deporte no es para mí".</span>
+                                    <span>Te empiezas a convencer de que "El deporte no es para ti".</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-red-500 mt-1.5">▪</span>
-                                    <span>Sigues con tus viejos hábitos porque son cómodos y seguros.</span>
+                                    <span>Sigues con tus viejos hábitos porque se sienten cómodos y seguros.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-red-500 mt-1.5">▪</span>
-                                    <span>Te sientes un fraude cuando hablas de tu propósito.</span>
+                                    <span>Te sientes un impostor cuando hablas de tus metas.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-red-500 mt-1.5">▪</span>
-                                    <span>Empiezas a aceptar silenciosamente que <strong className="text-white font-bold">esta es tu versión definitiva y mediocre.</strong></span>
+                                    <span>Empiezas a aceptar silenciosamente que <strong className="text-white font-bold">estás es tu versión definitiva pero mediocre.</strong></span>
                                 </li>
                             </ul>
                             <div className="text-white font-medium italic border-t border-white/10 pt-4 mt-4">

@@ -39,7 +39,7 @@ export default function PainToPowerStory() {
 
             <motion.div className="space-y-24 relative z-10">
 
-                {/* BLOCK 1: THE PAIN */}
+                {/* BLOCK 1: THE OBSERVATION */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -52,17 +52,12 @@ export default function PainToPowerStory() {
                     </h2>
                     <div className="w-20 h-1 bg-[var(--accent)] mb-8 mx-auto md:mx-0" />
 
-                    <h3 className="text-[var(--accent)] font-bold tracking-widest uppercase text-sm mb-4">
-                        La Pasividad Mata
-                    </h3>
                     <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light leading-relaxed">
-                        Has pasado la vida en las gradas, viendo cómo otros toman acción, cómo otros se hacen fuertes.
-                        Mientras tú sigues ahí, estancado, <strong className="text-white font-medium">vulnerable</strong>.
-                        Esperando que el mundo sea amable contigo. Spoiler: No lo será.
+                        En Crazy Boxing, hemos visto esta historia cientos de veces. Vemos llegar a personas con la mirada baja, convencidas de que su "fuego" se apagó para siempre.
                     </p>
                 </motion.div>
 
-                {/* BLOCK 2: THE AGITATION */}
+                {/* BLOCK 2: THE EMPATHY */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -72,16 +67,15 @@ export default function PainToPowerStory() {
                 >
                     <div className="inline-block p-4 border border-white/10 bg-white/5 backdrop-blur-sm rounded-lg mb-8">
                         <h3 className="text-[var(--accent)] font-bold tracking-widest uppercase text-sm">
-                            El Dolor de la Mediocridad
+                            Nuestra Verdad
                         </h3>
                     </div>
                     <p className="text-base sm:text-lg md:text-2xl text-gray-300 leading-relaxed font-medium">
-                        Tienes dos opciones: cerrar esta página y seguir siendo quien eres, con todas tus inseguridades intactas.
-                        O venir a Crazy Boxing a matar a tu antiguo yo. <strong className="text-[var(--accent)] font-bold">Decide.</strong>
+                        Te seremos honestos: <strong className="text-white">antes de dedicarnos al boxeo, también sentíamos esa misma frustración.</strong> Sentíamos que el ejercicio era una obligación pesada, una tortura más en una vida gris.
                     </p>
                 </motion.div>
 
-                {/* BLOCK 3: THE SOLUTION / IDENTITY */}
+                {/* BLOCK 3: THE TRANSFORMATION */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -90,14 +84,10 @@ export default function PainToPowerStory() {
                     className="text-center md:text-right md:ml-auto md:mr-0 md:w-3/4"
                 >
                     <h3 className="text-[var(--accent)] font-bold tracking-widest uppercase text-sm mb-4">
-                        Tu Última Oportunidad
+                        Tu Nueva Realidad
                     </h3>
                     <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light leading-relaxed mb-8">
-                        En Crazy Boxing, hemos visto esta historia cientos de veces. Vemos llegar a personas con la mirada baja, convencidas de que su "fuego" se apagó para siempre.
-                        <br /><br />
-                        Y te seremos honestos: <strong className="text-white font-medium">antes de dedicarnos al boxeo, también sentíamos que el ejercicio era una obligación pesada</strong>, una tortura más en una vida gris.
-                        <br /><br />
-                        <strong className="text-[var(--accent)] font-bold">Hoy, hemos ayudado a más de 500 alumnos</strong> no solo a bajar de peso, sino a recuperar esa hambre de vivir, a caminar con una seguridad inquebrantable por la vida y a dormir como bebés tranquilos por las noches.
+                        Pero al encender esa chispa, todo cambió. Hoy, <strong className="text-white font-medium">no solo hemos transformado nuestras vidas, sino que hemos guiado a más de 500 alumnos</strong> a recuperar su hambre de vivir y a caminar con una seguridad inquebrantable.
                     </p>
                 </motion.div>
 

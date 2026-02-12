@@ -17,6 +17,7 @@ export interface Plan {
     backgroundImage?: string;
     displayOrder?: number; // DB: display_order
     isActive?: boolean;
+    ctaText?: string; // Custom button text
 }
 
 export interface Promotion {

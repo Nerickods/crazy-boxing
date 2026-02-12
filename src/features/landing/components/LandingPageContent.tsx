@@ -36,14 +36,14 @@ export default function LandingPageContent() {
                 {/* 5. EXPERIENCIA & TEAM - Unified Section */}
                 <WhyAndTeam />
 
-                {/* 2. MISIÓN - Rediseñada con esencia ACE */}
-                <MissionSection />
-
                 {/* 2. INSTALACIONES - Bento Grid con Lightbox */}
                 <FacilitiesSection />
 
                 {/* 4. PLANES - Pricing */}
                 <PlansSection />
+
+                {/* 2. MISIÓN - Rediseñada con esencia ACE */}
+                <MissionSection />
 
                 {/* 7. FAQ - Preguntas que separan campeones de víctimas */}
                 <FAQSection />

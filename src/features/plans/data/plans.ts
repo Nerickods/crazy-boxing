@@ -11,69 +11,67 @@ const COMMON_FEATURES = [
 export const PLANS: Plan[] = [
     {
         id: "visita",
-        name: "Visita",
-        price: 80, // Updated 2026
-        period: "día",
-        description: "Prueba nuestra intensidad. (Primera visita GRATIS para nuevos usuarios)",
+        name: "CLASE SUELTA",
+        price: 50,
+        period: "visita",
+        description: "Ideal si estás de paso o tu agenda es imposible.",
         features: [
-            "Acceso por un día",
-            "Clases grupales incluidas",
-            "Uso de instalaciones",
-        ]
+            "✨ 🥊 1 Sesión de Entrenamiento: Acceso puntual a nuestras instalaciones y equipo.",
+            "✅ Material Incluido: Te prestamos guantes y vendas por el día.",
+            "❌ Sin seguimiento: Vienes, entrenas y te vas.",
+            "⚠️ Coste alto: Si vienes 3 veces por semana, pagarías $600 al mes."
+        ],
+        ctaText: "Reservar 1 Clase",
+        displayOrder: 1
     },
     {
         id: "semanal",
-        name: "Semanal",
-        price: 250,
+        name: "SEMANA DE CHOQUE",
+        price: 150,
         period: "semana",
-        description: "Perfecto para viajeros o semanas intensivas.",
+        description: "Perfecto para visitantes o para liberar una semana de estrés acumulado.",
         features: [
-            ...COMMON_FEATURES,
-            "Ideal para corto plazo",
-            "Sin costo de inscripción"
-        ]
+            "✨ 🔥 Acceso Total 7 Días: Entrena todos los días que quieras.",
+            "🧠 Desconexión Mental: La dosis justa de adrenalina para reiniciar tu cerebro.",
+            "📉 Ahorro inmediato: Te sale mucho más barato que pagar 3 clases sueltas."
+        ],
+        ctaText: "Comprar Semana",
+        displayOrder: 2
     },
     {
         id: "mensual",
-        name: "Mensual",
-        price: 600,
+        name: 'PLAN "GUERRERO"',
+        price: 479,
         period: "mes",
-        description: "El plan más popular para comenzar tu transformación.",
+        description: "El único plan diseñado para ver cambios físicos reales en menos de 30 días.",
         features: [
-            ...COMMON_FEATURES,
-            "✨ Acceso a sucursal Zapopan",
-            "Sin plazos forzosos",
-            "Inscripción: $200 MXN"
+            "✨ 🚀 Acceso Ilimitado: Ven a todas las clases que quieras.",
+            "👊 Corrección Técnica Personalizada: Ajustamos tus golpes para que pegues duro.",
+            "🛡️ Comunidad de Éxito: Entrena con el mismo grupo y motívate.",
+            "💰 Mejor Valor: Te ahorras más de $120 comparado con pagar clases sueltas."
         ],
         isPopular: true,
         highlight: true,
+        savings: "⭐ EL MÁS VENDIDO",
+        ctaText: "Quiero Transformarme",
+        displayOrder: 3
     },
     {
-        id: "semestre",
-        name: "Semestral",
-        price: 3000,
-        period: "semestre",
-        description: "Compromiso serio con tu disciplina y ahorro.",
+        id: "pareja",
+        name: 'PLAN "DÚO DINÁMICO"',
+        price: 850,
+        period: "pareja",
+        description: "La ciencia dice que entrenar acompañado aumenta un 90% tu éxito.",
         features: [
-            ...COMMON_FEATURES,
-            "✨ Acceso a sucursal Zapopan",
-            "Inscripción GRATIS (Promo)", // Assuming promo applies here too or standard?
+            "✨ 💎 Todo lo del Plan Guerrero: Acceso total y corrección técnica para ambos.",
+            "📉 Descuento Masivo: Os sale a $425 cada uno.",
+            "🤝 Factor Responsabilidad: Cuando uno tiene pereza, el otro tira del carro.",
+            "⏳ OFERTA LIMITADA: Solo aceptamos 10 parejas este mes."
         ],
-        savings: "Ahorra $600 anualizado",
-    },
-    {
-        id: "anual",
-        name: "Anualidad",
-        price: 6000,
-        period: "año",
-        description: "Para guerreros dedicados al 100%. El mejor valor.",
-        features: [
-            ...COMMON_FEATURES,
-            "✨ Acceso a sucursal Zapopan",
-            "Inscripción GRATIS",
-        ],
-        savings: "Ahorra $1,200 vs mensual",
+        savings: "⚡ LA OFERTA IRRESISTIBLE",
+        ctaText: "Aprovechar Promo Parejas",
         highlight: true,
+        displayOrder: 4
     },
 ];
 

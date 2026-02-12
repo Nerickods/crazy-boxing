@@ -99,9 +99,7 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
                     <NavLink href="/admin/plans" icon="list">
                         Planes M.
                     </NavLink>
-                    <NavLink href="/admin/promotions" icon="tag">
-                        Promociones
-                    </NavLink>
+
                     <NavLink href="/admin/conversations" icon="chat">
                         Conversaciones
                     </NavLink>
