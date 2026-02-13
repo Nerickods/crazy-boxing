@@ -49,7 +49,7 @@ export default function TrainingProgramSection() {
             }
         ],
         image: "/assets/sections/training-desktop.png",
-        mobileImage: "/assets/sections/training-mobile.png",
+        mobileImage: "/assets/sections/training-desktop.png",
         accentColor: "text-indigo-500",
         gradient: "from-indigo-900/20 to-black",
         icon: FaFistRaised

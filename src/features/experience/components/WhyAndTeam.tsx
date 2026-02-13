@@ -85,7 +85,7 @@ function WhyAndTeam() {
             {/* Background Gradient */}
             <div className="absolute inset-0 z-0">
                 <picture>
-                    <source srcSet="/assets/sections/why-team-mobile.png" media="(max-width: 768px)" />
+                    <source srcSet="/assets/sections/why-team-desktop.png" media="(max-width: 768px)" />
                     <img
                         src="/assets/sections/why-team-desktop.png"
                         alt="Path of the Initiate"

@@ -28,7 +28,7 @@ export default function PainToPowerStory() {
                 <picture>
                     <source srcSet="/assets/sections/transformation-mobile.png" media="(max-width: 768px)" />
                     <img
-                        src="/assets/sections/transformation-desktop.png"
+                        src="/assets/sections/transformation-mobile.png"
                         alt="Locker Room Focus"
                         className="w-full h-full object-cover opacity-80"
                     />

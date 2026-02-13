@@ -19,7 +19,7 @@ export default function EssenceSection() {
                     className="absolute inset-0"
                 >
                     <picture>
-                        <source srcSet="/assets/sections/essence-mobile.png" media="(max-width: 768px)" />
+                        <source srcSet="/assets/sections/essence-desktop.png" media="(max-width: 768px)" />
                         <img
                             src="/assets/sections/essence-desktop.png"
                             alt="MMA Evolution Background"

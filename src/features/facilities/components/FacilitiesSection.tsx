@@ -126,7 +126,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
             {/* Background Narrative Layer */}
             <div className="absolute inset-0 z-0">
                 <picture>
-                    <source srcSet="/assets/sections/facilities-mobile.png" media="(max-width: 768px)" />
+                    <source srcSet="/assets/sections/facilities-desktop.png" media="(max-width: 768px)" />
                     <img
                         src="/assets/sections/facilities-desktop.png"
                         alt="Blackbird House Facilities"

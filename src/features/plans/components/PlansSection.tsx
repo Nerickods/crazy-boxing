@@ -43,7 +43,7 @@ function PlansSection() {
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-fixed overflow-hidden">
                     <picture>
-                        <source srcSet="/assets/sections/plans-mobile.png" media="(max-width: 768px)" />
+                        <source srcSet="/assets/sections/plans-desktop.png" media="(max-width: 768px)" />
                         <img
                             src="/assets/sections/plans-desktop.png"
                             alt="Greatness Path"
