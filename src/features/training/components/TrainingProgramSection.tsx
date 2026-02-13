@@ -48,8 +48,8 @@ export default function TrainingProgramSection() {
                 icon: "🔥"
             }
         ],
-        image: "/assets/generated/boxing_luxury_bw.png",
-        mobileImage: "/assets/generated/boxing_mobile_recreation.png",
+        image: "/assets/sections/training-desktop.png",
+        mobileImage: "/assets/sections/training-mobile.png",
         accentColor: "text-indigo-500",
         gradient: "from-indigo-900/20 to-black",
         icon: FaFistRaised
@@ -111,14 +111,14 @@ export default function TrainingProgramSection() {
                             <img
                                 src={activeDisciplineInfo.image}
                                 alt="Crazy Boxing Background"
-                                className="w-full h-full object-cover brightness-[0.8] contrast-[1.2] grayscale"
+                                className="w-full h-full object-cover brightness-[0.9] contrast-[1.1]"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = '/images/discipline_boxing.png';
                                 }}
                             />
                         </picture>
-                        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/40" />
-                        <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-20 mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-black/20" />
+                        <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-10 mix-blend-overlay" />
                     </motion.div>
                 </AnimatePresence>
             </div>

@@ -126,9 +126,9 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
             {/* Background Narrative Layer */}
             <div className="absolute inset-0 z-0">
                 <picture>
-                    <source srcSet="/assets/mobile/temple_mobile.png" media="(max-width: 768px)" />
+                    <source srcSet="/assets/sections/facilities-mobile.png" media="(max-width: 768px)" />
                     <img
-                        src="/assets/backgrounds/facilities.png"
+                        src="/assets/sections/facilities-desktop.png"
                         alt="Blackbird House Facilities"
                         className="w-full h-full object-cover fixed-background"
                     />
@@ -138,7 +138,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                     style={{ opacity: overlayOpacity }}
                     className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950/80 to-black z-10"
                 />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.9)_100%)] z-10 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.8)_100%)] z-10 mix-blend-multiply" />
             </div>
 
             <div className="container mx-auto px-6 relative z-20">

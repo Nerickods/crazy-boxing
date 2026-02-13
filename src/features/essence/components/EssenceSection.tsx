@@ -19,16 +19,16 @@ export default function EssenceSection() {
                     className="absolute inset-0"
                 >
                     <picture>
-                        <source srcSet="/assets/mobile/evolution_mobile.png" media="(max-width: 768px)" />
+                        <source srcSet="/assets/sections/essence-mobile.png" media="(max-width: 768px)" />
                         <img
-                            src="/assets/backgrounds/evolution.png"
+                            src="/assets/sections/essence-desktop.png"
                             alt="MMA Evolution Background"
                             className="w-full h-full object-cover opacity-70"
                         />
                     </picture>
                 </motion.div>
                 {/* Smart Gradient: Vignette for focus + Bottom fade */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_90%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_80%)]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
             </div>
 

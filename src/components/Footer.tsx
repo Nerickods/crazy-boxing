@@ -9,8 +9,21 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-black border-t border-white/5 pt-20 pb-10">
-      <div className="container mx-auto px-6">
+    <footer className="relative bg-black border-t border-white/5 pt-20 pb-10 overflow-hidden">
+      {/* Background Layer */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <picture>
+          <source srcSet="/assets/sections/footer-mobile.png" media="(max-width: 768px)" />
+          <img
+            src="/assets/sections/footer-desktop.png"
+            alt="Footer Background"
+            className="w-full h-full object-cover opacity-50"
+          />
+        </picture>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
 
           {/* Brand */}

@@ -21,18 +21,19 @@ export default function Footer() {
   return (
     <footer ref={containerRef} className="relative bg-black/40 border-t border-white/10 pt-32 pb-10 overflow-hidden backdrop-blur-sm">
       {/* Octagon Final Background with Inverted Parallax */}
-      <motion.div
-        className="absolute inset-0 z-0 opacity-40"
-        style={{ y: backgroundY }}
-      >
-        <img
-          src="/assets/octagono-final.jpg"
-          alt="El Legado Final"
-          className="w-full h-full object-cover"
-        />
+      {/* Background Layer - Adapted for Responsive Assets */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <picture>
+          <source srcSet="/assets/sections/footer-mobile.png" media="(max-width: 768px)" />
+          <img
+            src="/assets/sections/footer-desktop.png"
+            alt="Footer Background"
+            className="w-full h-full object-cover opacity-30"
+          />
+        </picture>
         {/* Superior Fade and Solid Bottom Transition */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black" />
+      </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">

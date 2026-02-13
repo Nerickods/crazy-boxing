@@ -25,11 +25,14 @@ export default function PainToPowerStory() {
         <div ref={containerRef} className="relative w-full max-w-4xl mx-auto px-6 py-16 md:py-32">
             {/* Background Ambience */}
             <div className="absolute inset-0 z-0 select-none">
-                <img
-                    src="/assets/backgrounds/transformation.png"
-                    alt="Locker Room Focus"
-                    className="w-full h-full object-cover opacity-60"
-                />
+                <picture>
+                    <source srcSet="/assets/sections/transformation-mobile.png" media="(max-width: 768px)" />
+                    <img
+                        src="/assets/sections/transformation-desktop.png"
+                        alt="Locker Room Focus"
+                        className="w-full h-full object-cover opacity-80"
+                    />
+                </picture>
                 {/* Smart Gradient: Clear middle for the fighter, dark top/bottom for UI/Text */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80" />

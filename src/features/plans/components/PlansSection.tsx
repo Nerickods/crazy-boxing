@@ -43,9 +43,9 @@ function PlansSection() {
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-fixed overflow-hidden">
                     <picture>
-                        <source srcSet="/assets/mobile/greatness_mobile.png" media="(max-width: 768px)" />
+                        <source srcSet="/assets/sections/plans-mobile.png" media="(max-width: 768px)" />
                         <img
-                            src="/images/plans-bg-octagon.jpg"
+                            src="/assets/sections/plans-desktop.png"
                             alt="Greatness Path"
                             className="w-full h-full object-cover opacity-60 md:opacity-80"
                             style={{ objectPosition: 'center 80%' }}
@@ -53,8 +53,8 @@ function PlansSection() {
                     </picture>
                 </div>
                 {/* Layered Gradients for Legibility and Transition - Reduced intensity for visibility */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/20 to-black z-10" />
-                <div className="absolute inset-0 bg-black/20 z-10 backdrop-contrast-[1.1]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/10 to-black z-10" />
+                <div className="absolute inset-0 bg-black/10 z-10 backdrop-contrast-[1.1]" />
             </div>
 
             <div className="container mx-auto px-6 relative z-20">

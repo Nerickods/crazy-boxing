@@ -85,16 +85,16 @@ function WhyAndTeam() {
             {/* Background Gradient */}
             <div className="absolute inset-0 z-0">
                 <picture>
-                    <source srcSet="/assets/mobile/initiate_mobile.png" media="(max-width: 768px)" />
+                    <source srcSet="/assets/sections/why-team-mobile.png" media="(max-width: 768px)" />
                     <img
-                        src="/assets/backgrounds/initiate.png"
+                        src="/assets/sections/why-team-desktop.png"
                         alt="Path of the Initiate"
                         className="w-full h-full object-cover opacity-80 md:opacity-70"
                     />
                 </picture>
 
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,black_90%)] md:bg-[radial-gradient(circle_at_center,transparent_20%,black_100%)]" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/5 to-black md:via-transparent" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,black_80%)] md:bg-[radial-gradient(circle_at_center,transparent_20%,black_90%)]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/5 to-black md:via-transparent opacity-60" />
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
