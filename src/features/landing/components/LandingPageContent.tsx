@@ -73,20 +73,36 @@ export default function LandingPageContent({ gymHours }: LandingPageProps) {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                             viewport={{ once: true }}
-                            className="text-center mb-16"
-                        >
-                            <div className="inline-flex items-center gap-3 bg-[var(--accent)]/10 border border-[var(--accent)]/30 rounded-full px-6 py-3 mb-8">
-                                <span className="text-[var(--accent)] font-bold tracking-wide">COMENZAR HOY</span>
-                            </div>
 
-                            <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight uppercase tracking-tighter">
-                                Tu <span className="text-[var(--accent)] font-outline">primera visita</span> <br />
-                                corre por Crazy Boxing
+                            className="text-center mb-12"
+                        >
+                            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight uppercase tracking-tighter">
+                                TU TRANSFORMACIÓN EMPIEZA <br />
+                                <span className="text-[var(--accent)]">CUANDO TÚ DECIDES.</span>
                             </h2>
-                            <p className="text-white/70 text-xl max-w-3xl mx-auto leading-relaxed font-medium">
-                                Domina el miedo. Supera tus límites.
-                                <span className="text-[var(--accent)] font-bold block mt-2 underline decoration-[var(--accent)]/30 underline-offset-8">Reserva tu lugar ahora y forja tu propia historia.</span>
+                            <h3 className="text-xl md:text-2xl font-bold text-white/90 mb-6 tracking-wide">
+                                Sin llamadas molestas. Sin esperas.
+                            </h3>
+                            <p className="text-white/70 text-lg max-w-3xl mx-auto leading-relaxed font-medium mb-8">
+                                Obtén tu <strong className="text-white">CÓDIGO DE ACCESO INMEDIATO</strong> ahora mismo. <br className="hidden md:block" />
+                                Rellena tus datos, genera tu pase en pantalla y preséntalo en la recepción el día que elijas.
                             </p>
+
+                            {/* Warning Box */}
+                            <div className="max-w-2xl mx-auto bg-amber-500/10 border border-amber-500/20 rounded-xl p-6 text-left relative overflow-hidden group hover:border-amber-500/40 transition-colors">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                                <div className="relative flex items-start gap-4">
+                                    <span className="text-3xl animate-pulse">⚠️</span>
+                                    <div>
+                                        <h4 className="text-amber-400 font-black uppercase tracking-wider text-sm mb-2">DISPONIBILIDAD EN TIEMPO REAL:</h4>
+                                        <div className="text-amber-100/90 text-sm space-y-2">
+                                            <p><strong className="text-white">La alta demanda de las tardes suele llenar los cupos rápido.</strong></p>
+                                            <p>El formulario de abajo se bloqueará automáticamente cuando se alcance el limite máximo de las plazas.</p>
+                                            <p className="font-bold text-white pt-1">Si puedes ver el botón de "Generar Código", aprovecha tu oportunidad.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </motion.div>
 
                         <motion.div

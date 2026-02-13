@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Check, Star } from 'lucide-react';
 import { cn } from '@/shared/utils/cn';
 import UiverseButton from '@/shared/components/UiverseButton';
+import { scrollToElement } from '@/shared/utils/scrollToElement';
 
 interface PlanCardProps {
     plan: Plan;
@@ -16,10 +17,7 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
     const isPopular = plan.isPopular;
 
     const handleCtaClick = () => {
-        const formElement = document.getElementById('formulario');
-        if (formElement) {
-            formElement.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToElement('formulario');
     };
 
     return (

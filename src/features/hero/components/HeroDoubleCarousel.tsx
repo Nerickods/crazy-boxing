@@ -3,16 +3,11 @@ import InfiniteCarouselRow from './InfiniteCarouselRow';
 import { heroCarouselRows } from '../services/heroData';
 import { GlassCard } from '@/shared/components/ui/GlassCard';
 import { GlassButton } from '@/shared/components/ui/GlassButton';
+import { scrollToElement } from '@/shared/utils/scrollToElement';
 
 export default function HeroDoubleCarousel() {
     const handleCtaClick = () => {
-        // Direct implementation to ensure functionality
-        const formElement = document.getElementById('formulario');
-        if (formElement) {
-            formElement.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            console.error('Formulario element not found');
-        }
+        scrollToElement('formulario');
     };
 
     return (
@@ -55,7 +50,7 @@ export default function HeroDoubleCarousel() {
                         className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white italic tracking-tighter mb-4 md:mb-8 uppercase leading-[1.1] md:leading-[0.9] text-center mx-auto"
                     >
                         DEJA DE "INTENTAR" PONERTE EN FORMA. <br />
-                        <span className="text-[var(--accent)] drop-shadow-[0_0_25px_rgba(255,215,0,0.4)]">
+                        <span className="text-[var(--accent)] drop-shadow-[0_0_25px_rgba(0,0,255,0.8)]">
                             APRENDE A PELEAR POR TUS OBJETIVOS
                         </span>
 

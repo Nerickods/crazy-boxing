@@ -8,28 +8,41 @@ import { useScrollAnchor } from '@/shared/hooks/use-scroll-anchor';
 
 const faqs = [
   {
-    q: "¿Qué necesito llevar para mi visita de cortesía?",
+    q: "🟢 Nivel: PRINCIPIANTE — ¿Voy a 'morir' en la primera clase?",
     a: (
       <>
-        Para tu primer paso en el Octágono, solo necesitarás ropa deportiva cómoda guantes y vendas para tu sesión, hidratación y las ganas de superarte. <span className="text-indigo-500 font-bold">Importante:</span> si vienes a Muay Thai o Jiu Jitsu, trae sandalias (está prohibido caminar descalzo fuera del tatami). Te sugerimos llegar 10 minutos antes para validar tu ingreso y activarte.
+        Rotundamente no. No necesitas estar en forma para empezar; vienes aquí <span className="italic text-white">para</span> ponerte en forma.
+        Nuestros coaches adaptan la intensidad a tu nivel actual. No buscamos que te revientes el primer día, buscamos que quieras volver el segundo.
       </>
     )
   },
   {
-    q: "¿Es este entrenamiento solo para quienes buscan competir?",
-    a: "No. En Crazy Boxing, la mayoría de nuestros miembros entrenan por superación personal, salud y manejo de estrés. Ofrecemos dos líneas: Recreativa y Competencia. No necesitas conocimientos previos; te acompañamos desde el primer día para que forjes tu mejor versión, busques o no una medalla."
+    q: "🛡️ Miedo: SEGURIDAD — Tengo reuniones mañana. ¿Voy a salir con un ojo morado?",
+    a: (
+      <>
+        Absolutamente <span className="font-bold text-white">NO</span>.
+        En las fases iniciales (El Desbloqueo y La Inoculación), el contacto es exclusivo con sacos y manoplas. Nadie te va a pegar. El sparring (combate) es opcional y solo para alumnos avanzados que lo solicitan. Aquí cuidamos tu integridad física por encima de todo.
+      </>
+    )
   },
   {
-    q: "¿Tengo que adquirir un plan obligatoriamente después del día gratuito?",
-    a: "Nuestra garantía es simple: Sin Compromiso. La visita de cortesía es para que experimentes nuestra cultura y metodología. Si decides que no es para ti, no hay presiones. Estamos tan seguros de nuestra metodología que dejamos que los resultados hablen por nosotros."
+    q: "🎒 Logística: EQUIPO — ¿Tengo que comprar guantes caros para la clase de prueba?",
+    a: "No. Nosotros te prestamos todo el material (guantes y vendas) para tu primera sesión. Solo trae ropa deportiva cómoda, una botella de agua y la mentalidad correcta."
   },
   {
-    q: "No estoy en forma, ¿puedo empezar ahora o debo esperar?",
-    a: "La condición física es el resultado del entrenamiento, no el requisito. Nuestro programa para principiantes está diseñado para adaptar tu cuerpo de forma progresiva. No esperes a 'estar en forma' para empezar; ven y nosotros nos encargaremos de ponerte en forma."
+    q: "💰 Dinero: VALOR VS. PRECIO — La inversión es más alta que en un gimnasio convencional. ¿Por qué?",
+    a: (
+      <>
+        Porque son dos cosas distintas.
+        En un gimnasio comercial pagas una cuota baja por <span className="font-bold text-white">alquilar máquinas</span> que nadie te enseña a usar. Aquí inviertes en <span className="font-bold text-[var(--accent)]">Mentoría, Metodología y Resultados</span>.
+        <br /><br />
+        No cobramos por "acceso", cobramos por la transformación que te llevas puesta. Si buscas lo barato, un gimnasio 'low-cost' es tu opción. Si buscas cambiar tu realidad, tu sitio es este.
+      </>
+    )
   },
   {
-    q: "¿Qué tan seguro es el entrenamiento para alguien sin experiencia?",
-    a: "Tu integridad es nuestra prioridad absoluta. Utilizamos una metodología de progresión técnica enfocada en el control antes que en la intensidad. Entrenarás en un ambiente profesional y supervisado por coaches certificados, asegurando que cada sesión sea un resto constructivo, nunca un peligro."
+    q: "🔓 Compromiso: PERMANENCIA — ¿Me vais a atar con un contrato de permanencia?",
+    a: "No. Odiamos la letra pequeña tanto como tú. Nuestros planes son mensuales. Queremos que vengas porque el boxeo te apasiona, no porque un papel te obligue. Si decides irte, te vas (aunque te advertimos: engancha)."
   }
 ];
 
@@ -77,16 +90,16 @@ export default function FAQSection() {
           className="text-center mb-20"
         >
           <span className="text-[var(--accent)] font-bold tracking-[0.3em] text-xs uppercase mb-4 block">
-            Inteligencia de Combate
+            RESULTADOS REALES
           </span>
           <h2 className="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tighter mb-6">
-            PROTOCOLO <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-700 via-gray-500 to-gray-800">
-              SIN EXCUSAS
+            ¿TIENES DUDAS? <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] via-white to-[var(--accent)]">
+              GOLPÉALAS AQUÍ.
             </span>
           </h2>
           <p className="text-gray-400 text-lg max-w-xl mx-auto font-medium">
-            Lo que necesitas saber para dejar de negociar con tu mente y empezar a entrenar como un profesional.
+            Respuestas directas para que no tengas excusas.
           </p>
         </motion.div>
 
@@ -139,15 +152,18 @@ export default function FAQSection() {
             <div className="w-16 h-16 bg-[var(--accent)]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-[var(--accent)]/20 animate-pulse">
               <FaRobot className="text-[var(--accent)] text-3xl" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">¿Aún tienes dudas específicas?</h3>
-            <p className="text-gray-500 mb-8 max-w-md mx-auto">
-              Nuestro asistente virtual está disponible 24/7 para resolver cualquier inquietud sobre tu entrenamiento.
+            <h3 className="text-2xl font-bold text-white mb-2">¿TE QUEDA ALGUNA DUDA RONDANDO?</h3>
+            <p className="text-gray-500 mb-8 max-w-lg mx-auto">
+              <span className="block font-bold text-white mb-2">No dejes que una pregunta te frene.</span>
+              Nuestro <span className="text-[var(--accent)]">Crazy Bot (IA)</span> no necesita dormir. Está activo <span className="font-bold text-white">24/7</span> para responderte cualquier cosa sobre horarios, precios o equipo en segundos.
+              <br />
+              <span className="text-xs uppercase tracking-widest mt-2 block opacity-70">Sin esperas. Sin música de ascensor.</span>
             </p>
             <button
               onClick={toggleOpen}
               className="px-8 py-4 bg-white text-black font-black uppercase tracking-widest text-sm hover:bg-[var(--accent)] hover:scale-105 transition-all duration-300 rounded-sm inline-flex items-center gap-3 group/btn"
             >
-              Consultar con Crazy Assistant
+              🥊 HABLAR CON EL COACH DIGITAL
             </button>
           </div>
 

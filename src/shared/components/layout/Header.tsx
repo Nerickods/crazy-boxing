@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaFistRaised } from 'react-icons/fa';
 import UiverseButton from '@/shared/components/UiverseButton';
+import { scrollToElement } from '@/shared/utils/scrollToElement';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function Header() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    scrollToElement(sectionId);
     setIsMenuOpen(false);
   };
 

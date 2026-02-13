@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, AlertCircle, Calendar } from 'lucide-react';
 import { enrollmentService } from '../services/enrollmentService';
 import { EnrollmentData } from '../types';
-import UiverseButton from '@/shared/components/UiverseButton';
 import { useEnrollmentStore } from '../store/useEnrollmentStore';
 
 export default function EnrollForm() {
@@ -62,46 +61,60 @@ export default function EnrollForm() {
     const today = new Date().toISOString().split('T')[0];
 
     return (
-        <div className="w-full max-w-md mx-auto bg-black/60 backdrop-blur-[15px] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden group">
+        <div className="w-full max-w-md mx-auto bg-black border border-zinc-800 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden group">
+            {/* Glossy Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
             {/* Background Glow Effect */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent)]/10 rounded-full blur-3xl -z-10 transition-all duration-700 group-hover:bg-[var(--accent)]/20"></div>
 
             {/* Header Content Removed - Moved to Parent Section */}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Input */}
-                <div className="space-y-1">
-                    <label htmlFor="name" className="text-xs font-medium text-white/70 ml-1">Nombre</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] focus:shadow-[0_0_15px_rgba(0,255,255,0.3)] transition-all"
-                        placeholder="Tu Nombre"
-                    />
+                <div className="space-y-2 group">
+                    <label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
+                        Nombre del Guerrero/a
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full bg-zinc-900/50 border-b-2 border-white/10 px-4 py-4 text-white text-lg font-bold placeholder-white/10 focus:outline-none focus:border-[var(--accent)] focus:bg-zinc-800/50 transition-all rounded-t-lg"
+                            placeholder="TU NOMBRE"
+                        />
+                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[var(--accent)] transition-all duration-300 group-focus-within:w-full" />
+                    </div>
                 </div>
 
                 {/* Email Input */}
-                <div className="space-y-1">
-                    <label htmlFor="email" className="text-xs font-medium text-white/70 ml-1">Correo Electrónico</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] focus:shadow-[0_0_15px_rgba(0,255,255,0.3)] transition-all"
-                        placeholder="Tu mejor email"
-                    />
+                <div className="space-y-2 group">
+                    <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
+                        Email (Identificación)
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full bg-zinc-900/50 border-b-2 border-white/10 px-4 py-4 text-white text-lg font-bold placeholder-white/10 focus:outline-none focus:border-[var(--accent)] focus:bg-zinc-800/50 transition-all rounded-t-lg"
+                            placeholder="TU EMAIL"
+                        />
+                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[var(--accent)] transition-all duration-300 group-focus-within:w-full" />
+                    </div>
                 </div>
 
                 {/* Visit Date Input */}
-                <div className="space-y-1">
-                    <label htmlFor="visit_date" className="text-xs font-medium text-white/70 ml-1">Día de tu Visita</label>
+                <div className="space-y-2 group">
+                    <label htmlFor="visit_date" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
+                        ¿Cuándo vienes?
+                    </label>
                     <div className="relative">
                         <input
                             type="date"
@@ -111,20 +124,53 @@ export default function EnrollForm() {
                             min={today}
                             value={formData.visit_date}
                             onChange={handleChange}
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] focus:shadow-[0_0_15px_rgba(0,255,255,0.3)] transition-all [color-scheme:dark]"
+                            className="w-full bg-zinc-900/50 border-b-2 border-white/10 px-4 py-4 text-white text-lg font-bold placeholder-white/10 focus:outline-none focus:border-[var(--accent)] focus:bg-zinc-800/50 transition-all rounded-t-lg uppercase [color-scheme:dark]"
                         />
-                        <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50 pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[var(--accent)] transition-all duration-300 group-focus-within:w-full" />
+                        <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--accent)] pointer-events-none opacity-50" />
                     </div>
                 </div>
 
-                {/* Submit Button */}
-                <div className="flex justify-center mt-6">
-                    <UiverseButton
-                        text={status === 'loading' ? "Enviando..." : status === 'success' ? "¡Registro Confirmado!" : "Confirmar Visita Gratuita"}
+                {/* Submit Button (Hybrid: Native Functionality + Uiverse Design) */}
+                <div className="pt-4 flex flex-col items-center">
+                    <button
                         type="submit"
-                        isSuccess={status === 'success'}
-                        className="w-full"
-                    />
+                        disabled={status === 'loading'}
+                        className={`
+                            relative w-full h-[65px] rounded-[24px] border-none bg-blue-500/10
+                            flex items-center justify-center p-2 cursor-pointer transition-all duration-300
+                            shadow-[1px_1px_2px_0_rgba(255,255,255,0.2),_2px_2px_2px_rgba(0,0,0,0.1)_inset,_2px_2px_4px_rgba(0,0,0,0.1)_inset]
+                            hover:shadow-[0_0_20px_rgba(0,123,255,0.6)] hover:-translate-y-[2px] active:translate-y-0 active:translate-z-[-4px]
+                            group
+                        `}
+                    >
+                        {/* Inner Button Shape */}
+                        <div className={`
+                            w-full h-full rounded-[16px] border-none
+                            bg-gradient-to-br from-[#007BFF] to-[#00C6FF]
+                            flex items-center justify-center gap-2 relative z-20
+                            shadow-[1px_1px_2px_-1px_#fff_inset,_0_2px_1px_rgba(0,0,0,0.1),_0_4px_2px_rgba(0,0,0,0.1),_0_8px_4px_rgba(0,0,0,0.1)]
+                            overflow-hidden
+                        `}>
+                            {/* Loading Spinner or Text */}
+                            {status === 'loading' ? (
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <span className="font-black text-white uppercase tracking-[0.05em] text-[16px] drop-shadow-sm">
+                                    {status === 'success' ? '¡PASE GENERADO!' : '⚡ OBTENER ACCESO GRATIS'}
+                                </span>
+                            )}
+                        </div>
+
+                        {/* Pulse Dot Effect (Absolute to the main button wrapper) */}
+                        <div className="absolute top-1/2 right-6 -translate-y-1/2 w-2 h-2 rounded-full bg-cyan-400/50 border border-cyan-400/60 shadow-[0_0_10px_2px_rgba(0,255,255,0.3)] pointer-events-none z-30 group-hover:bg-cyan-400 group-hover:shadow-[0_0_20px_rgba(0,255,255,0.8)] transition-all duration-300">
+                            <div className="absolute inset-0 rounded-full bg-cyan-400 animate-ping opacity-75" />
+                        </div>
+                    </button>
+
+                    <p className="text-[10px] text-center text-blue-200/40 uppercase tracking-widest mt-4 animate-pulse">
+                        (Haz clic y recibe tu pase al instante)
+                    </p>
                 </div>
             </form>
 

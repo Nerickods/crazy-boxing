@@ -307,7 +307,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                 </div>
 
                 {/* 3. THE SQUAD (TEAM) */}
-                <div className="max-w-6xl mx-auto mt-32">
+                <div id="mentores" className="max-w-6xl mx-auto mt-32 scroll-mt-32">
                     <div className="flex items-center gap-4 mb-12">
                         <div className="w-1 h-12 bg-[var(--accent)]" />
                         <div>

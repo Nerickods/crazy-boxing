@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import UiverseButton from '@/shared/components/UiverseButton';
+import { scrollToElement } from '@/shared/utils/scrollToElement';
 
 export default function PainToPowerStory() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -17,7 +18,7 @@ export default function PainToPowerStory() {
     };
 
     const scrollToForm = () => {
-        document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
+        scrollToElement('formulario');
     };
 
     return (
@@ -47,8 +48,11 @@ export default function PainToPowerStory() {
                     variants={fadeInUp}
                     className="text-center md:text-left md:ml-0 md:mr-auto md:w-3/4"
                 >
-                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
-                        DEJA DE SER UN ESPECTADOR <span className="text-white/30">Y RENACE EN VIDA CRAZY.</span>
+                    <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 leading-none tracking-tighter">
+                        ROMPE EL GUIÓN DE ESPECTADOR.
+                        <span className="block text-[var(--accent)] text-lg sm:text-xl md:text-3xl mt-4 font-bold tracking-widest uppercase">
+                            ACTIVA TU MODO 'CRAZY' Y RECUPERA EL CONTROL.
+                        </span>
                     </h2>
                     <div className="w-20 h-1 bg-[var(--accent)] mb-8 mx-auto md:mx-0" />
 
