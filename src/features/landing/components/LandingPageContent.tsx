@@ -9,42 +9,58 @@ import TrainingProgramSection from "@/features/training/components/TrainingProgr
 import WhyAndTeam from "@/features/experience/components/WhyAndTeam";
 import { TestimonialsSection } from "@/features/experience/components/TestimonialsSection";
 
-// Placeholder data for testimonials
+// Google Maps Testimonials (Curated)
 const testimonials = [
     {
         author: {
-            name: "Carlos Rivera",
-            handle: "@carlosvr",
-            avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop&crop=face"
+            name: "Iván G.",
+            handle: "Google Review",
+            color: "#2563eb" // Blue-600
         },
-        text: "Pensé que el boxeo era solo golpes. Aquí encontré una familia y una disciplina que cambió mi vida profesional.",
+        text: (
+            <>
+                <strong className="text-[var(--accent)] font-bold">Excelente atención</strong> por parte del personal; son muy amables y atentos en todo momento.
+            </>
+        ),
         href: "#"
     },
     {
         author: {
-            name: "Andrea M.",
-            handle: "@andrea_fit",
-            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+            name: "Mercedes P.",
+            handle: "Google Review",
+            color: "#db2777" // Pink-600
         },
-        text: "El ambiente es increíble. No solo entrenas tu cuerpo, entrenas tu mente para enfrentar cualquier reto.",
+        text: (
+            <>
+                <strong className="text-[var(--accent)] font-bold">¡Buen precio</strong>, buenos entrenadores y todos son muy amables!
+            </>
+        ),
         href: "#"
     },
     {
         author: {
-            name: "Miguel Ángel",
-            handle: "@mike_box",
-            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+            name: "Kevin T.",
+            handle: "Google Review",
+            color: "#16a34a" // Green-600
         },
-        text: "La mejor inversión que he hecho en mi salud mental. El estrés del trabajo desaparece en el primer round.",
+        text: (
+            <>
+                <strong className="text-[var(--accent)] font-bold">Excelentes entrenadores</strong>, 100% dedicados.
+            </>
+        ),
         href: "#"
     },
     {
         author: {
-            name: "Sofia Rodríguez",
-            handle: "@sofiaml",
-            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+            name: "Josue R.",
+            handle: "Google Review",
+            color: "#9333ea" // Purple-600
         },
-        text: "Instructores de primer nivel que realmente se preocupan por tu técnica y seguridad. 100% recomendado.",
+        text: (
+            <>
+                <strong className="text-[var(--accent)] font-bold">¡Me encantó el lugar!</strong> Totalmente recomendado.
+            </>
+        ),
         href: "#"
     }
 ];
@@ -143,13 +159,13 @@ export default function LandingPageContent({ gymHours }: LandingPageProps) {
                             </p>
 
                             {/* Warning Box */}
-                            <div className="max-w-2xl mx-auto bg-amber-500/10 border border-amber-500/20 rounded-xl p-6 text-left relative overflow-hidden group hover:border-amber-500/40 transition-colors">
-                                <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                            <div className="max-w-2xl mx-auto bg-cyan-900/20 border border-cyan-500/30 rounded-xl p-6 text-left relative overflow-hidden group hover:border-cyan-400/50 transition-colors shadow-[0_0_20px_rgba(0,255,255,0.05)]">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                                 <div className="relative flex items-start gap-4">
-                                    <span className="text-3xl animate-pulse">⚠️</span>
+                                    <span className="text-3xl animate-pulse text-cyan-400 shadow-cyan-500/50 drop-shadow-md">⚠️</span>
                                     <div>
-                                        <h4 className="text-amber-400 font-black uppercase tracking-wider text-sm mb-2">DISPONIBILIDAD EN TIEMPO REAL:</h4>
-                                        <div className="text-amber-100/90 text-sm space-y-2">
+                                        <h4 className="text-cyan-400 font-black uppercase tracking-wider text-sm mb-2 drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]">DISPONIBILIDAD EN TIEMPO REAL:</h4>
+                                        <div className="text-cyan-100/80 text-sm space-y-2 font-medium">
                                             <p><strong className="text-white">La alta demanda de las tardes suele llenar los cupos rápido.</strong></p>
                                             <p>El formulario de abajo se bloqueará automáticamente cuando se alcance el limite máximo de las plazas.</p>
                                             <p className="font-bold text-white pt-1">Si puedes ver el botón de "Generar Código", aprovecha tu oportunidad.</p>

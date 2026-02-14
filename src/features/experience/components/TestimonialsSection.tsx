@@ -6,7 +6,7 @@ interface TestimonialsSectionProps {
     description: string
     testimonials: Array<{
         author: TestimonialAuthor
-        text: string
+        text: React.ReactNode
         href?: string
     }>
     className?: string

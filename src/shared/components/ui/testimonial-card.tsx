@@ -1,15 +1,17 @@
 import { cn } from "@/shared/lib/utils"
 import { Avatar, AvatarImage, AvatarFallback } from "@/shared/components/ui/avatar"
+import { Star } from "lucide-react"
 
 export interface TestimonialAuthor {
     name: string
     handle: string
-    avatar: string
+    avatar?: string
+    color?: string // Tailwind bg class
 }
 
 export interface TestimonialCardProps {
     author: TestimonialAuthor
-    text: string
+    text: React.ReactNode
     href?: string
     className?: string
 }
@@ -38,8 +40,16 @@ export function TestimonialCard({
             <div className="flex items-center gap-4 mb-4">
                 <div className="relative">
                     <Avatar className="h-14 w-14 border-2 border-white/10 group-hover/card:border-[var(--accent)] transition-colors duration-500">
-                        <AvatarImage src={author.avatar} alt={author.name} className="object-cover" />
-                        <AvatarFallback className="bg-zinc-900 text-[var(--accent)] font-bold">{author.name.charAt(0)}</AvatarFallback>
+                        {author.avatar && <AvatarImage src={author.avatar} alt={author.name} className="object-cover" />}
+                        <AvatarFallback
+                            className={cn(
+                                "text-white font-bold text-xl",
+                                (!author.color || !author.color.startsWith('#')) ? (author.color || "bg-zinc-900") : ""
+                            )}
+                            style={author.color?.startsWith('#') ? { backgroundColor: author.color } : undefined}
+                        >
+                            {author.name.charAt(0)}
+                        </AvatarFallback>
                     </Avatar>
                     {/* Active Status Dot */}
                     <div className="absolute bottom-0 right-0 w-3 h-3 bg-[var(--accent)] rounded-full border-2 border-black shadow-[0_0_10px_var(--accent)]"></div>
@@ -49,19 +59,18 @@ export function TestimonialCard({
                     <h3 className="text-lg font-bold leading-none text-white uppercase tracking-wide group-hover/card:text-[var(--accent)] transition-colors duration-300">
                         {author.name}
                     </h3>
-                    <p className="text-xs text-white/50 font-medium tracking-wider mt-1">
-                        {author.handle}
-                    </p>
+                    <div className="flex gap-0.5 mt-1.5">
+                        {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                        ))}
+                    </div>
                 </div>
             </div>
 
             <div className="relative">
-                {/* Quote Icon Background */}
-
-
-                <p className="relative z-10 text-base text-gray-300 leading-relaxed font-light group-hover/card:text-white transition-colors duration-300">
+                <div className="relative z-10 text-base text-gray-300 leading-relaxed font-light group-hover/card:text-white transition-colors duration-300">
                     {text}
-                </p>
+                </div>
             </div>
         </Card>
     )
