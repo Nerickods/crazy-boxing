@@ -24,11 +24,10 @@ export default function Footer() {
       {/* Background Layer - Adapted for Responsive Assets */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <picture>
-          <source srcSet="/assets/sections/branding-footer-mobile-v3.jpg" media="(max-width: 768px)" />
           <img
-            src="/assets/sections/branding-footer-desktop-v2.jpg"
+            src="/assets/sections/testimonials-bg.png"
             alt="Footer Background"
-            className="w-full h-full object-fill"
+            className="w-full h-full object-cover opacity-80"
           />
         </picture>
         {/* Dark Overlay for Legibility */}

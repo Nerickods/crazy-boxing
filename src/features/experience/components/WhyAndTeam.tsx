@@ -20,7 +20,7 @@ const journeyStages = [
             title: "Sistema 'Zero-Daño'",
             action: "Aprenderás a moverte, cubrirte y caer sin recibir un solo golpe real.",
             result: "En 30 días, tu cerebro deja de ver el gimnasio como una amenaza y empieza a verlo como tu zona segura.",
-            reality: "Dejas de verte debil al espejo."
+            reality: "Dejas de verte frágil al espejo."
         }
     },
     {

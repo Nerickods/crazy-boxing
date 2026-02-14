@@ -7,6 +7,48 @@ import FacilitiesSection from "@/features/facilities/components/FacilitiesSectio
 import MissionSection from "@/features/mission/components/MissionSection";
 import TrainingProgramSection from "@/features/training/components/TrainingProgramSection";
 import WhyAndTeam from "@/features/experience/components/WhyAndTeam";
+import { TestimonialsSection } from "@/features/experience/components/TestimonialsSection";
+
+// Placeholder data for testimonials
+const testimonials = [
+    {
+        author: {
+            name: "Carlos Rivera",
+            handle: "@carlosvr",
+            avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop&crop=face"
+        },
+        text: "Pensé que el boxeo era solo golpes. Aquí encontré una familia y una disciplina que cambió mi vida profesional.",
+        href: "#"
+    },
+    {
+        author: {
+            name: "Andrea M.",
+            handle: "@andrea_fit",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+        },
+        text: "El ambiente es increíble. No solo entrenas tu cuerpo, entrenas tu mente para enfrentar cualquier reto.",
+        href: "#"
+    },
+    {
+        author: {
+            name: "Miguel Ángel",
+            handle: "@mike_box",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+        },
+        text: "La mejor inversión que he hecho en mi salud mental. El estrés del trabajo desaparece en el primer round.",
+        href: "#"
+    },
+    {
+        author: {
+            name: "Sofia Rodríguez",
+            handle: "@sofiaml",
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+        },
+        text: "Instructores de primer nivel que realmente se preocupan por tu técnica y seguridad. 100% recomendado.",
+        href: "#"
+    }
+];
+
 import FAQSection from "@/features/faq/components/FAQSection";
 import EnrollForm from "@/features/enrollment/components/EnrollForm";
 import Footer from "@/shared/components/layout/Footer";
@@ -41,6 +83,18 @@ export default function LandingPageContent({ gymHours }: LandingPageProps) {
 
                 {/* 5. EXPERIENCIA & TEAM - Unified Section */}
                 <WhyAndTeam />
+
+                {/* 5.1 TESTIMONIOS - Marquee */}
+                <TestimonialsSection
+                    title={
+                        <>
+                            LO QUE DICEN NUESTROS <br className="md:hidden" />
+                            <span className="text-cyan-400 drop-shadow-[0_0_15px_rgba(0,100,255,0.9)]">GUERREROS</span>
+                        </>
+                    }
+                    description="Historias reales de personas que decidieron tomar el control."
+                    testimonials={testimonials}
+                />
 
                 {/* 2. INSTALACIONES - Bento Grid con Lightbox */}
                 <FacilitiesSection gymHours={gymHours} />
