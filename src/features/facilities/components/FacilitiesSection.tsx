@@ -199,16 +199,17 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="relative"
+                        id="horarios-card"
+                        className="relative scroll-mt-32"
                     >
                         {/* Decorative Elements */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
 
                         <div className="relative bg-zinc-900/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl h-full flex flex-col justify-center">
                             <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
-                                <div>
-                                    <h3 className="text-2xl font-black text-white uppercase italic">Horarios</h3>
-                                    <p className="text-sm text-gray-400">Siempre listos para ti</p>
+                                <div className="text-center w-full">
+                                    <h3 className="text-2xl font-black text-white uppercase italic text-pretty">TU EXCUSA DE "NO TENGO TIEMPO" MUERE AQUÍ</h3>
+                                    <p className="text-sm text-gray-400 mt-2">Mañanas para despertar al guerrero. Tardes para matar el estrés.</p>
                                 </div>
                                 <div className="w-12 h-12 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)]">
                                     <FaClock size={24} />
@@ -259,6 +260,8 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
 
                 {/* 2. THE VAULT (Interactive Gallery) */}
                 <div className="relative">
+                    {/* SUPER HIGH ANCHOR for Navigation */}
+                    <div id="battleground" className="absolute -top-64 left-0 w-full h-1 pointer-events-none scroll-mt-[300px]" />
                     <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}

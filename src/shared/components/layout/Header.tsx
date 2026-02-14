@@ -24,9 +24,8 @@ export default function Header() {
   };
 
   const navigationItems = [
-    { name: 'PROGRAMA', id: 'programa' },
     { name: 'EXPERIENCIA', id: 'experiencia' },
-    { name: 'INSTALACIONES', id: 'instalaciones' },
+    { name: 'INSTALACIONES', id: 'battleground' },
     { name: 'MISIÓN', id: 'mision' },
     { name: 'FAQ', id: 'faq' },
   ];

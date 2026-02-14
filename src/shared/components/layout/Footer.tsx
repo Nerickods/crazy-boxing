@@ -108,7 +108,7 @@ export default function Footer() {
                     </a>
                   </li>
                   <li key="Instalaciones">
-                    <a href="#instalaciones" className="hover:text-white hover:font-black hover:pl-2 transition-all duration-300 block drop-shadow-sm">
+                    <a href="#horarios-card" className="hover:text-white hover:font-black hover:pl-2 transition-all duration-300 block drop-shadow-sm">
                       Horarios
                     </a>
                   </li>
