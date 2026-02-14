@@ -155,7 +155,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                         </span>
                         <h2 className="text-4xl sm:text-5xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8 uppercase">
                             EL TEMPLO <br />
-                            <span className="text-zinc-600 font-outline">DEL TRABAJO</span> <br />
+                            <span className="text-cyan-400 font-outline">DEL TRABAJO</span> <br />
                             SILENCIOSO
                         </h2>
                         <p className="text-zinc-400 text-xl md:text-2xl font-medium leading-relaxed max-w-xl mb-10">
@@ -267,11 +267,11 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                             viewport={{ once: true }}
                         >
                             <h3 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-4">
-                                The Vault
+                                THE BATTLEGROUND
                             </h3>
                             <div className="w-24 h-1 bg-[var(--accent)] mx-auto mb-6" />
-                            <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] text-xs md:text-sm mb-12">
-                                Explora cada rincón de nuestra fortaleza
+                            <p className="text-cyan-400 font-black uppercase tracking-[0.3em] text-xs md:text-sm mb-12 drop-shadow-[0_0_15px_rgba(37,99,235,0.9)]">
+                                Donde las excusas vienen a morir
                             </p>
                         </motion.div>
 
