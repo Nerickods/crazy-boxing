@@ -74,12 +74,14 @@ import PlansSection from "@/features/plans/components/PlansSection";
 
 
 import { GymHour } from "@/features/facilities/services/hoursService";
+import { GalleryImage } from "@/features/facilities/types/gallery";
 
 interface LandingPageProps {
     gymHours: GymHour[];
+    galleryImages: GalleryImage[];
 }
 
-export default function LandingPageContent({ gymHours }: LandingPageProps) {
+export default function LandingPageContent({ gymHours, galleryImages }: LandingPageProps) {
     return (
         <div className="min-h-screen font-['Poppins'] bg-[var(--background)] text-[var(--foreground)]">
             <Header />
@@ -113,7 +115,7 @@ export default function LandingPageContent({ gymHours }: LandingPageProps) {
                 />
 
                 {/* 2. INSTALACIONES - Bento Grid con Lightbox */}
-                <FacilitiesSection gymHours={gymHours} />
+                <FacilitiesSection gymHours={gymHours} galleryImages={galleryImages} />
 
                 {/* 4. PLANES - Pricing */}
                 <PlansSection />

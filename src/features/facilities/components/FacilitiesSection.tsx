@@ -6,6 +6,7 @@ import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised
 import { Instagram, Facebook } from 'lucide-react';
 import { cn, glass } from '@/shared/lib/utils';
 import { GymHour } from '@/features/facilities/services/hoursService';
+import { GalleryImage } from '@/features/facilities/types/gallery';
 import { useSnapCarousel } from '@/shared/hooks/use-snap-carousel';
 
 interface Facility {
@@ -81,9 +82,10 @@ const coaches = [
 
 interface FacilitiesSectionProps {
     gymHours: GymHour[];
+    galleryImages?: GalleryImage[];
 }
 
-export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) {
+export default function FacilitiesSection({ gymHours, galleryImages = [] }: FacilitiesSectionProps) {
     const [selectedFacility, setSelectedFacility] = useState<number | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
     const [isFullGalleryMode, setIsFullGalleryMode] = useState(false);
@@ -99,14 +101,17 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
 
     const overlayOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [1, 0.4, 0.4, 1]);
 
-    // Create a massive gallery of ~30 images (repeating existing ones for now as placeholders)
+    // Use dynamic gallery from Supabase, fallback to static placeholders
+    type GalleryItem = { url: string; media_type: 'image' | 'video' };
+    const dynamicGallery: GalleryItem[] = galleryImages.map(img => ({
+        url: img.public_url,
+        media_type: img.media_type ?? 'image',
+    }));
     const baseImages = facilities.flatMap(f => f.gallery);
-    const fullGallery = [
-        ...baseImages,
-        ...baseImages,
-        ...baseImages,
-        ...baseImages
-    ].slice(0, 30);
+    const fallbackGallery: GalleryItem[] = [...baseImages, ...baseImages, ...baseImages, ...baseImages]
+        .slice(0, 30)
+        .map(url => ({ url, media_type: 'image' as const }));
+    const fullGallery = dynamicGallery.length > 0 ? dynamicGallery : fallbackGallery;
 
     const openLightbox = (index: number) => {
         setSelectedFacility(index);
@@ -418,13 +423,35 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                                     key={currentImageIndex}
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    className="aspect-video relative overflow-hidden rounded-2xl border border-zinc-800"
+                                    className={`relative overflow-hidden rounded-2xl border border-zinc-800 flex items-center justify-center bg-black ${(() => {
+                                        const currentMedia = isFullGalleryMode
+                                            ? fullGallery[currentImageIndex]
+                                            : { url: '', media_type: 'image' as const };
+                                        return currentMedia.media_type === 'video' ? 'max-h-[80vh]' : 'aspect-video';
+                                    })()
+                                        }`}
                                 >
-                                    <img
-                                        src={isFullGalleryMode ? fullGallery[currentImageIndex] : facilities[selectedFacility].gallery[currentImageIndex]}
-                                        className="w-full h-full object-cover"
-                                        alt=""
-                                    />
+                                    {(() => {
+                                        const currentMedia = isFullGalleryMode
+                                            ? fullGallery[currentImageIndex]
+                                            : { url: facilities[selectedFacility].gallery[currentImageIndex], media_type: 'image' as const };
+
+                                        return currentMedia.media_type === 'video' ? (
+                                            <video
+                                                key={currentImageIndex}
+                                                src={currentMedia.url}
+                                                controls
+                                                autoPlay
+                                                className="max-w-full max-h-[80vh] object-contain"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={currentMedia.url}
+                                                className="w-full h-full object-cover"
+                                                alt=""
+                                            />
+                                        );
+                                    })()}
                                 </motion.div>
 
                                 <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-4 pointer-events-none">
@@ -462,16 +489,25 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                                         </h3>
                                         <div className="w-20 h-1 bg-[var(--accent)] mb-8" />
                                         <div className="flex flex-wrap gap-2 max-h-[300px] overflow-y-auto scrollbar-hide">
-                                            {fullGallery.map((img, i) => (
+                                            {fullGallery.map((item, i) => (
                                                 <button
                                                     key={i}
                                                     onClick={() => setCurrentImageIndex(i)}
                                                     className={cn(
-                                                        "w-16 h-12 object-cover rounded-sm border transition-all duration-300 overflow-hidden",
+                                                        "w-16 h-12 object-cover rounded-sm border transition-all duration-300 overflow-hidden relative",
                                                         i === currentImageIndex ? "border-[var(--accent)] opacity-100" : "border-transparent opacity-40 hover:opacity-80"
                                                     )}
                                                 >
-                                                    <img src={img} className="w-full h-full object-cover" />
+                                                    {item.media_type === 'video' ? (
+                                                        <>
+                                                            <video src={item.url} className="w-full h-full object-cover" muted preload="metadata" />
+                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                                                            </div>
+                                                        </>
+                                                    ) : (
+                                                        <img src={item.url} className="w-full h-full object-cover" alt="" />
+                                                    )}
                                                 </button>
                                             ))}
                                         </div>
