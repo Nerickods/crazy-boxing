@@ -48,16 +48,16 @@ export default function Header() {
           onClick={() => scrollToSection('inicio')}
           className="cursor-pointer flex items-center gap-4 group"
         >
-          <div className="relative w-14 h-14 flex items-center justify-center overflow-hidden rounded-xl bg-white/5 border border-white/10 group-hover:border-[var(--accent)]/50 transition-colors duration-500">
+          <div className="relative w-14 h-14 flex items-center justify-center overflow-hidden rounded-xl bg-white/5 border border-white/10 group-hover:border-sky-500/50 transition-colors duration-500 shadow-[0_0_0_0_rgba(14,165,233,0)] group-hover:shadow-[0_0_20px_-5px_rgba(14,165,233,0.3)]">
             <img
               src="/assets/logo.png"
               alt="Crazy Boxing Logo"
               className="w-full h-full object-contain p-1"
             />
-            <div className="absolute inset-0 bg-[var(--accent)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-sky-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
           <div className="flex flex-col">
-            <span className="text-white font-black tracking-[0.2em] text-lg leading-none group-hover:text-[var(--accent)] transition-colors duration-500">
+            <span className="text-white font-black tracking-[0.2em] text-lg leading-none group-hover:text-sky-400 transition-colors duration-500">
               CRAZY
             </span>
             <span className="text-white/50 font-bold tracking-[0.5em] text-[10px] leading-none group-hover:text-white transition-colors duration-500">
@@ -77,7 +77,7 @@ export default function Header() {
               <span className="relative z-10 text-xs font-bold text-white/70 tracking-widest group-hover:text-white transition-colors duration-300">
                 {item.name}
               </span>
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+              <div className="absolute inset-0 bg-sky-500/10 border border-sky-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-full backdrop-blur-md shadow-[0_0_15px_-5px_rgba(14,165,233,0.3)]" />
             </button>
           ))}
         </nav>
@@ -98,7 +98,7 @@ export default function Header() {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden text-white hover:text-[var(--accent)] transition-colors"
+            className="lg:hidden text-white hover:text-sky-400 transition-colors"
           >
             {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
@@ -123,7 +123,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-3xl font-black text-white/50 hover:text-white tracking-tighter transition-colors"
+                  className="text-3xl font-black text-white/50 hover:text-sky-400 tracking-tighter transition-colors"
                 >
                   {item.name}
                 </motion.button>

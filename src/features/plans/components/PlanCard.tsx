@@ -28,10 +28,10 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
             viewport={{ once: true }}
             className={cn(
                 "relative group flex flex-col p-8 rounded-3xl border transition-all duration-500 h-full pt-12", // Increased pt-12 to accommodate badge
-                "backdrop-blur-2xl backdrop-saturate-150",
+                "backdrop-blur-sm backdrop-saturate-150", // Reduced blur significantly
                 isHighlight
-                    ? "bg-zinc-900/40 border-[var(--accent)]/30 shadow-[0_0_40px_-10px_rgba(var(--accent-rgb),0.2)] scale-100 md:scale-105 z-10"
-                    : "bg-white/[0.03] border-white/10 hover:border-[var(--accent)]/30 hover:bg-white/[0.05]"
+                    ? "bg-sky-500/[0.02] border-sky-500/40 shadow-[0_0_40px_-10px_rgba(14,165,233,0.2)] scale-100 md:scale-105 z-10"
+                    : "bg-transparent border-sky-500/20 hover:border-sky-500/30 hover:bg-sky-500/[0.02]"
             )}
         >
             {/* Ambient Accent Glow (only for highlighted or popular) */}
@@ -41,7 +41,7 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
 
             {/* Layer 1: Premium Surface Overlays - Moved inside to avoid spilling without overflow-hidden on main container */}
             <div className="absolute inset-0 z-0 overflow-hidden rounded-3xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent opacity-50" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-30" />
                 {/* Subtle inner border for depth */}
                 <div className="absolute inset-[1px] rounded-[23px] z-0 pointer-events-none border border-white/5" />
             </div>

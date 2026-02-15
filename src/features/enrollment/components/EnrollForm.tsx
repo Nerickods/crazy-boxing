@@ -57,11 +57,10 @@ export default function EnrollForm() {
         }
     };
 
-    // Get today's date for min attribute
-    const today = new Date().toISOString().split('T')[0];
+
 
     return (
-        <div className="w-full max-w-md mx-auto bg-black border border-zinc-800 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden group">
+        <div className="w-full max-w-md mx-auto bg-sky-950/60 backdrop-blur-xl border border-sky-500/30 rounded-3xl p-6 md:p-10 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)] relative overflow-hidden group">
             {/* Glossy Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
             {/* Background Glow Effect */}
@@ -83,10 +82,10 @@ export default function EnrollForm() {
                             required
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full bg-zinc-900/50 border-b-2 border-white/10 px-4 py-4 text-white text-lg font-bold placeholder-white/10 focus:outline-none focus:border-[var(--accent)] focus:bg-zinc-800/50 transition-all rounded-t-lg"
+                            className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg"
                             placeholder="TU NOMBRE"
                         />
-                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[var(--accent)] transition-all duration-300 group-focus-within:w-full" />
+                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 transition-all duration-300 group-focus-within:w-full" />
                     </div>
                 </div>
 
@@ -103,31 +102,80 @@ export default function EnrollForm() {
                             required
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full bg-zinc-900/50 border-b-2 border-white/10 px-4 py-4 text-white text-lg font-bold placeholder-white/10 focus:outline-none focus:border-[var(--accent)] focus:bg-zinc-800/50 transition-all rounded-t-lg"
+                            className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg"
                             placeholder="TU EMAIL"
                         />
-                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[var(--accent)] transition-all duration-300 group-focus-within:w-full" />
+                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 transition-all duration-300 group-focus-within:w-full" />
                     </div>
                 </div>
 
-                {/* Visit Date Input */}
+                {/* Visit Date Input (Day & Month only) */}
                 <div className="space-y-2 group">
-                    <label htmlFor="visit_date" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
-                        ¿Cuándo vienes?
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
+                        ¿CUÁNDO VIENES? (AÑO 2026)
                     </label>
-                    <div className="relative">
-                        <input
-                            type="date"
-                            id="visit_date"
-                            name="visit_date"
-                            required
-                            min={today}
-                            value={formData.visit_date}
-                            onChange={handleChange}
-                            className="w-full bg-zinc-900/50 border-b-2 border-white/10 px-4 py-4 text-white text-lg font-bold placeholder-white/10 focus:outline-none focus:border-[var(--accent)] focus:bg-zinc-800/50 transition-all rounded-t-lg uppercase [color-scheme:dark]"
-                        />
-                        <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[var(--accent)] transition-all duration-300 group-focus-within:w-full" />
-                        <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--accent)] pointer-events-none opacity-50" />
+                    <div className="grid grid-cols-2 gap-4">
+                        {/* Day Selector */}
+                        <div className="relative">
+                            <select
+                                name="day"
+                                required
+                                value={formData.visit_date ? formData.visit_date.split('-')[2] : ''}
+                                onChange={(e) => {
+                                    const day = e.target.value;
+                                    const currentMethod = formData.visit_date ? formData.visit_date.split('-')[1] : '01'; // Default to Jan if not set
+                                    const month = currentMethod || '01';
+                                    setFormData(prev => ({ ...prev, visit_date: `2026-${month}-${day}` }));
+                                }}
+                                className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg appearance-none cursor-pointer"
+                            >
+                                <option value="" disabled className="text-sky-200/50">DÍA</option>
+                                {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
+                                    <option key={d} value={d.toString().padStart(2, '0')} className="bg-sky-950 text-white">
+                                        {d}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 transition-all duration-300 group-focus-within:w-full" />
+                        </div>
+
+                        {/* Month Selector */}
+                        <div className="relative">
+                            <select
+                                name="month"
+                                required
+                                value={formData.visit_date ? formData.visit_date.split('-')[1] : ''}
+                                onChange={(e) => {
+                                    const month = e.target.value;
+                                    const currentDay = formData.visit_date ? formData.visit_date.split('-')[2] : '01'; // Default to 1st if not set
+                                    const day = currentDay || '01';
+                                    setFormData(prev => ({ ...prev, visit_date: `2026-${month}-${day}` }));
+                                }}
+                                className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg appearance-none cursor-pointer"
+                            >
+                                <option value="" disabled className="text-sky-200/50">MES</option>
+                                {[
+                                    { val: '01', label: 'ENERO' },
+                                    { val: '02', label: 'FEBRERO' },
+                                    { val: '03', label: 'MARZO' },
+                                    { val: '04', label: 'ABRIL' },
+                                    { val: '05', label: 'MAYO' },
+                                    { val: '06', label: 'JUNIO' },
+                                    { val: '07', label: 'JULIO' },
+                                    { val: '08', label: 'AGOSTO' },
+                                    { val: '09', label: 'SEPTIEMBRE' },
+                                    { val: '10', label: 'OCTUBRE' },
+                                    { val: '11', label: 'NOVIEMBRE' },
+                                    { val: '12', label: 'DICIEMBRE' }
+                                ].map(m => (
+                                    <option key={m.val} value={m.val} className="bg-sky-950 text-white">
+                                        {m.label}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 transition-all duration-300 group-focus-within:w-full" />
+                            <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-sky-400 pointer-events-none opacity-50" />
+                        </div>
                     </div>
                 </div>
 

@@ -73,7 +73,7 @@ const journeyStages = [
 
 
 function WhyAndTeam() {
-    const [expandedStage, setExpandedStage] = useState<string | null>('stage-1');
+    const [expandedStage, setExpandedStage] = useState<string | null>(null);
 
 
     const toggleStage = (id: string) => {
@@ -122,24 +122,27 @@ function WhyAndTeam() {
                                 Mientras otros solo queman calorías, tú estás adquiriendo coordinación, potencia y reflejos.
                             </p>
 
-                            <div className="bg-zinc-900/80 backdrop-blur-md border border-white/20 rounded-xl p-6 mt-8 text-left grid md:grid-cols-3 gap-6 shadow-2xl">
+                            <div className="bg-sky-500/5 backdrop-blur-md border border-sky-500/20 rounded-xl p-6 mt-8 text-left grid md:grid-cols-3 gap-6 shadow-[0_0_30px_-10px_rgba(14,165,233,0.15)] relative overflow-hidden">
+                                {/* Decorational Glow */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
                                 <div>
                                     <h4 className="text-white font-bold mb-2 flex items-center gap-2">
                                         <span className="text-[var(--accent)]">▪</span> Enfoque Láser
                                     </h4>
-                                    <p className="text-sm text-gray-200 font-medium">Entrena tu capacidad de atención bajo presión extrema.</p>
+                                    <p className="text-sm text-sky-100/80 font-medium">Entrena tu capacidad de atención bajo presión extrema.</p>
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold mb-2 flex items-center gap-2">
                                         <span className="text-[var(--accent)]">▪</span> Motor Metabólico
                                     </h4>
-                                    <p className="text-sm text-gray-200 font-medium">Activa tu quema de grasa horas después de entrenar.</p>
+                                    <p className="text-sm text-sky-100/80 font-medium">Activa tu quema de grasa horas después de entrenar.</p>
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold mb-2 flex items-center gap-2">
                                         <span className="text-[var(--accent)]">▪</span> Seguridad Real
                                     </h4>
-                                    <p className="text-sm text-gray-200 font-medium">Defensa personal aplicada que te acompañará siempre.</p>
+                                    <p className="text-sm text-sky-100/80 font-medium">Defensa personal aplicada que te acompañará siempre.</p>
                                 </div>
                             </div>
                         </div>
@@ -185,15 +188,15 @@ function JourneyStageItem({ stage, index, isExpanded, onToggle }: JourneyStageIt
             className={cn(
                 "relative rounded-xl border transition-all duration-500 cursor-pointer overflow-hidden backdrop-blur-xl",
                 isExpanded
-                    ? "bg-black/80 border-[var(--accent)] shadow-[0_0_50px_-10px_rgba(255,215,0,0.2)]"
-                    : "bg-black/40 border-white/5 hover:border-[var(--accent)]/30 hover:bg-black/60"
+                    ? "bg-sky-500/10 border-sky-500/50 shadow-[0_0_30px_-5px_rgba(14,165,233,0.3)]"
+                    : "bg-black/40 border-white/5 hover:border-sky-500/30 hover:bg-sky-900/10"
             )}
         >
             {/* Collapsed/Header View */}
             <div className="p-6 md:p-8 flex items-center gap-6">
                 <div className={cn(
                     "p-4 rounded-xl transition-colors duration-300 shrink-0",
-                    isExpanded ? 'bg-[var(--accent)] text-black' : 'bg-black/50 text-[var(--accent)] border border-[var(--accent)]/30'
+                    isExpanded ? 'bg-sky-500 text-black shadow-[0_0_15px_rgba(14,165,233,0.5)]' : 'bg-black/50 text-sky-500 border border-sky-500/30'
                 )}>
                     <stage.icon size={28} />
                 </div>
@@ -201,19 +204,19 @@ function JourneyStageItem({ stage, index, isExpanded, onToggle }: JourneyStageIt
                 <div className="flex-1">
                     <div className="flex justify-between items-center">
                         <div>
-                            <span className="text-xs font-bold tracking-widest text-[var(--accent)] block mb-1">
+                            <span className="text-xs font-bold tracking-widest text-sky-400 block mb-1">
                                 {stage.period}
                             </span>
                             <h4 className={cn(
                                 "font-bold text-xl uppercase",
-                                isExpanded ? 'text-white' : 'text-gray-400'
+                                isExpanded ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'
                             )}>
                                 {stage.title}
                             </h4>
                         </div>
                         <div className={cn(
                             "p-2 rounded-full transition-all duration-300",
-                            isExpanded ? 'bg-[var(--accent)]/20 text-[var(--accent)] rotate-90' : 'text-gray-500'
+                            isExpanded ? 'bg-sky-500/20 text-sky-400 rotate-90' : 'text-gray-500 group-hover:text-sky-400'
                         )}>
                             <ChevronRight size={20} />
                         </div>
@@ -244,12 +247,12 @@ function JourneyStageItem({ stage, index, isExpanded, onToggle }: JourneyStageIt
                                 </div>
 
                                 {/* Methodology Block */}
-                                <div className="bg-white/5 p-6 rounded-xl border border-white/10 relative overflow-hidden group hover:border-[var(--accent)]/30 transition-colors">
-                                    <div className="absolute top-0 left-0 w-1 h-full bg-[var(--accent)]" />
+                                <div className="bg-sky-500/5 p-6 rounded-xl border border-sky-500/10 relative overflow-hidden group hover:border-sky-500/30 transition-colors">
+                                    <div className="absolute top-0 left-0 w-1 h-full bg-sky-500" />
 
                                     <div className="flex items-center gap-2 mb-4">
                                         <span className="text-xl">🛠️</span>
-                                        <h6 className="text-[var(--accent)] font-bold uppercase tracking-wider text-sm">
+                                        <h6 className="text-sky-400 font-bold uppercase tracking-wider text-sm">
                                             El Mecanismo: {stage.mechanism.title}
                                         </h6>
                                     </div>
@@ -263,8 +266,8 @@ function JourneyStageItem({ stage, index, isExpanded, onToggle }: JourneyStageIt
                                             <strong className="text-white block mb-1">El Resultado:</strong>
                                             {stage.mechanism.result}
                                         </li>
-                                        <li className="text-sm text-gray-300 leading-relaxed pt-2 border-t border-white/5 mt-2">
-                                            <strong className="text-[var(--accent)] block mb-1">Tu nueva realidad:</strong>
+                                        <li className="text-sm text-gray-300 leading-relaxed pt-2 border-t border-sky-500/10 mt-2">
+                                            <strong className="text-sky-400 block mb-1">Tu nueva realidad:</strong>
                                             <span className="italic">{stage.mechanism.reality}</span>
                                         </li>
                                     </ul>

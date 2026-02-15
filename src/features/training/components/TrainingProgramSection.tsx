@@ -7,12 +7,17 @@ import {
     FaClock, FaStar
 } from 'react-icons/fa';
 import { Brain, Fingerprint, Mountain, Eye } from 'lucide-react';
+import { useSnapCarousel } from '@/shared/hooks/use-snap-carousel';
+import { cn } from '@/shared/utils/cn';
 
 
 
 
 
 export default function TrainingProgramSection() {
+
+    // Mobile Carousel Logic
+    const { scrollRef, activeIndex, scrollTo } = useSnapCarousel();
 
     const handleReserve = () => {
         document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
@@ -149,7 +154,7 @@ export default function TrainingProgramSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="bg-white/5 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-3xl relative overflow-hidden group hover:border-[var(--accent)] transition-colors duration-500 mb-12 text-center"
+                        className="bg-sky-500/5 backdrop-blur-md border border-sky-500/20 p-8 md:p-12 rounded-3xl relative overflow-hidden group hover:border-sky-500/40 transition-colors duration-500 mb-12 text-center"
                     >
                         <div className="absolute -right-10 -top-10 text-white/5 text-[15rem] rotate-12 pointer-events-none">
                             <FaFistRaised />
@@ -163,8 +168,11 @@ export default function TrainingProgramSection() {
                         </div>
                     </motion.div>
 
-                    {/* BENEFITS GRID (3 Columns) */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* BENEFITS GRID (3 Columns) - Mobile Carousel */}
+                    <div
+                        ref={scrollRef}
+                        className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide"
+                    >
                         {activeDisciplineInfo.benefits.map((benefit, i) => (
                             <motion.div
                                 key={i}
@@ -172,14 +180,29 @@ export default function TrainingProgramSection() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="bg-black/40 border border-white/5 p-8 rounded-2xl hover:bg-[var(--accent)]/10 hover:border-[var(--accent)] transition-all group cursor-default text-center hover:-translate-y-2 duration-300"
+                                className="bg-sky-900/20 border border-sky-500/20 p-8 rounded-2xl hover:bg-sky-500/10 hover:border-sky-500/50 transition-all group cursor-default text-center hover:-translate-y-2 duration-300 min-w-[85vw] md:min-w-0 snap-center flex flex-col items-center justify-center"
                             >
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 mb-6 group-hover:bg-[var(--accent)] group-hover:text-black transition-colors text-3xl">
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 mb-6 group-hover:bg-[var(--accent)] group-hover:text-black transition-colors text-3xl shrink-0">
                                     {benefit.icon}
                                 </div>
                                 <h4 className="font-bold text-white text-xl mb-3 group-hover:text-[var(--accent)] transition-colors uppercase italic">{benefit.title}</h4>
                                 <p className="text-sm text-gray-400 leading-relaxed">{benefit.text}</p>
                             </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Mobile Scroll Indicators */}
+                    <div className="flex justify-center gap-2 mb-8 md:hidden">
+                        {activeDisciplineInfo.benefits.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => scrollTo(i)}
+                                className={cn(
+                                    "h-1.5 rounded-full transition-all duration-300",
+                                    activeIndex === i ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-white/20"
+                                )}
+                                aria-label={`Go to slide ${i + 1}`}
+                            />
                         ))}
                     </div>
 
@@ -213,7 +236,7 @@ export default function TrainingProgramSection() {
                                             relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center border transition-all duration-300
                                             ${isActive
                                             ? 'bg-[var(--accent)] border-[var(--accent)] text-black shadow-[0_0_30px_-5px_var(--accent)]'
-                                            : 'bg-zinc-900 border-white/10 text-gray-400 hover:border-white/30 hover:text-white'
+                                            : 'bg-sky-900/20 border-sky-500/20 text-gray-400 hover:border-sky-500/50 hover:text-white'
                                         }
                                         `}
                                 >
@@ -244,7 +267,7 @@ export default function TrainingProgramSection() {
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: -10, scale: 0.95 }}
                                             transition={{ duration: 0.3 }}
-                                            className="text-center max-w-2xl mx-auto p-6 rounded-2xl border border-[var(--accent)]/20 bg-zinc-900/50 backdrop-blur-md"
+                                            className="text-center max-w-2xl mx-auto p-6 rounded-2xl border border-sky-500/20 bg-sky-900/20 backdrop-blur-md"
                                         >
                                             <h3 className="text-2xl font-black text-white mb-2 uppercase tracking-tight">
                                                 {pillar.title}

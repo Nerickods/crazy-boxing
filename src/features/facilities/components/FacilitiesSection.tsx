@@ -6,6 +6,7 @@ import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised
 import { Instagram, Facebook } from 'lucide-react';
 import { cn, glass } from '@/shared/lib/utils';
 import { GymHour } from '@/features/facilities/services/hoursService';
+import { useSnapCarousel } from '@/shared/hooks/use-snap-carousel';
 
 interface Facility {
     id: number;
@@ -87,6 +88,9 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
     const [isFullGalleryMode, setIsFullGalleryMode] = useState(false);
     const containerRef = useRef<HTMLElement>(null);
+
+    // Mobile Carousel Logic
+    const { scrollRef, activeIndex, scrollTo } = useSnapCarousel();
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -205,7 +209,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                         {/* Decorative Elements */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
 
-                        <div className="relative bg-zinc-900/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl h-full flex flex-col justify-center">
+                        <div className="relative bg-sky-950/30 backdrop-blur-md border border-sky-500/20 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)] h-full flex flex-col justify-center">
                             <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
                                 <div className="text-center w-full">
                                     <h3 className="text-2xl font-black text-white uppercase italic text-pretty">TU EXCUSA DE "NO TENGO TIEMPO" MUERE AQUÍ</h3>
@@ -290,7 +294,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
 
                             <button
                                 onClick={openFullGallery}
-                                className="relative flex flex-col items-center gap-4 px-12 py-8 bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded-2xl hover:border-[var(--accent)]/50 hover:bg-zinc-900/80 transition-all duration-500 group"
+                                className="relative flex flex-col items-center gap-4 px-12 py-8 bg-sky-900/20 backdrop-blur-sm border border-sky-500/20 rounded-2xl hover:border-sky-400 hover:bg-sky-900/40 transition-all duration-500 group shadow-[0_0_30px_-5px_rgba(14,165,233,0.1)]"
                             >
                                 <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[var(--accent)] group-hover:scale-110 transition-all duration-500">
                                     <FaExpand className="text-white group-hover:text-black transition-colors text-xl" />
@@ -323,7 +327,10 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                         </div>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div
+                        ref={scrollRef}
+                        className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide"
+                    >
                         {coaches.map((coach, index) => (
                             <motion.div
                                 key={coach.id}
@@ -333,7 +340,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                                 viewport={{ once: true }}
                                 className={cn(
                                     glass.card,
-                                    "group relative h-[400px] md:h-[450px] overflow-hidden rounded-sm bg-zinc-900 border-none block"
+                                    "group relative h-[400px] md:h-[450px] overflow-hidden rounded-sm bg-zinc-900 border-none block min-w-[85vw] md:min-w-0 snap-center shrink-0"
                                 )}
                             >
                                 {/* Image */}
@@ -348,7 +355,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
 
                                 {/* Content */}
                                 <div className="absolute bottom-0 left-0 w-full p-6">
-                                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="transform translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                                         <div className="inline-block px-2 py-1 bg-[var(--accent)] text-black text-xs font-black uppercase mb-3">
                                             {coach.record}
                                         </div>
@@ -360,7 +367,7 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                                         </p>
 
                                         {/* Socials (Reveal on Hover) */}
-                                        <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                        <div className="flex gap-4 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                                             <a href={coach.social.instagram} className="text-white hover:text-[var(--accent)] transition-colors">
                                                 <Instagram size={20} />
                                             </a>
@@ -371,6 +378,21 @@ export default function FacilitiesSection({ gymHours }: FacilitiesSectionProps) 
                                     </div>
                                 </div>
                             </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Mobile Scroll Indicators */}
+                    <div className="flex justify-center gap-2 mb-8 md:hidden">
+                        {coaches.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => scrollTo(i)}
+                                className={cn(
+                                    "h-1.5 rounded-full transition-all duration-300",
+                                    activeIndex === i ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-white/20"
+                                )}
+                                aria-label={`Go to slide ${i + 1}`}
+                            />
                         ))}
                     </div>
                 </div>

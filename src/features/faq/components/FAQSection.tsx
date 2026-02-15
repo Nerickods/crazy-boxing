@@ -188,8 +188,8 @@ function FAQItem({ faq, index, isOpen, onToggle, isExpanded }: { faq: any, index
       className={`
         group rounded-2xl border transition-all duration-500 overflow-hidden will-change-transform
         ${isOpen
-          ? 'bg-zinc-900/90 md:bg-zinc-900/50 border-[var(--accent)]/50 shadow-[0_0_40px_-10px_rgba(255,215,0,0.2)] scale-[1.01] backdrop-blur-none md:backdrop-blur-md'
-          : 'bg-zinc-900/40 md:bg-zinc-900/30 border-white/5 hover:border-white/10 hover:bg-zinc-900/50 backdrop-blur-none md:backdrop-blur-md'}
+          ? 'bg-sky-900/40 md:bg-sky-900/30 border-sky-500/50 shadow-[0_0_40px_-10px_rgba(14,165,233,0.2)] scale-[1.01] backdrop-blur-none md:backdrop-blur-md'
+          : 'bg-sky-900/20 md:bg-sky-900/10 border-sky-500/20 hover:border-sky-500/50 hover:bg-sky-900/30 backdrop-blur-none md:backdrop-blur-md'}
         ${index > 0 && !isExpanded ? 'hidden md:block' : 'block'}
       `}
     >
@@ -200,7 +200,7 @@ function FAQItem({ faq, index, isOpen, onToggle, isExpanded }: { faq: any, index
         <span className={`text-xl md:text-2xl font-bold tracking-tight pr-8 transition-colors duration-300 ${isOpen ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
           {faq.q}
         </span>
-        <span className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${isOpen ? 'bg-[var(--accent)] text-black border-[var(--accent)] shadow-[0_0_15px_rgba(255,183,0,0.5)]' : 'bg-white/5 text-gray-500 border-white/10 group-hover:border-[var(--accent)]/30 group-hover:text-[var(--accent)]'}`}>
+        <span className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${isOpen ? 'bg-sky-500 text-black border-sky-500 shadow-[0_0_15px_rgba(14,165,233,0.5)]' : 'bg-sky-500/10 text-sky-500/50 border-sky-500/20 group-hover:border-sky-500/50 group-hover:text-sky-500'}`}>
           {isOpen ? <FaMinus size={14} /> : <FaPlus size={14} />}
         </span>
       </button>
@@ -227,7 +227,7 @@ function FAQItem({ faq, index, isOpen, onToggle, isExpanded }: { faq: any, index
       </AnimatePresence>
 
       {isOpen && (
-        <div className="absolute inset-0 pointer-events-none border border-[var(--accent)]/20 rounded-2xl md:animate-pulse" />
+        <div className="absolute inset-0 pointer-events-none border border-sky-500/20 rounded-2xl md:animate-pulse" />
       )}
     </motion.div>
   );

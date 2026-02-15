@@ -10,9 +10,11 @@ export interface GymHour {
 }
 
 
+import { SupabaseClient } from '@supabase/supabase-js';
+
 export const hoursService = {
-    async getGymHours() {
-        const supabase = createClient();
+    async getGymHours(supabaseClient?: SupabaseClient) {
+        const supabase = supabaseClient || createClient();
         const { data, error } = await supabase
             .from('gym_hours')
             .select('*')
@@ -20,6 +22,7 @@ export const hoursService = {
 
         if (error) {
             console.error('Error fetching gym hours:', error);
+            // Return empty array on error to prevent crashing the page
             return [];
         }
 

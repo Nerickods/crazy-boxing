@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { cn } from '@/shared/utils/cn';
 import { Check } from 'lucide-react';
 import { useScrollAnchor } from '@/shared/hooks/use-scroll-anchor';
+import { useSnapCarousel } from '@/shared/hooks/use-snap-carousel';
 import UiverseButton from '@/shared/components/UiverseButton';
 import { GlassCard } from '@/shared/components/ui/GlassCard';
 import { plansService } from '../services/plansService';
@@ -15,6 +16,9 @@ function PlansSection() {
     const [plans, setPlans] = useState<Plan[]>([]);
     const [loading, setLoading] = useState(true);
     const [isPlansExpanded, setIsPlansExpanded] = useState(false);
+
+    // Mobile Carousel Logic
+    const { scrollRef, activeIndex, scrollTo } = useSnapCarousel();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -88,16 +92,19 @@ function PlansSection() {
                     </motion.p>
                 </div>
 
-                {/* Standard Plans Grid - Adjusted for 4 cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch mb-24 min-h-[500px]">
+                {/* Standard Plans Grid - Adjusted for Mobile Carousel */}
+                <div
+                    ref={scrollRef}
+                    className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch mb-8 md:mb-24 min-h-[500px] overflow-x-auto snap-x snap-mandatory pt-12 pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:overflow-visible scrollbar-hide"
+                >
                     {loading ? (
-                        <div className="col-span-full flex justify-center items-center text-white/50">Cargando planes...</div>
+                        <div className="col-span-full flex justify-center items-center text-white/50 w-full">Cargando planes...</div>
                     ) : (
                         plans.map((plan, index) => (
                             <div
                                 key={plan.id}
                                 className={cn(
-                                    "flex flex-col"
+                                    "flex flex-col min-w-[85vw] md:min-w-0 snap-center"
                                     // Always flex (visible)
                                 )}
                             >
@@ -105,7 +112,21 @@ function PlansSection() {
                             </div>
                         ))
                     )}
+                </div>
 
+                {/* Mobile Scroll Indicators */}
+                <div className="flex justify-center gap-2 mb-16 md:hidden">
+                    {plans.map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => scrollTo(i)}
+                            className={cn(
+                                "h-1.5 rounded-full transition-all duration-300",
+                                activeIndex === i ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-white/20"
+                            )}
+                            aria-label={`Go to slide ${i + 1}`}
+                        />
+                    ))}
                 </div>
                 {isPlansExpanded && (
                     <div className="text-center md:hidden -mt-16 mb-24">
