@@ -23,22 +23,10 @@ export default function PainToPowerStory() {
 
     return (
         <div ref={containerRef} className="relative w-full max-w-4xl mx-auto px-6 py-16 md:py-32">
-            {/* Background Ambience */}
-            <div className="absolute inset-0 z-0 select-none">
-                <picture>
-                    <source srcSet="/assets/sections/transformation-mobile.png" media="(max-width: 768px)" />
-                    <img
-                        src="/assets/sections/transformation-mobile.png"
-                        alt="Locker Room Focus"
-                        className="w-full h-full object-cover opacity-80"
-                    />
-                </picture>
-                {/* Smart Gradient: Clear middle for the fighter, dark top/bottom for UI/Text */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80" />
-
-                {/* Enhanced Spotlight Accent (Subtle Gold Glow) */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-[radial-gradient(ellipse_at_top,rgba(255,215,0,0.15),transparent_70%)] blur-[80px]" />
+            {/* Background Ambience - Spotlight Only */}
+            <div className="absolute inset-0 z-0 select-none pointer-events-none">
+                {/* Enhanced Spotlight Accent (Blue Glow) */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-[radial-gradient(ellipse_at_top,rgba(14,165,233,0.4),transparent_70%)] blur-[80px]" />
             </div>
 
             <motion.div className="space-y-24 relative z-10">
@@ -49,7 +37,7 @@ export default function PainToPowerStory() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={fadeInUp}
-                    className="text-center md:text-left md:ml-0 md:mr-auto md:w-3/4"
+                    className="text-center md:text-left md:ml-0 md:mr-auto md:w-3/4 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
                 >
                     <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 leading-none tracking-tighter">
                         ROMPE EL GUIÓN DE ESPECTADOR.
@@ -57,9 +45,9 @@ export default function PainToPowerStory() {
                             ACTIVA TU MODO 'CRAZY' Y RECUPERA EL CONTROL.
                         </span>
                     </h2>
-                    <div className="w-20 h-1 bg-[var(--accent)] mb-8 mx-auto md:mx-0" />
+                    <div className="w-20 h-1 bg-[var(--accent)] mb-8 mx-auto md:mx-0 shadow-[0_0_10px_var(--accent)]" />
 
-                    <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light leading-relaxed">
+                    <p className="text-base sm:text-lg md:text-xl text-white font-light leading-relaxed">
                         En Crazy Boxing, hemos visto esta historia cientos de veces. Vemos llegar a personas con la mirada baja, convencidas de que su "fuego" se apagó para siempre.
                     </p>
                 </motion.div>
@@ -70,14 +58,14 @@ export default function PainToPowerStory() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={fadeInUp}
-                    className="text-center md:w-3/4 mx-auto"
+                    className="text-center md:w-3/4 mx-auto drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
                 >
-                    <div className="inline-block p-4 border border-white/10 bg-white/5 backdrop-blur-sm rounded-lg mb-8">
+                    <div className="inline-block p-4 border border-white/20 bg-black/40 backdrop-blur-md rounded-lg mb-8 shadow-lg">
                         <h3 className="text-[var(--accent)] font-bold tracking-widest uppercase text-sm">
                             Nuestra Verdad
                         </h3>
                     </div>
-                    <p className="text-base sm:text-lg md:text-2xl text-gray-300 leading-relaxed font-medium">
+                    <p className="text-base sm:text-lg md:text-2xl text-gray-100 leading-relaxed font-medium">
                         Te seremos honestos: <strong className="text-white">antes de dedicarnos al boxeo, también sentíamos esa misma frustración.</strong> Sentíamos que el ejercicio era una obligación pesada, una tortura más en una vida gris.
                     </p>
                 </motion.div>
@@ -88,12 +76,12 @@ export default function PainToPowerStory() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                     variants={fadeInUp}
-                    className="text-center md:text-right md:ml-auto md:mr-0 md:w-3/4"
+                    className="text-center md:text-right md:ml-auto md:mr-0 md:w-3/4 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
                 >
                     <h3 className="text-[var(--accent)] font-bold tracking-widest uppercase text-sm mb-4">
                         Tu Nueva Realidad
                     </h3>
-                    <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light leading-relaxed mb-8">
+                    <p className="text-base sm:text-lg md:text-xl text-white font-light leading-relaxed mb-8">
                         Pero al encender esa chispa, todo cambió. Hoy, <strong className="text-white font-medium">no solo hemos transformado nuestras vidas, sino que hemos guiado a más de 500 alumnos</strong> a recuperar su hambre de vivir y a caminar con una seguridad inquebrantable.
                     </p>
                 </motion.div>
