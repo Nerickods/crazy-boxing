@@ -2,7 +2,7 @@ import { enrollmentService } from '@/features/enrollment/services/enrollmentServ
 
 export interface LeadData {
     name: string;
-    email: string;
+    phone: string;
     visit_date?: string;
     conversation_id?: string;
 }
@@ -25,7 +25,7 @@ export const leadService = {
         // Use enrollmentService to unify data and get token
         const result = await enrollmentService.submitEnrollment({
             name: data.name,
-            email: data.email,
+            phone: data.phone,
             visit_date: data.visit_date || new Date().toISOString().split('T')[0],
             source: 'chat_widget'
         });
@@ -40,7 +40,7 @@ export const leadService = {
         return {
             id: 'generated-via-enrollment', // We don't get the ID back from submitEnrollment, but that's fine
             name: data.name,
-            email: data.email,
+            phone: data.phone,
             status: 'new',
             source: 'chat_widget',
             created_at: new Date().toISOString(),
@@ -49,9 +49,9 @@ export const leadService = {
     },
 
     /**
-     * Check if email already exists as lead/enrollment
+     * Check if phone already exists as lead/enrollment
      */
-    async checkExistingLead(email: string): Promise<boolean> {
+    async checkExistingLead(phone: string): Promise<boolean> {
         // We can't easily check without RLS read permissions for anon, 
         // but enrollmentService handles duplicates or allows multiple inserts.
         // For now, return false to allow submission.

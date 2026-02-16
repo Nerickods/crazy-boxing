@@ -19,8 +19,8 @@ export async function GET() {
         return NextResponse.json({
             id: null,
             name: 'Crazy Assistant',
-            description: 'Asistente de MMA Academy',
-            system_prompt: 'Eres Crazy Assistant, el asistente virtual de MMA Academy. Ayuda a los visitantes con información sobre clases, horarios y programas de entrenamiento.',
+            description: 'Asistente de Crazy Boxing Academy',
+            system_prompt: 'Eres Crazy Assistant, el asistente virtual de Crazy Boxing Academy. Ayuda a los visitantes con información sobre clases, horarios y programas de entrenamiento.',
             model_id: 'google/gemini-2.0-flash-001',
             temperature: 0.7,
             max_tokens: 500,

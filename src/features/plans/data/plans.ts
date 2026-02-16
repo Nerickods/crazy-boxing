@@ -75,53 +75,5 @@ export const PLANS: Plan[] = [
     },
 ];
 
-export interface Promotion {
-    id: string;
-    title: string;
-    description: string;
-    discount: string;
-    features: string[];
-    gradient: string;
-    backgroundImage: string;
-}
 
-export const PROMOTIONS_2026: Promotion[] = [
-    {
-        id: "promo-3-meses",
-        title: "EL INICIO",
-        description: "3 MESES",
-        discount: "Inscripción GRATIS",
-        features: [
-            "90 Días para romper tu inercia",
-            "Ahorra $200 de inscripción",
-            "Perfecto para iniciar"
-        ],
-        gradient: "from-blue-600/20 to-cyan-400/20", // Adjusted to match Blue image
-        backgroundImage: "/assets/promos/promo-3.jpg"
-    },
-    {
-        id: "promo-6-meses",
-        title: "LA EVOLUCIÓN",
-        description: "6 MESES",
-        discount: "$2,880",
-        features: [
-            "Equivale a 1 MES GRATIS (+ $120)",
-            "Cuerpo de acero en medio año",
-            "la oferta mas popular"
-        ],
-        gradient: "from-pink-600/20 to-purple-600/20", // Adjusted to match Pink image
-        backgroundImage: "/assets/promos/promo-1.jpg"
-    },
-    {
-        id: "promo-12-meses",
-        title: "EL LEGADO",
-        description: "12 MESES",
-        discount: "$5,040",
-        features: [
-            "¡3.5 MESES DE REGALO!",
-            "Ahorro anual masivo: $2,160"
-        ],
-        gradient: "from-green-600/20 to-emerald-400/20", // Adjusted to match Green image
-        backgroundImage: "/assets/promos/promo-2.jpg"
-    }
-];
+

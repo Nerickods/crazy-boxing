@@ -7,17 +7,32 @@ import { Input } from '@/shared/components/ui/input';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/shared/components/ui/card';
 import { Badge } from '@/shared/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/shared/components/ui/alert';
-import { Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, Phone, Key } from 'lucide-react';
+
+type SearchMode = 'token' | 'phone';
 
 export function TokenRedemption() {
-    const [token, setToken] = useState('');
+    const [searchValue, setSearchValue] = useState('');
+    const [searchMode, setSearchMode] = useState<SearchMode>('token');
     const [status, setStatus] = useState<'idle' | 'loading' | 'valid' | 'error' | 'redeemed'>('idle');
     const [data, setData] = useState<any>(null);
+    const [resolvedToken, setResolvedToken] = useState('');
     const [error, setError] = useState('');
 
     const handleValidate = async () => {
-        if (!token || token.length < 6) {
+        const trimmed = searchValue.trim();
+        if (!trimmed) {
+            setError(searchMode === 'token' ? 'Ingrese un token' : 'Ingrese un número de teléfono');
+            return;
+        }
+
+        if (searchMode === 'token' && trimmed.length < 6) {
             setError('El token debe tener al menos 6 caracteres');
+            return;
+        }
+
+        if (searchMode === 'phone' && trimmed.replace(/\D/g, '').length < 10) {
+            setError('El teléfono debe tener 10 dígitos');
             return;
         }
 
@@ -25,18 +40,28 @@ export function TokenRedemption() {
         setError('');
 
         try {
-            const res = await redemptionService.validateToken(token.toUpperCase());
+            let res;
+            if (searchMode === 'token') {
+                res = await redemptionService.validateToken(trimmed.toUpperCase());
+                if (res.success) setResolvedToken(trimmed.toUpperCase());
+            } else {
+                res = await redemptionService.validateByPhone(trimmed.replace(/\D/g, ''));
+                if (res.success && res.data?.redemption_token) {
+                    setResolvedToken(res.data.redemption_token);
+                }
+            }
+
             if (res.success) {
                 if (!res.data) {
                     setStatus('error');
-                    setError('Token no encontrado');
+                    setError(searchMode === 'token' ? 'Token no encontrado' : 'Teléfono no encontrado');
                 } else {
                     setData(res.data);
                     setStatus('valid');
                 }
             } else {
                 setStatus('error');
-                setError(res.error || 'Error al validar token');
+                setError(res.error || 'Error al validar');
             }
         } catch (err) {
             setStatus('error');
@@ -45,12 +70,15 @@ export function TokenRedemption() {
     };
 
     const handleRedeem = async () => {
+        if (!resolvedToken) {
+            setError('No se pudo resolver el token');
+            return;
+        }
         setStatus('loading');
         try {
-            const res = await redemptionService.redeemToken(token.toUpperCase());
+            const res = await redemptionService.redeemToken(resolvedToken);
             if (res.success) {
                 setStatus('redeemed');
-                // Update local data to reflect change
                 setData({ ...data, token_status: 'redeemed', token_redeemed_at: new Date().toISOString() });
             } else {
                 setStatus('error');
@@ -63,9 +91,11 @@ export function TokenRedemption() {
     };
 
     const reset = () => {
-        setToken('');
+        setSearchValue('');
+        setSearchMode('token');
         setStatus('idle');
         setData(null);
+        setResolvedToken('');
         setError('');
     };
 
@@ -76,14 +106,42 @@ export function TokenRedemption() {
                     <CardTitle>Canje de Tokens</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                    {/* Search Mode Toggle */}
+                    <div className="flex gap-2">
+                        <Button
+                            variant={searchMode === 'token' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => { setSearchMode('token'); setSearchValue(''); setError(''); }}
+                            disabled={status === 'loading' || status === 'redeemed'}
+                        >
+                            <Key className="w-4 h-4 mr-1" /> Token
+                        </Button>
+                        <Button
+                            variant={searchMode === 'phone' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => { setSearchMode('phone'); setSearchValue(''); setError(''); }}
+                            disabled={status === 'loading' || status === 'redeemed'}
+                        >
+                            <Phone className="w-4 h-4 mr-1" /> Teléfono
+                        </Button>
+                    </div>
+
+                    {/* Search Input */}
                     <div className="flex space-x-2">
                         <Input
-                            placeholder="Ingrese Token (ej: A1B2C3)"
-                            value={token}
-                            onChange={(e) => setToken(e.target.value.toUpperCase())}
+                            placeholder={searchMode === 'token' ? 'Ingrese Token (ej: A1B2C3)' : 'Teléfono (ej: 3312345678)'}
+                            value={searchValue}
+                            onChange={(e) => {
+                                if (searchMode === 'phone') {
+                                    setSearchValue(e.target.value.replace(/\D/g, '').slice(0, 10));
+                                } else {
+                                    setSearchValue(e.target.value.toUpperCase());
+                                }
+                            }}
                             disabled={status === 'loading' || status === 'redeemed'}
+                            inputMode={searchMode === 'phone' ? 'numeric' : 'text'}
                         />
-                        <Button onClick={handleValidate} disabled={status === 'loading' || status === 'redeemed' || !token}>
+                        <Button onClick={handleValidate} disabled={status === 'loading' || status === 'redeemed' || !searchValue}>
                             {status === 'loading' ? <Loader2 className="animate-spin" /> : 'Buscar'}
                         </Button>
                     </div>
@@ -111,9 +169,16 @@ export function TokenRedemption() {
                             </div>
 
                             <div>
-                                <p className="text-sm font-medium text-muted-foreground">Email:</p>
-                                <p className="text-base">{data.email}</p>
+                                <p className="text-sm font-medium text-muted-foreground">Teléfono:</p>
+                                <p className="text-base font-mono">{data.phone || 'N/A'}</p>
                             </div>
+
+                            {data.email && (
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Email:</p>
+                                    <p className="text-base text-muted-foreground">{data.email}</p>
+                                </div>
+                            )}
 
                             {data.preferred_schedule && (
                                 <div>

@@ -34,10 +34,18 @@ function formatScheduleDate(schedule: string | null | undefined): string {
  */
 function generateChatAgentEmail(enrollment: SavedEnrollment, baseUrl: string): EmailTemplate {
     const formattedDate = formatScheduleDate(enrollment.preferred_schedule);
+    const name = enrollment.name;
 
-    const subject = `¡Hola ${enrollment.name}! Confirmación de tu cita en Crazy Boxing MMA`;
+    if (!enrollment.email) {
+        return {
+            subject: `Confirmación de cita — ${name}`,
+            body: `[Sin email registrado]\n\nContactar por WhatsApp al: ${enrollment.phone || 'N/A'}\n\nFecha: ${formattedDate}`
+        };
+    }
 
-    const body = `Hola ${enrollment.name},
+    const subject = `¡Hola ${name}! Confirmación de tu cita en Crazy Boxing MMA`;
+
+    const body = `Hola ${name},
 
 ¡Gracias por agendar tu visita con nuestro asistente virtual! Confirmamos tu cita para el ${formattedDate}.
 
@@ -65,10 +73,18 @@ Equipo Crazy Boxing MMA
  */
 function generateWebFormEmail(enrollment: SavedEnrollment, baseUrl: string): EmailTemplate {
     const formattedDate = formatScheduleDate(enrollment.preferred_schedule);
+    const name = enrollment.name;
 
-    const subject = `¡Bienvenido a Crazy Boxing MMA, ${enrollment.name}!`;
+    if (!enrollment.email) {
+        return {
+            subject: `Confirmación de visita — ${name}`,
+            body: `[Sin email registrado]\n\nContactar por WhatsApp al: ${enrollment.phone || 'N/A'}\n\nFecha: ${formattedDate}`
+        };
+    }
 
-    const body = `Hola ${enrollment.name},
+    const subject = `¡Bienvenido a Crazy Boxing MMA, ${name}!`;
+
+    const body = `Hola ${name},
 
 Hemos recibido tu solicitud de visita${enrollment.preferred_schedule ? ` para el ${formattedDate}` : ''}. ¡Excelente decisión!
 

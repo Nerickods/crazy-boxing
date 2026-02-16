@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import {
-    FaSearch, FaFilter, FaCommentDots, FaUser, FaEnvelope,
+    FaSearch, FaFilter, FaCommentDots, FaUser, FaPhone,
     FaCalendarCheck, FaGlobe, FaRobot, FaMailBulk
 } from 'react-icons/fa';
 import Link from 'next/link';
@@ -28,7 +28,7 @@ export default function EnrollmentsTab({ initialData }: EnrollmentsTabProps) {
     const filteredData = enrollments.filter(item => {
         const matchesSearch =
             item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.email.toLowerCase().includes(searchTerm.toLowerCase());
+            (item.phone && item.phone.includes(searchTerm));
 
         // Match web sources (anything that's not chat_agent)
         const isWebSource = item.source !== 'chat_agent';
@@ -90,7 +90,7 @@ export default function EnrollmentsTab({ initialData }: EnrollmentsTabProps) {
                     <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-900/30 dark:text-white/30 transition-colors" />
                     <input
                         type="text"
-                        placeholder="Buscar por nombre o correo..."
+                        placeholder="Buscar por nombre o teléfono..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full bg-white/40 dark:bg-black/40 border border-white/40 dark:border-white/10 rounded-xl pl-12 pr-4 py-3 text-blue-900 dark:text-white placeholder-blue-900/30 dark:placeholder-white/30 focus:outline-none focus:bg-white dark:focus:bg-white/10 focus:border-blue-500/50 transition-all shadow-sm"
@@ -163,8 +163,13 @@ export default function EnrollmentsTab({ initialData }: EnrollmentsTabProps) {
                                                     <FaUser className="text-blue-900/30 dark:text-white/30 text-[10px]" /> {item.name}
                                                 </span>
                                                 <span className="text-xs text-blue-900/50 dark:text-white/50 flex items-center gap-2 transition-colors">
-                                                    <FaEnvelope className="text-[10px]" /> {item.email}
+                                                    <FaPhone className="text-[10px]" /> {item.phone || 'Sin teléfono'}
                                                 </span>
+                                                {item.email && (
+                                                    <span className="text-[10px] text-blue-900/30 dark:text-white/30 flex items-center gap-1 transition-colors">
+                                                        ✉ {item.email}
+                                                    </span>
+                                                )}
                                             </div>
                                         </td>
                                         <td className="p-4">

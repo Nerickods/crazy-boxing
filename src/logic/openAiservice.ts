@@ -26,29 +26,29 @@ const TOOLS: ChatCompletionTool[] = [
         type: 'function',
         function: {
             name: 'register_enrollment',
-            description: 'Registers a user for a visit. Requires Name, Email, and EXACT DATE calculated from user input.',
+            description: 'Registers a user for a visit. Requires Name, Phone (10-digit MX number), and EXACT DATE calculated from user input.',
             parameters: {
                 type: 'object',
                 properties: {
                     name: { type: 'string', description: 'Full name' },
-                    email: { type: 'string', description: 'Email address' },
+                    phone: { type: 'string', description: 'Phone number (10-digit Mexican format, e.g. 3312345678)' },
                     visit_date: { type: 'string', description: 'CRITICAL: Must be EXACT DATE YYYY-MM-DD (e.g., 2026-01-20). Do not pass "tomorrow" or "monday".' }
                 },
-                required: ['name', 'email', 'visit_date']
+                required: ['name', 'phone', 'visit_date']
             }
         }
     },
     {
         type: 'function',
         function: {
-            name: 'check_email_exists',
-            description: 'Checks if an email is already registered in the system. Use this BEFORE register_enrollment.',
+            name: 'check_phone_exists',
+            description: 'Checks if a phone number is already registered in the system. Use this BEFORE register_enrollment to prevent duplicates.',
             parameters: {
                 type: 'object',
                 properties: {
-                    email: { type: 'string', description: 'User email to check' }
+                    phone: { type: 'string', description: 'Phone number to check (10-digit MX format)' }
                 },
-                required: ['email']
+                required: ['phone']
             }
         }
     }
@@ -100,11 +100,11 @@ export const openAiService = {
                             if (functionName === 'register_enrollment') {
                                 toolResult = await enrollmentService.registerFromChat({
                                     name: functionArgs.name,
-                                    email: functionArgs.email,
+                                    phone: functionArgs.phone,
                                     visit_date: functionArgs.visit_date
                                 });
-                            } else if (functionName === 'check_email_exists') {
-                                toolResult = await enrollmentService.isEmailRegistered(functionArgs.email);
+                            } else if (functionName === 'check_phone_exists') {
+                                toolResult = await enrollmentService.isPhoneRegistered(functionArgs.phone);
                             } else {
                                 toolResult = { error: 'Tool not supported' };
                             }

@@ -2,7 +2,8 @@ import { createClient } from '@/shared/lib/supabase/server';
 
 export interface EnrollmentData {
     name: string;
-    email: string;
+    phone: string;
+    email?: string;
     visit_date?: string;
     conversation_id?: string;
 }
@@ -17,6 +18,7 @@ export interface SavedEnrollment extends EnrollmentData {
     contacted_by?: string | null;
     contacted_at?: string | null;
     redemption_token?: string | null;
+    token_status?: string | null;
 }
 
 export const enrollmentService = {
@@ -32,7 +34,8 @@ export const enrollmentService = {
             .from('enrollments')
             .insert([{
                 name: data.name,
-                email: data.email,
+                phone: data.phone,
+                email: data.email || null,
                 preferred_schedule: data.visit_date || null,
                 metadata: { conversation_id: data.conversation_id },
                 source: 'chat_agent',
@@ -62,7 +65,8 @@ export const enrollmentService = {
             .from('enrollments')
             .insert([{
                 name: data.name,
-                email: data.email,
+                phone: data.phone,
+                email: data.email || null,
                 preferred_schedule: data.visit_date || null,
                 metadata: { conversation_id: data.conversation_id },
                 source: data.source || 'landing_form',
@@ -114,15 +118,18 @@ export const enrollmentService = {
     },
 
     /**
-     * Check if email already exists as enrollment
+     * Check if phone number already exists as enrollment
      */
-    async isEmailRegistered(email: string): Promise<boolean> {
+    async isPhoneRegistered(phone: string): Promise<boolean> {
         const supabase = await createClient();
+
+        // Normalize: strip non-digits
+        const normalized = phone.replace(/\D/g, '');
 
         const { data, error } = await supabase
             .from('enrollments')
             .select('id')
-            .eq('email', email)
+            .eq('phone', normalized)
             .maybeSingle();
 
         if (error) {

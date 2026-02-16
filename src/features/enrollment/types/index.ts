@@ -1,6 +1,6 @@
 export interface EnrollmentData {
     name: string;
-    email: string;
+    phone: string;
     visit_date: string;
     source?: string;
 }

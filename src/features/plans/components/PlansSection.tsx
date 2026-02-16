@@ -9,8 +9,8 @@ import { useSnapCarousel } from '@/shared/hooks/use-snap-carousel';
 import UiverseButton from '@/shared/components/UiverseButton';
 import { GlassCard } from '@/shared/components/ui/GlassCard';
 import { plansService } from '../services/plansService';
-import { Plan, Promotion, SectionConfig } from '../types/plan';
-import { PLANS as STATIC_PLANS, PROMOTIONS_2026 as STATIC_PROMOS } from '../data/plans'; // Fallback
+import { Plan, SectionConfig } from '../types/plan';
+import { PLANS as STATIC_PLANS } from '../data/plans'; // Fallback
 
 function PlansSection() {
     const [plans, setPlans] = useState<Plan[]>([]);

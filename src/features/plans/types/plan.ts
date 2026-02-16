@@ -20,18 +20,8 @@ export interface Plan {
     ctaText?: string; // Custom button text
 }
 
-export interface Promotion {
-    id: string;
-    title: string;
-    description: string;
-    discount: string;
-    features: string[];
-    gradient?: string;
-    backgroundImage?: string; // DB: background_image
-    displayOrder?: number;
-    isActive?: boolean;
-    validUntil?: string;
-}
+
+
 
 export interface SectionConfig {
     key: string;

@@ -8,9 +8,11 @@ import { EnrollmentData } from '../types';
 import { useEnrollmentStore } from '../store/useEnrollmentStore';
 
 export default function EnrollForm() {
+    const currentYear = new Date().getFullYear();
+
     const [formData, setFormData] = useState<EnrollmentData>({
         name: '',
-        email: '',
+        phone: '',
         visit_date: '',
         source: 'landing_hero_form'
     });
@@ -44,7 +46,7 @@ export default function EnrollForm() {
                 setEnrolled(true);
                 setFormData({
                     name: '',
-                    email: '',
+                    phone: '',
                     visit_date: '',
                     source: 'landing_hero_form'
                 });
@@ -89,30 +91,39 @@ export default function EnrollForm() {
                     </div>
                 </div>
 
-                {/* Email Input */}
+                {/* Phone Input */}
                 <div className="space-y-2 group">
-                    <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
-                        Email (Identificación)
+                    <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
+                        WhatsApp / Teléfono
                     </label>
                     <div className="relative">
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
+                            type="tel"
+                            id="phone"
+                            name="phone"
                             required
-                            value={formData.email}
-                            onChange={handleChange}
+                            inputMode="numeric"
+                            maxLength={12}
+                            value={formData.phone}
+                            onChange={(e) => {
+                                // Only allow digits
+                                const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+                                setFormData(prev => ({ ...prev, phone: digits }));
+                            }}
                             className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg"
-                            placeholder="TU EMAIL"
+                            placeholder="33 1234 5678"
                         />
                         <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 transition-all duration-300 group-focus-within:w-full" />
+                        {formData.phone.length > 0 && formData.phone.length < 10 && (
+                            <p className="text-[10px] text-amber-400/70 mt-1 ml-1">10 dígitos requeridos ({formData.phone.length}/10)</p>
+                        )}
                     </div>
                 </div>
 
                 {/* Visit Date Input (Day & Month only) */}
                 <div className="space-y-2 group">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 group-focus-within:text-[var(--accent)] transition-colors">
-                        ¿CUÁNDO VIENES? (AÑO 2026)
+                        ¿CUÁNDO VIENES? ({currentYear})
                     </label>
                     <div className="grid grid-cols-2 gap-4">
                         {/* Day Selector */}
@@ -123,9 +134,9 @@ export default function EnrollForm() {
                                 value={formData.visit_date ? formData.visit_date.split('-')[2] : ''}
                                 onChange={(e) => {
                                     const day = e.target.value;
-                                    const currentMethod = formData.visit_date ? formData.visit_date.split('-')[1] : '01'; // Default to Jan if not set
-                                    const month = currentMethod || '01';
-                                    setFormData(prev => ({ ...prev, visit_date: `2026-${month}-${day}` }));
+                                    const currentMonth = formData.visit_date ? formData.visit_date.split('-')[1] : '01';
+                                    const month = currentMonth || '01';
+                                    setFormData(prev => ({ ...prev, visit_date: `${currentYear}-${month}-${day}` }));
                                 }}
                                 className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg appearance-none cursor-pointer"
                             >
@@ -147,9 +158,9 @@ export default function EnrollForm() {
                                 value={formData.visit_date ? formData.visit_date.split('-')[1] : ''}
                                 onChange={(e) => {
                                     const month = e.target.value;
-                                    const currentDay = formData.visit_date ? formData.visit_date.split('-')[2] : '01'; // Default to 1st if not set
+                                    const currentDay = formData.visit_date ? formData.visit_date.split('-')[2] : '01';
                                     const day = currentDay || '01';
-                                    setFormData(prev => ({ ...prev, visit_date: `2026-${month}-${day}` }));
+                                    setFormData(prev => ({ ...prev, visit_date: `${currentYear}-${month}-${day}` }));
                                 }}
                                 className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg appearance-none cursor-pointer"
                             >
@@ -183,7 +194,7 @@ export default function EnrollForm() {
                 <div className="pt-4 flex flex-col items-center">
                     <button
                         type="submit"
-                        disabled={status === 'loading'}
+                        disabled={status === 'loading' || formData.phone.length < 10 || !formData.visit_date || !formData.name}
                         className={`
                             relative w-full h-[65px] rounded-[24px] border-none bg-blue-500/10
                             flex items-center justify-center p-2 cursor-pointer transition-all duration-300
