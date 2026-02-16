@@ -437,13 +437,28 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                     </span>
                                 )}
                             </div>
-                            <button
-                                onClick={closeLightbox}
-                                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90"
-                                aria-label="Cerrar galería"
-                            >
-                                <FaTimes size={18} />
-                            </button>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={() => {
+                                        if (!document.fullscreenElement) {
+                                            document.documentElement.requestFullscreen().catch(e => console.error(e));
+                                        } else {
+                                            document.exitFullscreen();
+                                        }
+                                    }}
+                                    className="text-zinc-400 hover:text-white transition-colors"
+                                    aria-label="Pantalla completa"
+                                >
+                                    <FaExpand size={18} />
+                                </button>
+                                <button
+                                    onClick={closeLightbox}
+                                    className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90"
+                                    aria-label="Cerrar galería"
+                                >
+                                    <FaTimes size={18} />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Media Filter Tabs (only in full gallery mode) */}
@@ -509,9 +524,10 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                             return currentMedia.media_type === 'video' ? (
                                                 <video
                                                     key={`video-${currentImageIndex}`}
-                                                    src={currentMedia.url}
+                                                    src={`${currentMedia.url}#t=0.5`}
                                                     controls
                                                     playsInline
+                                                    preload="metadata"
                                                     className="max-w-full max-h-[60vh] md:max-h-[70vh] object-contain"
                                                 />
                                             ) : (
@@ -567,7 +583,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                         >
                                             {item.media_type === 'video' ? (
                                                 <>
-                                                    <video src={item.url} className="w-full h-full object-cover" muted preload="metadata" />
+                                                    <video src={`${item.url}#t=0.5`} className="w-full h-full object-cover" muted preload="metadata" />
                                                     <div className="absolute inset-0 flex items-center justify-center bg-black/50">
                                                         <FaPlay className="text-white text-[8px]" />
                                                     </div>
