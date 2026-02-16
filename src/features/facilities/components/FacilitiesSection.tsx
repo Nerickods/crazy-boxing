@@ -437,28 +437,13 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                     </span>
                                 )}
                             </div>
-                            <div className="flex items-center gap-4">
-                                <button
-                                    onClick={() => {
-                                        if (!document.fullscreenElement) {
-                                            document.documentElement.requestFullscreen().catch(e => console.error(e));
-                                        } else {
-                                            document.exitFullscreen();
-                                        }
-                                    }}
-                                    className="text-zinc-400 hover:text-white transition-colors"
-                                    aria-label="Pantalla completa"
-                                >
-                                    <FaExpand size={18} />
-                                </button>
-                                <button
-                                    onClick={closeLightbox}
-                                    className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90"
-                                    aria-label="Cerrar galería"
-                                >
-                                    <FaTimes size={18} />
-                                </button>
-                            </div>
+                            <button
+                                onClick={closeLightbox}
+                                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90"
+                                aria-label="Cerrar galería"
+                            >
+                                <FaTimes size={18} />
+                            </button>
                         </div>
 
                         {/* Media Filter Tabs (only in full gallery mode) */}
@@ -505,7 +490,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 0.2 }}
                                         className={cn(
-                                            "relative overflow-hidden rounded-xl md:rounded-2xl flex items-center justify-center bg-zinc-950 max-w-5xl w-full mx-auto",
+                                            "relative overflow-hidden rounded-xl md:rounded-2xl flex items-center justify-center bg-zinc-950 max-w-5xl w-full mx-auto group/media",
                                             (() => {
                                                 const currentMedia = isFullGalleryMode
                                                     ? filteredGallery[currentImageIndex]
@@ -514,6 +499,34 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                             })()
                                         )}
                                     >
+                                        {/* Overlay Expand Button */}
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                const container = e.currentTarget.parentElement;
+                                                const video = container?.querySelector('video');
+                                                const videoEl = video as HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+
+                                                if (videoEl && videoEl.webkitEnterFullscreen) {
+                                                    videoEl.webkitEnterFullscreen();
+                                                } else if (container) {
+                                                    if (!document.fullscreenElement) {
+                                                        container.requestFullscreen().catch(err => {
+                                                            console.warn("Fullscreen request failed", err);
+                                                            // Fallback for iOS Safari which doesn't support requestFullscreen on divs
+                                                            // We could toggle a "fullscreen" class here if needed, but the lightbox is already pretty big.
+                                                        });
+                                                    } else {
+                                                        document.exitFullscreen();
+                                                    }
+                                                }
+                                            }}
+                                            className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/media:opacity-100 transition-opacity duration-200 hover:bg-[var(--accent)] hover:text-black"
+                                            aria-label="Pantalla completa"
+                                        >
+                                            <FaExpand size={16} />
+                                        </button>
+
                                         {(() => {
                                             const currentMedia = isFullGalleryMode
                                                 ? filteredGallery[currentImageIndex]
