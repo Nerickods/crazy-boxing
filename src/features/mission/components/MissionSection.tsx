@@ -13,7 +13,7 @@ export default function MissionSection() {
                     <img
                         src="/assets/mission-desktop.jpg"
                         alt="Crazy Boxing Team"
-                        className="w-full h-full object-cover object-center"
+                        className="w-full h-full object-contain md:object-cover object-center bg-black"
                     />
                 </picture>
                 {/* Suavizado de capas para máxima visibilidad de la foto real */}

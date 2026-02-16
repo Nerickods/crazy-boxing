@@ -3,7 +3,7 @@
 
 import { useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised, FaPlay, FaCamera, FaVideo } from 'react-icons/fa';
+import { FaExpand, FaCompress, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised, FaPlay, FaCamera, FaVideo } from 'react-icons/fa';
 import { Instagram, Facebook } from 'lucide-react';
 import { cn, glass } from '@/shared/lib/utils';
 import { GymHour } from '@/features/facilities/services/hoursService';
@@ -91,6 +91,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
     const [isFullGalleryMode, setIsFullGalleryMode] = useState(false);
     const [mediaFilter, setMediaFilter] = useState<'all' | 'image' | 'video'>('all');
+    const [isImmersiveMode, setIsImmersiveMode] = useState(false);
     const containerRef = useRef<HTMLElement>(null);
 
     // Mobile Carousel Logic
@@ -140,6 +141,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
         setSelectedFacility(null);
         setIsFullGalleryMode(false);
         setMediaFilter('all');
+        setIsImmersiveMode(false);
     };
 
     return (
@@ -426,25 +428,27 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                         className="fixed inset-0 z-[100] bg-black flex flex-col"
                     >
                         {/* Top Bar — Close + Counter */}
-                        <div className="flex items-center justify-between px-4 py-3 md:px-8 md:py-5 shrink-0 bg-black/80 backdrop-blur-sm border-b border-white/5">
-                            <div className="flex items-center gap-3">
-                                <span className="text-[var(--accent)] font-black tracking-[0.3em] text-[10px] md:text-xs uppercase">
-                                    {isFullGalleryMode ? 'Galería' : facilities[selectedFacility].category}
-                                </span>
-                                {isFullGalleryMode && (
-                                    <span className="text-zinc-500 text-xs font-mono">
-                                        {currentImageIndex + 1} / {filteredGallery.length}
+                        {!isImmersiveMode && (
+                            <div className="flex items-center justify-between px-4 py-3 md:px-8 md:py-5 shrink-0 bg-black/80 backdrop-blur-sm border-b border-white/5 transition-opacity duration-300">
+                                <div className="flex items-center gap-3">
+                                    <span className="text-[var(--accent)] font-black tracking-[0.3em] text-[10px] md:text-xs uppercase">
+                                        {isFullGalleryMode ? 'Galería' : facilities[selectedFacility].category}
                                     </span>
-                                )}
+                                    {isFullGalleryMode && (
+                                        <span className="text-zinc-500 text-xs font-mono">
+                                            {currentImageIndex + 1} / {filteredGallery.length}
+                                        </span>
+                                    )}
+                                </div>
+                                <button
+                                    onClick={closeLightbox}
+                                    className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90"
+                                    aria-label="Cerrar galería"
+                                >
+                                    <FaTimes size={18} />
+                                </button>
                             </div>
-                            <button
-                                onClick={closeLightbox}
-                                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90"
-                                aria-label="Cerrar galería"
-                            >
-                                <FaTimes size={18} />
-                            </button>
-                        </div>
+                        )}
 
                         {/* Media Filter Tabs (only in full gallery mode) */}
                         {isFullGalleryMode && (
@@ -511,20 +515,24 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                                     videoEl.webkitEnterFullscreen();
                                                 } else if (container) {
                                                     if (!document.fullscreenElement) {
-                                                        container.requestFullscreen().catch(err => {
-                                                            console.warn("Fullscreen request failed", err);
-                                                            // Fallback for iOS Safari which doesn't support requestFullscreen on divs
-                                                            // We could toggle a "fullscreen" class here if needed, but the lightbox is already pretty big.
-                                                        });
+                                                        const requestFullscreen = container.requestFullscreen || (container as any).webkitRequestFullscreen;
+                                                        if (requestFullscreen) {
+                                                            requestFullscreen.call(container).catch(err => {
+                                                                console.warn("Fullscreen request failed, toggling immersive mode", err);
+                                                                setIsImmersiveMode(!isImmersiveMode);
+                                                            });
+                                                        } else {
+                                                            setIsImmersiveMode(!isImmersiveMode);
+                                                        }
                                                     } else {
                                                         document.exitFullscreen();
                                                     }
                                                 }
                                             }}
                                             className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/media:opacity-100 transition-opacity duration-200 hover:bg-[var(--accent)] hover:text-black"
-                                            aria-label="Pantalla completa"
+                                            aria-label={isImmersiveMode ? "Salir de modo inmersivo" : "Pantalla completa"}
                                         >
-                                            <FaExpand size={16} />
+                                            {isImmersiveMode ? <FaCompress size={16} /> : <FaExpand size={16} />}
                                         </button>
 
                                         {(() => {
@@ -555,7 +563,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                     </motion.div>
 
                                     {/* Navigation Arrows */}
-                                    {filteredGallery.length > 1 && (
+                                    {!isImmersiveMode && filteredGallery.length > 1 && (
                                         <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-1 md:px-4 pointer-events-none">
                                             <button
                                                 onClick={() => setCurrentImageIndex(prev => (prev - 1 + filteredGallery.length) % filteredGallery.length)}
@@ -580,7 +588,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                         </div>
 
                         {/* Bottom Thumbnail Strip */}
-                        {isFullGalleryMode && filteredGallery.length > 1 && (
+                        {!isImmersiveMode && isFullGalleryMode && filteredGallery.length > 1 && (
                             <div className="shrink-0 px-4 py-3 md:py-4 bg-black/80 backdrop-blur-sm border-t border-white/5">
                                 <div className="flex gap-1.5 md:gap-2 overflow-x-auto scrollbar-hide max-w-5xl mx-auto pb-1">
                                     {filteredGallery.map((item, i) => (
@@ -611,7 +619,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                         )}
 
                         {/* Facility Detail (non-gallery mode) */}
-                        {!isFullGalleryMode && selectedFacility !== null && (
+                        {!isImmersiveMode && !isFullGalleryMode && selectedFacility !== null && (
                             <div className="shrink-0 px-6 py-4 md:py-6 bg-black/80 backdrop-blur-sm border-t border-white/5">
                                 <div className="max-w-2xl mx-auto text-center">
                                     <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-2">
