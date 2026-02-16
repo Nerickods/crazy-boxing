@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef } from 'react';
+
+import { useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised } from 'react-icons/fa';
+import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaClock, FaFistRaised, FaPlay, FaCamera, FaVideo } from 'react-icons/fa';
 import { Instagram, Facebook } from 'lucide-react';
 import { cn, glass } from '@/shared/lib/utils';
 import { GymHour } from '@/features/facilities/services/hoursService';
@@ -89,6 +90,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
     const [selectedFacility, setSelectedFacility] = useState<number | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
     const [isFullGalleryMode, setIsFullGalleryMode] = useState(false);
+    const [mediaFilter, setMediaFilter] = useState<'all' | 'image' | 'video'>('all');
     const containerRef = useRef<HTMLElement>(null);
 
     // Mobile Carousel Logic
@@ -113,6 +115,14 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
         .map(url => ({ url, media_type: 'image' as const }));
     const fullGallery = dynamicGallery.length > 0 ? dynamicGallery : fallbackGallery;
 
+    const filteredGallery = useMemo(() => {
+        if (mediaFilter === 'all') return fullGallery;
+        return fullGallery.filter(item => item.media_type === mediaFilter);
+    }, [fullGallery, mediaFilter]);
+
+    const videoCount = useMemo(() => fullGallery.filter(i => i.media_type === 'video').length, [fullGallery]);
+    const imageCount = useMemo(() => fullGallery.filter(i => i.media_type === 'image').length, [fullGallery]);
+
     const openLightbox = (index: number) => {
         setSelectedFacility(index);
         setCurrentImageIndex(0);
@@ -122,12 +132,14 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
     const openFullGallery = () => {
         setIsFullGalleryMode(true);
         setCurrentImageIndex(0);
-        setSelectedFacility(0); // Dummy index to ensure modal opens, logic will check mode
+        setMediaFilter('all');
+        setSelectedFacility(0);
     };
 
     const closeLightbox = () => {
         setSelectedFacility(null);
         setIsFullGalleryMode(false);
+        setMediaFilter('all');
     };
 
     return (
@@ -345,14 +357,15 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                 viewport={{ once: true }}
                                 className={cn(
                                     glass.card,
-                                    "group relative h-[400px] md:h-[450px] overflow-hidden rounded-sm bg-zinc-900 border-none block min-w-[85vw] md:min-w-0 snap-center shrink-0"
+                                    "group relative aspect-[3/4] overflow-hidden rounded-sm bg-zinc-900 border-none block min-w-[85vw] md:min-w-0 snap-center shrink-0"
                                 )}
                             >
                                 {/* Image */}
                                 <img
                                     src={coach.image}
                                     alt={coach.name}
-                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 object-top"
+                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                                    style={{ objectPosition: 'center 20%' }}
                                 />
 
                                 {/* Overlay Gradient */}
@@ -403,149 +416,184 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                 </div>
             </div>
 
-            {/* Lightbox Modal (Enhanced) */}
+            {/* Lightbox Modal (Mobile-Optimized) */}
             <AnimatePresence>
                 {selectedFacility !== null && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] bg-black/98 flex items-center justify-center backdrop-blur-2xl"
-                        onClick={closeLightbox}
+                        className="fixed inset-0 z-[100] bg-black flex flex-col"
                     >
-                        <button className="absolute top-10 right-10 text-zinc-500 hover:text-white transition-colors z-[110]">
-                            <FaTimes size={40} />
-                        </button>
-
-                        <div className="w-full max-w-7xl px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center" onClick={e => e.stopPropagation()}>
-                            <div className="lg:col-span-8 relative">
-                                <motion.div
-                                    key={currentImageIndex}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    className={`relative overflow-hidden rounded-2xl border border-zinc-800 flex items-center justify-center bg-black ${(() => {
-                                        const currentMedia = isFullGalleryMode
-                                            ? fullGallery[currentImageIndex]
-                                            : { url: '', media_type: 'image' as const };
-                                        return currentMedia.media_type === 'video' ? 'max-h-[80vh]' : 'aspect-video';
-                                    })()
-                                        }`}
-                                >
-                                    {(() => {
-                                        const currentMedia = isFullGalleryMode
-                                            ? fullGallery[currentImageIndex]
-                                            : { url: facilities[selectedFacility].gallery[currentImageIndex], media_type: 'image' as const };
-
-                                        return currentMedia.media_type === 'video' ? (
-                                            <video
-                                                key={currentImageIndex}
-                                                src={currentMedia.url}
-                                                controls
-                                                autoPlay
-                                                className="max-w-full max-h-[80vh] object-contain"
-                                            />
-                                        ) : (
-                                            <img
-                                                src={currentMedia.url}
-                                                className="w-full h-full object-cover"
-                                                alt=""
-                                            />
-                                        );
-                                    })()}
-                                </motion.div>
-
-                                <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-4 pointer-events-none">
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            const total = isFullGalleryMode ? fullGallery.length : facilities[selectedFacility].gallery.length;
-                                            setCurrentImageIndex(prev => (prev - 1 + total) % total)
-                                        }}
-                                        className="w-14 h-14 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white border border-white/10 hover:bg-[var(--accent)] hover:text-black transition-all pointer-events-auto shadow-2xl"
-                                    >
-                                        <FaChevronLeft size={24} />
-                                    </button>
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            const total = isFullGalleryMode ? fullGallery.length : facilities[selectedFacility].gallery.length;
-                                            setCurrentImageIndex(prev => (prev + 1) % total)
-                                        }}
-                                        className="w-14 h-14 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white border border-white/10 hover:bg-[var(--accent)] hover:text-black transition-all pointer-events-auto shadow-2xl"
-                                    >
-                                        <FaChevronRight size={24} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="lg:col-span-4 flex flex-col justify-center">
-                                {isFullGalleryMode ? (
-                                    <>
-                                        <span className="text-[var(--accent)] font-black tracking-[0.4em] text-xs uppercase mb-4 block">
-                                            Galería Completa
-                                        </span>
-                                        <h3 className="text-4xl font-black text-white uppercase tracking-tighter mb-4 leading-none">
-                                            THE VAULT <span className="text-zinc-600">({currentImageIndex + 1}/{fullGallery.length})</span>
-                                        </h3>
-                                        <div className="w-20 h-1 bg-[var(--accent)] mb-8" />
-                                        <div className="flex flex-wrap gap-2 max-h-[300px] overflow-y-auto scrollbar-hide">
-                                            {fullGallery.map((item, i) => (
-                                                <button
-                                                    key={i}
-                                                    onClick={() => setCurrentImageIndex(i)}
-                                                    className={cn(
-                                                        "w-16 h-12 object-cover rounded-sm border transition-all duration-300 overflow-hidden relative",
-                                                        i === currentImageIndex ? "border-[var(--accent)] opacity-100" : "border-transparent opacity-40 hover:opacity-80"
-                                                    )}
-                                                >
-                                                    {item.media_type === 'video' ? (
-                                                        <>
-                                                            <video src={item.url} className="w-full h-full object-cover" muted preload="metadata" />
-                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                                                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                                                            </div>
-                                                        </>
-                                                    ) : (
-                                                        <img src={item.url} className="w-full h-full object-cover" alt="" />
-                                                    )}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <span className="text-[var(--accent)] font-black tracking-[0.4em] text-xs uppercase mb-4 block">
-                                            {facilities[selectedFacility].category}
-                                        </span>
-                                        <h3 className="text-5xl font-black text-white uppercase tracking-tighter mb-4 leading-none">
-                                            {facilities[selectedFacility].title}
-                                        </h3>
-                                        <div className="w-20 h-1 bg-[var(--accent)] mb-8" />
-                                        <p className="text-zinc-500 font-bold uppercase tracking-widest text-sm mb-4">
-                                            {facilities[selectedFacility].description}
-                                        </p>
-                                        <p className="text-zinc-400 text-lg leading-relaxed font-medium">
-                                            {facilities[selectedFacility].details}
-                                        </p>
-
-                                        {facilities[selectedFacility].gallery.length > 1 && (
-                                            <div className="mt-8 flex gap-2">
-                                                {facilities[selectedFacility].gallery.map((_, i) => (
-                                                    <button
-                                                        key={i}
-                                                        onClick={() => setCurrentImageIndex(i)}
-                                                        className={cn(
-                                                            "w-12 h-1 transition-all duration-300",
-                                                            i === currentImageIndex ? "bg-[var(--accent)]" : "bg-zinc-800"
-                                                        )}
-                                                    />
-                                                ))}
-                                            </div>
-                                        )}
-                                    </>
+                        {/* Top Bar — Close + Counter */}
+                        <div className="flex items-center justify-between px-4 py-3 md:px-8 md:py-5 shrink-0 bg-black/80 backdrop-blur-sm border-b border-white/5">
+                            <div className="flex items-center gap-3">
+                                <span className="text-[var(--accent)] font-black tracking-[0.3em] text-[10px] md:text-xs uppercase">
+                                    {isFullGalleryMode ? 'Galería' : facilities[selectedFacility].category}
+                                </span>
+                                {isFullGalleryMode && (
+                                    <span className="text-zinc-500 text-xs font-mono">
+                                        {currentImageIndex + 1} / {filteredGallery.length}
+                                    </span>
                                 )}
                             </div>
+                            <button
+                                onClick={closeLightbox}
+                                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all active:scale-90"
+                                aria-label="Cerrar galería"
+                            >
+                                <FaTimes size={18} />
+                            </button>
                         </div>
+
+                        {/* Media Filter Tabs (only in full gallery mode) */}
+                        {isFullGalleryMode && (
+                            <div className="flex items-center justify-center gap-2 px-4 py-3 shrink-0 bg-black/60">
+                                {[
+                                    { key: 'all' as const, label: 'TODO', icon: FaExpand, count: fullGallery.length },
+                                    { key: 'image' as const, label: 'FOTOS', icon: FaCamera, count: imageCount },
+                                    { key: 'video' as const, label: 'VIDEOS', icon: FaVideo, count: videoCount },
+                                ].map(tab => (
+                                    <button
+                                        key={tab.key}
+                                        onClick={() => {
+                                            setMediaFilter(tab.key);
+                                            setCurrentImageIndex(0);
+                                        }}
+                                        className={cn(
+                                            "flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all",
+                                            mediaFilter === tab.key
+                                                ? "bg-[var(--accent)] text-black"
+                                                : "bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white border border-white/10"
+                                        )}
+                                    >
+                                        <tab.icon size={12} />
+                                        {tab.label}
+                                        <span className={cn(
+                                            "text-[10px] font-mono",
+                                            mediaFilter === tab.key ? "text-black/60" : "text-zinc-600"
+                                        )}>
+                                            {tab.count}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Main Media Area */}
+                        <div className="flex-1 flex items-center justify-center relative min-h-0 px-2 md:px-12">
+                            {filteredGallery.length > 0 ? (
+                                <>
+                                    <motion.div
+                                        key={`${mediaFilter}-${currentImageIndex}`}
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.2 }}
+                                        className={cn(
+                                            "relative overflow-hidden rounded-xl md:rounded-2xl flex items-center justify-center bg-zinc-950 max-w-5xl w-full mx-auto",
+                                            (() => {
+                                                const currentMedia = isFullGalleryMode
+                                                    ? filteredGallery[currentImageIndex]
+                                                    : { url: '', media_type: 'image' as const };
+                                                return currentMedia?.media_type === 'video' ? 'max-h-[60vh] md:max-h-[70vh]' : 'aspect-video max-h-[60vh] md:max-h-[70vh]';
+                                            })()
+                                        )}
+                                    >
+                                        {(() => {
+                                            const currentMedia = isFullGalleryMode
+                                                ? filteredGallery[currentImageIndex]
+                                                : { url: facilities[selectedFacility].gallery[currentImageIndex], media_type: 'image' as const };
+
+                                            if (!currentMedia) return null;
+
+                                            return currentMedia.media_type === 'video' ? (
+                                                <video
+                                                    key={`video-${currentImageIndex}`}
+                                                    src={currentMedia.url}
+                                                    controls
+                                                    playsInline
+                                                    className="max-w-full max-h-[60vh] md:max-h-[70vh] object-contain"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={currentMedia.url}
+                                                    className="w-full h-full object-contain"
+                                                    alt=""
+                                                    loading="lazy"
+                                                />
+                                            );
+                                        })()}
+                                    </motion.div>
+
+                                    {/* Navigation Arrows */}
+                                    {filteredGallery.length > 1 && (
+                                        <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-1 md:px-4 pointer-events-none">
+                                            <button
+                                                onClick={() => setCurrentImageIndex(prev => (prev - 1 + filteredGallery.length) % filteredGallery.length)}
+                                                className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white border border-white/10 hover:bg-[var(--accent)] hover:text-black transition-all pointer-events-auto active:scale-90"
+                                            >
+                                                <FaChevronLeft size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => setCurrentImageIndex(prev => (prev + 1) % filteredGallery.length)}
+                                                className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white border border-white/10 hover:bg-[var(--accent)] hover:text-black transition-all pointer-events-auto active:scale-90"
+                                            >
+                                                <FaChevronRight size={18} />
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="text-center text-zinc-500">
+                                    <p className="text-lg font-bold">No hay contenido en esta categoría</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Bottom Thumbnail Strip */}
+                        {isFullGalleryMode && filteredGallery.length > 1 && (
+                            <div className="shrink-0 px-4 py-3 md:py-4 bg-black/80 backdrop-blur-sm border-t border-white/5">
+                                <div className="flex gap-1.5 md:gap-2 overflow-x-auto scrollbar-hide max-w-5xl mx-auto pb-1">
+                                    {filteredGallery.map((item, i) => (
+                                        <button
+                                            key={`thumb-${mediaFilter}-${i}`}
+                                            onClick={() => setCurrentImageIndex(i)}
+                                            className={cn(
+                                                "w-14 h-10 md:w-16 md:h-12 rounded-md border-2 transition-all duration-200 overflow-hidden relative shrink-0",
+                                                i === currentImageIndex
+                                                    ? "border-[var(--accent)] opacity-100 ring-1 ring-[var(--accent)]/50"
+                                                    : "border-transparent opacity-40 hover:opacity-80"
+                                            )}
+                                        >
+                                            {item.media_type === 'video' ? (
+                                                <>
+                                                    <video src={item.url} className="w-full h-full object-cover" muted preload="metadata" />
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                                                        <FaPlay className="text-white text-[8px]" />
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <img src={item.url} className="w-full h-full object-cover" alt="" loading="lazy" />
+                                            )}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Facility Detail (non-gallery mode) */}
+                        {!isFullGalleryMode && selectedFacility !== null && (
+                            <div className="shrink-0 px-6 py-4 md:py-6 bg-black/80 backdrop-blur-sm border-t border-white/5">
+                                <div className="max-w-2xl mx-auto text-center">
+                                    <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-2">
+                                        {facilities[selectedFacility].title}
+                                    </h3>
+                                    <p className="text-zinc-400 text-sm leading-relaxed">
+                                        {facilities[selectedFacility].details}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                     </motion.div>
                 )}
             </AnimatePresence>
