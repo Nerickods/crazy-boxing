@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { enrollmentService } from '@/features/enrollment/services/enrollmentServerService';
+import { requireAdmin } from '@/shared/lib/auth-guard';
 
 const MarkContactedSchema = z.object({
     contacted_by: z.string().min(1, 'El nombre es requerido'),
@@ -10,6 +11,9 @@ export async function POST(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    const authResult = await requireAdmin();
+    if (authResult instanceof NextResponse) return authResult;
+
     try {
         const { id } = await params;
         const body = await request.json();

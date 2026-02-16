@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/shared/lib/supabase/server'
 import { syncSessions } from '@/features/analytics/lib/syncSessions'
+import { requireAdmin } from '@/shared/lib/auth-guard'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
 
     // Sync sessions to ensure freshness

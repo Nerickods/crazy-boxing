@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/shared/lib/supabase/server'
 import { syncSessions } from '@/features/analytics/lib/syncSessions'
+import { requireAdmin } from '@/shared/lib/auth-guard'
 
 export async function GET(request: NextRequest) {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
 
     // Sync sessions before fetching to ensure the admin sees latest data

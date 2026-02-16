@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/shared/lib/supabase/server'
+import { requireAdmin } from '@/shared/lib/auth-guard'
 
 export async function POST(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
     const { id } = await params
 
@@ -54,7 +58,7 @@ export async function POST(
 
         return NextResponse.json({ success: true, message: 'Session marked as read' })
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Error marking session as read:', error)
         return NextResponse.json(
             { error: 'Failed to update session' },

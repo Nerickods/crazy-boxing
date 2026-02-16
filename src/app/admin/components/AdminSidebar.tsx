@@ -11,7 +11,8 @@ interface AdminSidebarProps {
     user: {
         email?: string
         full_name?: string
-    } | any
+        role?: string
+    }
 }
 
 export function AdminSidebar({ user }: AdminSidebarProps) {

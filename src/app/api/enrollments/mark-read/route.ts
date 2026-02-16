@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/shared/lib/supabase/server'
+import { requireAdmin } from '@/shared/lib/auth-guard'
 
 export async function POST() {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
 
     try {
@@ -20,7 +24,7 @@ export async function POST() {
             message: 'All new enrollments marked as reviewed',
             count: updatedCount
         })
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Error marking enrollments as read:', error)
         return NextResponse.json(
             { error: 'Failed to update enrollments' },

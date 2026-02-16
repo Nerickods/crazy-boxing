@@ -3,6 +3,7 @@ import { createClient } from '@/shared/lib/supabase/server'
 import { createOpenRouter } from '@openrouter/ai-sdk-provider'
 import { generateText } from 'ai'
 import { syncSessions } from '@/features/analytics/lib/syncSessions'
+import { requireAdmin } from '@/shared/lib/auth-guard'
 
 const openrouter = createOpenRouter({
     apiKey: process.env.OPENROUTER_API_KEY,
@@ -10,6 +11,9 @@ const openrouter = createOpenRouter({
 
 // Auto-classify sessions
 export async function POST() {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
 
     // 1. Auto-Sync sessions before classifying

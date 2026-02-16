@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/shared/lib/supabase/server'
+import { requireAdmin } from '@/shared/lib/auth-guard'
 
 export async function GET() {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
 
     const { data: agent, error } = await supabase
@@ -29,6 +33,9 @@ export async function GET() {
 }
 
 export async function PUT(request: NextRequest) {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
     const body = await request.json()
 

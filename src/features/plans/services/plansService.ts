@@ -2,9 +2,47 @@
 import { createClient } from '@/shared/lib/supabase/client';
 import { Plan, Promotion, SectionConfig } from '../types/plan';
 
+// DB row interfaces (snake_case from Supabase)
+interface PlanDBRow {
+    id: string;
+    key?: string;
+    name: string;
+    price: number;
+    period: string;
+    description: string;
+    features: string[];
+    is_popular?: boolean;
+    savings?: string;
+    highlight?: boolean;
+    display_order?: number;
+    is_active?: boolean;
+    background_image?: string;
+}
+
+interface PromotionDBRow {
+    id: string;
+    title: string;
+    description: string;
+    discount: string;
+    features: string[];
+    gradient?: string;
+    background_image?: string;
+    display_order?: number;
+    is_active?: boolean;
+    valid_until?: string;
+}
+
+interface SectionConfigDBRow {
+    key: string;
+    title: string;
+    subtitle: string;
+    description?: string;
+    is_active: boolean;
+}
+
 // --- Helpers for Mapping ---
 
-function mapPlanFromDB(dbPlan: any): Plan {
+function mapPlanFromDB(dbPlan: PlanDBRow): Plan {
     return {
         id: dbPlan.id,
         key: dbPlan.key,
@@ -23,7 +61,7 @@ function mapPlanFromDB(dbPlan: any): Plan {
 }
 
 function mapPlanToDB(plan: Partial<Plan>) {
-    const dbPlan: any = { ...plan };
+    const dbPlan: Record<string, unknown> = { ...plan } as Record<string, unknown>;
 
     // Map camelCase to snake_case
     if (plan.isPopular !== undefined) dbPlan.is_popular = plan.isPopular;
@@ -40,7 +78,7 @@ function mapPlanToDB(plan: Partial<Plan>) {
     return dbPlan;
 }
 
-function mapPromoFromDB(dbPromo: any): Promotion {
+function mapPromoFromDB(dbPromo: PromotionDBRow): Promotion {
     return {
         id: dbPromo.id,
         title: dbPromo.title,
@@ -56,7 +94,7 @@ function mapPromoFromDB(dbPromo: any): Promotion {
 }
 
 function mapPromoToDB(promo: Partial<Promotion>) {
-    const dbPromo: any = { ...promo };
+    const dbPromo: Record<string, unknown> = { ...promo } as Record<string, unknown>;
 
     if (promo.backgroundImage !== undefined) dbPromo.background_image = promo.backgroundImage;
     if (promo.displayOrder !== undefined) dbPromo.display_order = promo.displayOrder;
@@ -71,7 +109,7 @@ function mapPromoToDB(promo: Partial<Promotion>) {
     return dbPromo;
 }
 
-function mapSectionConfigFromDB(dbConfig: any): SectionConfig {
+function mapSectionConfigFromDB(dbConfig: SectionConfigDBRow): SectionConfig {
     return {
         key: dbConfig.key,
         title: dbConfig.title,
@@ -82,7 +120,7 @@ function mapSectionConfigFromDB(dbConfig: any): SectionConfig {
 }
 
 function mapSectionConfigToDB(config: Partial<SectionConfig>) {
-    const dbConfig: any = { ...config };
+    const dbConfig: Record<string, unknown> = { ...config } as Record<string, unknown>;
     if (config.isActive !== undefined) dbConfig.is_active = config.isActive;
     delete dbConfig.isActive;
     return dbConfig;

@@ -1,7 +1,9 @@
 import { openAiService } from '@/logic/openAiservice'
 import { createClient } from '@/shared/lib/supabase/server'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { syncSessions } from '@/features/analytics/lib/syncSessions'
+import { rateLimit, CHAT_RATE_LIMIT } from '@/shared/lib/rate-limit'
+import { NextResponse } from 'next/server'
 
 // Generate or get visitor ID from cookie
 async function getVisitorId(requestVisitorId?: string): Promise<string> {
@@ -16,6 +18,24 @@ async function getVisitorId(requestVisitorId?: string): Promise<string> {
 }
 
 export async function POST(req: Request) {
+    // Rate limiting by IP
+    const headersList = await headers()
+    const ip = headersList.get('x-forwarded-for')?.split(',')[0]?.trim() || 'anonymous'
+    const rateLimitResult = rateLimit(ip, CHAT_RATE_LIMIT)
+
+    if (!rateLimitResult.success) {
+        return NextResponse.json(
+            { error: 'Too many requests. Please wait a moment before sending another message.' },
+            {
+                status: 429,
+                headers: {
+                    'Retry-After': String(Math.ceil((rateLimitResult.resetAt - Date.now()) / 1000)),
+                    'X-RateLimit-Remaining': '0',
+                },
+            }
+        )
+    }
+
     const { messages, conversationId: requestConversationId, visitorId: requestVisitorId } = await req.json()
     const visitorId = await getVisitorId(requestVisitorId)
 
@@ -89,7 +109,7 @@ export async function POST(req: Request) {
     }
 
     // 5. Execute Sentinel Logic (Blocking Loop)
-    let newMessages: any[] = []
+    let newMessages: Array<{ role: string; content: string }> = []
     try {
         newMessages = await openAiService.processChat(messages, systemPrompt)
     } catch (error) {

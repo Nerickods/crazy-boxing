@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/shared/lib/supabase/server'
+import { requireAdmin } from '@/shared/lib/auth-guard'
 
 export async function POST(request: Request) {
+    const authResult = await requireAdmin()
+    if (authResult instanceof NextResponse) return authResult
+
     const supabase = await createClient()
 
     try {
@@ -43,7 +47,7 @@ export async function POST(request: Request) {
         }).filter(Boolean)
 
         if (updates.length > 0) {
-            await Promise.all(updates as any[])
+            await Promise.all(updates)
         }
 
         return NextResponse.json({
@@ -52,7 +56,7 @@ export async function POST(request: Request) {
             count: updatedCount
         })
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Error marking alerts as read:', error)
         return NextResponse.json(
             { error: 'Failed to update alerts' },
