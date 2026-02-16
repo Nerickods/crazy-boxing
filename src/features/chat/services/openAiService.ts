@@ -3,14 +3,17 @@ import { enrollmentService } from '../../enrollment/services/enrollmentServerSer
 import { ChatCompletionTool } from 'openai/resources/chat/completions';
 
 // OpenRouter Configuration (OpenAI-compatible API)
-const openai = new OpenAI({
-    apiKey: process.env.OPENROUTER_API_KEY,
-    baseURL: "https://openrouter.ai/api/v1",
-    defaultHeaders: {
-        "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-        "X-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Crazy Boxing MMA",
-    }
-});
+// OpenRouter Configuration (OpenAI-compatible API)
+const getOpenAIClient = () => {
+    return new OpenAI({
+        apiKey: process.env.OPENROUTER_API_KEY,
+        baseURL: "https://openrouter.ai/api/v1",
+        defaultHeaders: {
+            "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+            "X-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Crazy Boxing MMA",
+        }
+    });
+};
 
 // Default model for OpenRouter (OpenAI GPT-4o)
 const DEFAULT_MODEL = 'openai/gpt-4o';
@@ -140,29 +143,30 @@ const TOOLS: ChatCompletionTool[] = [
         type: 'function',
         function: {
             name: 'register_enrollment',
-            description: 'Registers a user for a visit. Requires Name, Email, and EXACT DATE calculated from user input. Returns a JSON object containing the "redemption_token" which MUST be shared with the user.',
+            description: 'Registers a user for a visit. Requires Name, Phone, and EXACT DATE calculated from user input. Returns a JSON object containing the "redemption_token" which MUST be shared with the user.',
             parameters: {
                 type: 'object',
                 properties: {
                     name: { type: 'string', description: 'Full name' },
-                    email: { type: 'string', description: 'Email address' },
+                    phone: { type: 'string', description: 'User phone number (10 digits)' },
+                    email: { type: 'string', description: 'Email address (optional)' },
                     visit_date: { type: 'string', description: 'CRITICAL: Must be EXACT DATE YYYY-MM-DD (e.g., 2026-01-20). Do not pass "tomorrow" or "monday".' }
                 },
-                required: ['name', 'email', 'visit_date']
+                required: ['name', 'phone', 'visit_date']
             }
         }
     },
     {
         type: 'function',
         function: {
-            name: 'check_email_exists',
-            description: 'Checks if an email is already registered in the system. Use this BEFORE register_enrollment.',
+            name: 'check_phone_exists',
+            description: 'Checks if a phone number is already registered in the system. Use this BEFORE register_enrollment.',
             parameters: {
                 type: 'object',
                 properties: {
-                    email: { type: 'string', description: 'User email to check' }
+                    phone: { type: 'string', description: 'User phone to check' }
                 },
-                required: ['email']
+                required: ['phone']
             }
         }
     }
@@ -185,6 +189,7 @@ export const openAiService = {
                 iterations++;
 
                 // 1. Call OpenRouter
+                const openai = getOpenAIClient();
                 const response = await openai.chat.completions.create({
                     model: DEFAULT_MODEL,
                     messages: currentMessages as any,
