@@ -9,7 +9,7 @@ export default function MissionSection() {
             {/* Background Image - Team/Gym Atmosphere */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=1600&h=900&fit=crop&q=80"
+                    src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff"
                     alt="Crazy Boxing Team"
                     className="w-full h-full object-cover"
                 />

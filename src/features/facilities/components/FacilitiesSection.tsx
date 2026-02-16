@@ -357,7 +357,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                 viewport={{ once: true }}
                                 className={cn(
                                     glass.card,
-                                    "group relative aspect-[3/4] overflow-hidden rounded-sm bg-zinc-900 border-none block min-w-[85vw] md:min-w-0 snap-center shrink-0"
+                                    "group relative aspect-[3/4] overflow-hidden rounded-sm bg-zinc-900 border-none block min-w-[280px] md:min-w-0 snap-center shrink-0"
                                 )}
                             >
                                 {/* Image */}
