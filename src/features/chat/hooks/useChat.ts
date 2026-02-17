@@ -59,7 +59,14 @@ export function useChat() {
             })
 
             if (!response.ok) {
-                throw new Error('Failed to send message')
+                let errorMessage = 'Failed to send message'
+                try {
+                    const errorData = await response.json()
+                    errorMessage = errorData.error || errorMessage
+                } catch (e) {
+                    // Ignore json parse error
+                }
+                throw new Error(errorMessage)
             }
 
             // Get conversationId from header if new
@@ -99,7 +106,7 @@ export function useChat() {
         } catch (error) {
             console.error('Chat error:', error)
             // Update with error message
-            updateMessage(assistantId, 'Hubo un error al conectar con el asistente. Por favor intenta de nuevo.')
+            updateMessage(assistantId, error instanceof Error ? error.message : 'Hubo un error al conectar con el asistente.')
         }
     }, [messages, conversationId, visitorId, addMessage, updateMessage, setConversationId, setVisitorId])
 

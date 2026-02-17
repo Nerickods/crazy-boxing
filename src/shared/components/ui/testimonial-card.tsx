@@ -22,12 +22,14 @@ export function TestimonialCard({
     href,
     className
 }: TestimonialCardProps) {
-    const Card = href ? 'a' : 'div'
+    const Card = 'div'
 
     return (
         <Card
-            {...(href ? { href } : {})}
+            // Removed href spreading to prevent scroll-to-top behavior
+            onClick={() => href && window.open(href, '_blank')}
             className={cn(
+                "cursor-pointer", // Add pointer cursor to indicate interactivity
                 "flex flex-col rounded-xl border",
                 "bg-black/20 backdrop-blur-sm border-white/5",
                 "p-6 text-start sm:p-8",

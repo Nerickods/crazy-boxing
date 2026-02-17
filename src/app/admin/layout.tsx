@@ -12,15 +12,26 @@ const getAdminUser = cache(async () => {
         const supabase = await createClient()
         const { data: { user }, error } = await supabase.auth.getUser()
 
-        if (error || !user) return null
+        if (error || !user) {
+            console.error('AdminAuth: No User', error);
+            return null
+        }
 
-        const { data: profile } = await supabase
+        const { data: profile, error: profileError } = await supabase
             .from('profiles')
             .select('role, email, full_name')
             .eq('id', user.id)
             .single()
 
-        if (profile?.role !== 'admin') return null
+        if (profileError) {
+            console.error('AdminAuth: Profile Error', profileError);
+            return null;
+        }
+
+        if (profile?.role !== 'admin') {
+            console.warn('AdminAuth: User is not admin', profile?.role);
+            return null
+        }
 
         return { ...user, ...profile }
     } catch (e) {

@@ -57,7 +57,7 @@ const TOOLS: ChatCompletionTool[] = [
 ];
 
 export const openAiService = {
-    async processChat(messages: any[], systemPrompt: string): Promise<any[]> {
+    async processChat(messages: any[], systemPrompt: string, modelId: string = DEFAULT_MODEL): Promise<any[]> {
         try {
             const allMessagesToPersist: any[] = [];
 
@@ -76,7 +76,7 @@ export const openAiService = {
                 // 1. Call OpenRouter
                 const openai = getOpenAIClient();
                 const response = await openai.chat.completions.create({
-                    model: DEFAULT_MODEL,
+                    model: modelId,
                     messages: currentMessages as any,
                     tools: TOOLS,
                     tool_choice: 'auto',

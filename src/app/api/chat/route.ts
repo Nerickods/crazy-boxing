@@ -111,7 +111,7 @@ export async function POST(req: Request) {
     // 5. Execute Sentinel Logic (Blocking Loop)
     let newMessages: Array<{ role: string; content: string }> = []
     try {
-        newMessages = await openAiService.processChat(messages, systemPrompt)
+        newMessages = await openAiService.processChat(messages, systemPrompt, agent?.model_id)
     } catch (error) {
         console.error('Sentinel Error:', error)
         return new Response('Error processing request', { status: 500 })

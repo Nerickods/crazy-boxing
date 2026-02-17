@@ -18,7 +18,10 @@ export default async function Home() {
         gymHours = hoursData || [];
         galleryImages = imagesData || [];
     } catch (error) {
-        console.error('Failed to fetch initial data:', error);
+        console.error('CRITICAL: Failed to fetch initial data for Landing Page:', error);
+        if (error instanceof Error) {
+            console.error('Stack:', error.stack);
+        }
         // Fallback to empty/default data - prevents 500 error page
     }
 
