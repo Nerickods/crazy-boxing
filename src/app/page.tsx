@@ -7,10 +7,20 @@ export const dynamic = 'force-dynamic';
 
 export default async function Home() {
     const supabase = await createClient();
-    const [gymHours, galleryImages] = await Promise.all([
-        hoursService.getGymHours(supabase),
-        galleryService.getGalleryImages(supabase),
-    ]);
+    let gymHours = [];
+    let galleryImages = [];
+
+    try {
+        const [hoursData, imagesData] = await Promise.all([
+            hoursService.getGymHours(supabase),
+            galleryService.getGalleryImages(supabase),
+        ]);
+        gymHours = hoursData;
+        galleryImages = imagesData;
+    } catch (error) {
+        console.error('Failed to fetch initial data:', error);
+        // Fallback to empty/default data - prevents 500 error page
+    }
 
     return (
         <div className="dark">
