@@ -3,14 +3,16 @@ import { enrollmentService } from '../features/enrollment/services/enrollmentSer
 import { ChatCompletionTool } from 'openai/resources/chat/completions';
 
 // OpenRouter Configuration (OpenAI-compatible API)
-const openai = new OpenAI({
-    apiKey: process.env.OPENROUTER_API_KEY,
-    baseURL: "https://openrouter.ai/api/v1",
-    defaultHeaders: {
-        "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-        "X-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Crazy Boxing MMA",
-    }
-});
+const getOpenAIClient = () => {
+    return new OpenAI({
+        apiKey: process.env.OPENROUTER_API_KEY,
+        baseURL: "https://openrouter.ai/api/v1",
+        defaultHeaders: {
+            "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+            "X-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Crazy Boxing MMA",
+        }
+    });
+};
 
 // Default model for OpenRouter (OpenAI GPT-4o)
 const DEFAULT_MODEL = 'openai/gpt-4o';
@@ -72,6 +74,7 @@ export const openAiService = {
                 iterations++;
 
                 // 1. Call OpenRouter
+                const openai = getOpenAIClient();
                 const response = await openai.chat.completions.create({
                     model: DEFAULT_MODEL,
                     messages: currentMessages as any,
