@@ -116,7 +116,7 @@ export default function TrainingProgramSection() {
                             <img
                                 src={activeDisciplineInfo.image}
                                 alt="Crazy Boxing Background"
-                                className="w-full h-full object-cover brightness-[0.9] contrast-[1.1]"
+                                className="w-full h-full object-contain md:object-cover brightness-[0.9] contrast-[1.1] bg-black"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = '/images/discipline_boxing.png';
                                 }}
