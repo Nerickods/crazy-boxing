@@ -15,13 +15,10 @@ export default async function Home() {
             hoursService.getGymHours(supabase),
             galleryService.getGalleryImages(supabase),
         ]);
-        gymHours = hoursData || [];
-        galleryImages = imagesData || [];
+        if (gymHours.length === 0) console.warn('HomePage: Gym Hours empty - Check Supabase Table or RLS');
+        if (galleryImages.length === 0) console.warn('HomePage: Gallery Images empty - Check Supabase Table or RLS');
     } catch (error) {
-        console.error('CRITICAL: Failed to fetch initial data for Landing Page:', error);
-        if (error instanceof Error) {
-            console.error('Stack:', error.stack);
-        }
+        console.error('HomePage CRITICAL: Failed to fetch initial data:', error);
         // Fallback to empty/default data - prevents 500 error page
     }
 

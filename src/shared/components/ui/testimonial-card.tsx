@@ -27,7 +27,13 @@ export function TestimonialCard({
     return (
         <Card
             // Removed href spreading to prevent scroll-to-top behavior
-            onClick={() => href && window.open(href, '_blank')}
+            onClick={href ? (e) => {
+                e.stopPropagation();
+                window.open(href, '_blank', 'noopener,noreferrer');
+            } : (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            }}
             className={cn(
                 "cursor-pointer", // Add pointer cursor to indicate interactivity
                 "flex flex-col rounded-xl border",

@@ -5,6 +5,9 @@ import { syncSessions } from '@/features/analytics/lib/syncSessions'
 import { rateLimit, CHAT_RATE_LIMIT } from '@/shared/lib/rate-limit'
 import { NextResponse } from 'next/server'
 
+// Set maximum duration to 60 seconds for Vercel (Hobby plan limit is 10s usually, but this helps on Pro)
+export const maxDuration = 60;
+
 // Generate or get visitor ID from cookie
 async function getVisitorId(requestVisitorId?: string): Promise<string> {
     const cookieStore = await cookies()
@@ -113,8 +116,12 @@ export async function POST(req: Request) {
     try {
         newMessages = await openAiService.processChat(messages, systemPrompt, agent?.model_id)
     } catch (error) {
-        console.error('Sentinel Error:', error)
-        return new Response('Error processing request', { status: 500 })
+        console.error('Sentinel Error (Critical):', error)
+        // Return a JSON error that the frontend can parse and display gracefully
+        return NextResponse.json(
+            { error: 'El asistente está tomando un descanso. Por favor intenta de nuevo en unos segundos.' },
+            { status: 500 }
+        )
     }
 
     // 6. Persist Generated Messages (Assistant & Tools)

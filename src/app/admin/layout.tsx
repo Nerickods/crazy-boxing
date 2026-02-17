@@ -14,6 +14,10 @@ const getAdminUser = cache(async () => {
 
         if (error || !user) {
             console.error('AdminAuth: No User', error);
+            // In Next.js Server Components, we cannot redirect inside a cached function easily without throwing.
+            // But we can return null here and let the component handle the redirect.
+            // However, the component Logic below ALREADY handles !user by redirecting.
+            // The issue is lines 23-28 returning null for invalid profile.
             return null
         }
 
