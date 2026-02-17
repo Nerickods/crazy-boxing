@@ -3,14 +3,30 @@ import { enrollmentService } from '../features/enrollment/services/enrollmentSer
 import { ChatCompletionTool } from 'openai/resources/chat/completions';
 
 // OpenRouter Configuration (OpenAI-compatible API)
-const openai = new OpenAI({
-    apiKey: process.env.OPENROUTER_API_KEY,
-    baseURL: "https://openrouter.ai/api/v1",
-    defaultHeaders: {
-        "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-        "X-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Crazy Boxing MMA",
+// Lazy initialization for OpenAI client
+let openaiInstance: OpenAI | null = null;
+
+function getOpenAIClient() {
+    if (!openaiInstance) {
+        const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
+
+        // During build time, if keys are missing, we explicitly don't throw yet
+        // We only throw if we actually try to USE the client
+        if (!apiKey) {
+            console.warn("Warner: No API Key found for OpenAI/OpenRouter. This is fine for build, but will fail at runtime.");
+        }
+
+        openaiInstance = new OpenAI({
+            apiKey: apiKey || "dummy-key-for-build", // Prevent constructor error during build
+            baseURL: "https://openrouter.ai/api/v1",
+            defaultHeaders: {
+                "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+                "X-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Crazy Boxing MMA",
+            }
+        });
     }
-});
+    return openaiInstance;
+}
 
 // Default model for OpenRouter (OpenAI GPT-4o)
 const DEFAULT_MODEL = 'openai/gpt-4o';
@@ -72,7 +88,7 @@ export const openAiService = {
                 iterations++;
 
                 // 1. Call OpenRouter
-                const response = await openai.chat.completions.create({
+                const response = await getOpenAIClient().chat.completions.create({
                     model: DEFAULT_MODEL,
                     messages: currentMessages as any,
                     tools: TOOLS,
