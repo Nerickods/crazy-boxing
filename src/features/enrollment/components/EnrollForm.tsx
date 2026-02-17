@@ -21,6 +21,7 @@ export default function EnrollForm() {
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const [token, setToken] = useState<string>('');
+    const [confirmedDate, setConfirmedDate] = useState<string>('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -43,6 +44,7 @@ export default function EnrollForm() {
             if (response.success) {
                 setStatus('success');
                 setToken(response.token || '');
+                setConfirmedDate(formData.visit_date);
                 setEnrolled(true);
                 setFormData({
                     name: '',
@@ -62,7 +64,7 @@ export default function EnrollForm() {
 
 
     return (
-        <div className="w-full max-w-md mx-auto bg-sky-950/60 backdrop-blur-xl border border-sky-500/30 rounded-3xl p-6 md:p-10 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)] relative overflow-hidden group">
+        <div className="w-full max-w-md mx-auto bg-sky-950/40 backdrop-blur-xl border border-sky-500/20 rounded-3xl p-6 md:p-10 shadow-[0_0_50px_-10px_rgba(14,165,233,0.1)] relative overflow-hidden group">
             {/* Glossy Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
             {/* Background Glow Effect */}
@@ -84,7 +86,7 @@ export default function EnrollForm() {
                             required
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg"
+                            className="w-full bg-sky-900/20 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/40 transition-all rounded-t-lg"
                             placeholder="TU NOMBRE"
                         />
                         <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 transition-all duration-300 group-focus-within:w-full" />
@@ -110,7 +112,7 @@ export default function EnrollForm() {
                                 const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
                                 setFormData(prev => ({ ...prev, phone: digits }));
                             }}
-                            className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg"
+                            className="w-full bg-sky-900/20 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/40 transition-all rounded-t-lg"
                             placeholder="33 1234 5678"
                         />
                         <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-sky-400 transition-all duration-300 group-focus-within:w-full" />
@@ -138,7 +140,7 @@ export default function EnrollForm() {
                                     const month = currentMonth || '01';
                                     setFormData(prev => ({ ...prev, visit_date: `${currentYear}-${month}-${day}` }));
                                 }}
-                                className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg appearance-none cursor-pointer"
+                                className="w-full bg-sky-900/20 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/40 transition-all rounded-t-lg appearance-none cursor-pointer"
                             >
                                 <option value="" disabled className="text-sky-200/50">DÍA</option>
                                 {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
@@ -162,7 +164,7 @@ export default function EnrollForm() {
                                     const day = currentDay || '01';
                                     setFormData(prev => ({ ...prev, visit_date: `${currentYear}-${month}-${day}` }));
                                 }}
-                                className="w-full bg-sky-900/30 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/50 transition-all rounded-t-lg appearance-none cursor-pointer"
+                                className="w-full bg-sky-900/20 border-b-2 border-sky-500/20 px-4 py-4 text-white text-lg font-bold placeholder-white/30 focus:outline-none focus:border-sky-400 focus:bg-sky-900/40 transition-all rounded-t-lg appearance-none cursor-pointer"
                             >
                                 <option value="" disabled className="text-sky-200/50">MES</option>
                                 {[
@@ -245,7 +247,7 @@ export default function EnrollForm() {
                         <div className="flex items-start gap-3 mb-3">
                             <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
                             <div className="text-sm text-green-200">
-                                <p className="font-semibold text-green-400">¡Te esperamos!</p>
+                                <p className="font-semibold text-green-400">¡Te esperamos el {confirmedDate}!</p>
                                 <p>Tu registro ha sido confirmado.</p>
                             </div>
                         </div>

@@ -42,10 +42,19 @@ export default function ChatWidget() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="pointer-events-auto bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl w-[90vw] md:w-[400px] h-[500px] md:h-[600px] overflow-hidden flex flex-col mb-4"
+                        className="pointer-events-auto bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl w-[90vw] md:w-[400px] h-[500px] md:h-[600px] overflow-hidden flex flex-col mb-4 relative"
                     >
+                        {/* Background Image */}
+                        <div className="absolute inset-0 z-0">
+                            <img
+                                src="/assets/sections/testimonials-bg.png"
+                                alt="Chat Background"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
                         {/* Header */}
-                        <div className="h-16 bg-zinc-900/50 backdrop-blur-sm border-b border-zinc-800 flex items-center justify-between px-4 shrink-0">
+                        <div className="h-16 bg-zinc-900/80 backdrop-blur-md border-b border-zinc-800 flex items-center justify-between px-4 shrink-0 relative z-10">
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                                 <div>
@@ -76,7 +85,7 @@ export default function ChatWidget() {
                         {/* Messages Area */}
                         <div
                             ref={scrollRef}
-                            className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-950/80"
+                            className="flex-1 overflow-y-auto p-4 space-y-4 relative z-10"
                         >
                             {messages.length === 0 && (
                                 <div className="h-full flex flex-col items-center justify-center text-center p-6 text-zinc-500 space-y-4">
@@ -127,7 +136,7 @@ export default function ChatWidget() {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 bg-zinc-900/50 backdrop-blur-sm border-t border-zinc-800 shrink-0">
+                        <div className="p-4 bg-zinc-900/80 backdrop-blur-md border-t border-zinc-800 shrink-0 relative z-10">
                             <form onSubmit={handleSubmit} className="relative">
                                 <input
                                     value={input}

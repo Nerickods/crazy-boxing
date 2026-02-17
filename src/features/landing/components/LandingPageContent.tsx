@@ -22,7 +22,7 @@ const testimonials = [
                 <strong className="text-[var(--accent)] font-bold">Excelente atención</strong> por parte del personal; son muy amables y atentos en todo momento.
             </>
         ),
-        href: "#"
+        href: undefined
     },
     {
         author: {
@@ -35,7 +35,7 @@ const testimonials = [
                 <strong className="text-[var(--accent)] font-bold">¡Buen precio</strong>, buenos entrenadores y todos son muy amables!
             </>
         ),
-        href: "#"
+        href: undefined
     },
     {
         author: {
@@ -48,7 +48,7 @@ const testimonials = [
                 <strong className="text-[var(--accent)] font-bold">Excelentes entrenadores</strong>, 100% dedicados.
             </>
         ),
-        href: "#"
+        href: undefined
     },
     {
         author: {
@@ -61,7 +61,7 @@ const testimonials = [
                 <strong className="text-[var(--accent)] font-bold">¡Me encantó el lugar!</strong> Totalmente recomendado.
             </>
         ),
-        href: "#"
+        href: undefined
     }
 ];
 
