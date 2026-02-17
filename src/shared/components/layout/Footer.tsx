@@ -22,8 +22,10 @@ export default function Footer() {
     <footer ref={containerRef} className="relative bg-black pt-32 pb-10 overflow-hidden">
       {/* Octagon Final Background with Inverted Parallax */}
       {/* Background Layer - Adapted for Responsive Assets */}
+      {/* Background Layer - Responsive Assets */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <picture>
+          <source srcSet="/assets/sections/footer-mobile.png" media="(max-width: 768px)" />
           <img
             src="/assets/sections/testimonials-bg.png"
             alt="Footer Background"
@@ -31,7 +33,7 @@ export default function Footer() {
           />
         </picture>
         {/* Dark Overlay for Legibility */}
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/80 md:bg-black/60" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">

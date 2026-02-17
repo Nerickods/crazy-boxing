@@ -61,8 +61,20 @@ export default async function AdminLayout({
 
             {/* Main content Area - Full width on mobile, with left margin on desktop */}
             <main className="min-h-screen relative z-10 px-4 pt-20 pb-4 md:pt-4 md:pl-80 transition-all duration-300">
-                <div className="min-h-[calc(100vh-2rem)] bg-white/80 dark:bg-black/40 backdrop-blur-xl rounded-3xl border border-white/40 dark:border-white/5 overflow-hidden shadow-2xl transition-all duration-300">
-                    {children}
+                <div className="min-h-[calc(100vh-2rem)] bg-white/80 dark:bg-black/40 backdrop-blur-xl rounded-3xl border border-white/40 dark:border-white/5 overflow-hidden shadow-2xl transition-all duration-300 relative">
+                    {/* Texture Background (Inside Content Square for Visibility) */}
+                    <div className="absolute inset-0 z-0 opacity-0 dark:opacity-40 pointer-events-none">
+                        <img
+                            src="/assets/sections/testimonials-bg.png"
+                            alt="Admin Background Texture"
+                            className="w-full h-full object-cover mix-blend-overlay"
+                        />
+                        <div className="absolute inset-0 bg-blue-900/30 mix-blend-color" />
+                    </div>
+                    {/* Content */}
+                    <div className="relative z-10 h-full">
+                        {children}
+                    </div>
                 </div>
             </main>
         </div>

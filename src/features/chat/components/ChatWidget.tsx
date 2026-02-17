@@ -42,15 +42,24 @@ export default function ChatWidget() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="pointer-events-auto bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl w-[90vw] md:w-[400px] h-[500px] md:h-[600px] overflow-hidden flex flex-col mb-4"
+                        className="pointer-events-auto bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl w-[90vw] md:w-[400px] h-[500px] md:h-[600px] overflow-hidden flex flex-col mb-4 relative"
                     >
+                        {/* Background Image - Full Visibility */}
+                        <div className="absolute inset-0 z-0 pointer-events-none">
+                            <img
+                                src="/assets/sections/testimonials-bg.png"
+                                alt="Chat Background"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
                         {/* Header */}
-                        <div className="h-16 bg-zinc-900/50 backdrop-blur-sm border-b border-zinc-800 flex items-center justify-between px-4 shrink-0">
+                        <div className="h-16 bg-zinc-900/80 backdrop-blur-xl border-b border-white/10 flex items-center justify-between px-4 shrink-0 relative z-10">
                             <div className="flex items-center gap-3">
-                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
                                 <div>
-                                    <h3 className="font-bold text-white text-sm">Crazy Assistant</h3>
-                                    <p className="text-xs text-zinc-400">En línea ahora</p>
+                                    <h3 className="font-bold text-white text-sm tracking-wide drop-shadow-sm">Crazy Assistant</h3>
+                                    <p className="text-[10px] text-zinc-300 font-medium">En línea ahora</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -59,24 +68,24 @@ export default function ChatWidget() {
                                     <button
                                         onClick={startNewConversation}
                                         title="Nueva conversación"
-                                        className="p-2 hover:bg-zinc-800 rounded-lg transition-colors text-zinc-400 hover:text-white"
+                                        className="p-2 hover:bg-white/10 rounded-lg transition-colors text-zinc-300 hover:text-white"
                                     >
                                         <RotateCcw size={16} />
                                     </button>
                                 )}
                                 <button
                                     onClick={toggleOpen}
-                                    className="p-2 hover:bg-zinc-800 rounded-lg transition-colors text-zinc-400 hover:text-white"
+                                    className="p-2 hover:bg-white/10 rounded-lg transition-colors text-zinc-300 hover:text-white"
                                 >
                                     <X size={18} />
                                 </button>
                             </div>
                         </div>
 
-                        {/* Messages Area */}
+                        {/* Messages Area - Glassmorphism for readability */}
                         <div
                             ref={scrollRef}
-                            className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-950/80"
+                            className="flex-1 overflow-y-auto p-4 space-y-4 bg-black/60 backdrop-blur-sm relative z-10"
                         >
                             {messages.length === 0 && (
                                 <div className="h-full flex flex-col items-center justify-center text-center p-6 text-zinc-500 space-y-4">
@@ -103,10 +112,10 @@ export default function ChatWidget() {
                                     )}
                                     <div
                                         className={cn(
-                                            "max-w-[80%] px-4 py-3 rounded-2xl text-sm",
+                                            "max-w-[85%] px-4 py-3 rounded-2xl text-sm shadow-md backdrop-blur-sm",
                                             msg.role === 'user'
-                                                ? "bg-[var(--accent)] text-black rounded-tr-sm"
-                                                : "bg-zinc-900 border border-zinc-800 text-white rounded-tl-sm prose prose-sm prose-invert max-w-none"
+                                                ? "bg-[var(--accent)] text-black rounded-tr-sm font-medium"
+                                                : "bg-zinc-900/90 border border-white/10 text-white rounded-tl-sm prose prose-sm prose-invert max-w-none shadow-black/20"
                                         )}
                                     >
                                         {msg.role === 'assistant' ? (

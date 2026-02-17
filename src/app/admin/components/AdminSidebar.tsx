@@ -64,96 +64,108 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
                     md:rounded-3xl shadow-2xl shadow-cyan-500/20 dark:shadow-black/50
                     transform transition-transform duration-300 ease-out
                     md:top-4 md:bottom-4 md:left-4
+                    overflow-hidden
                     ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
                 `}
             >
-                {/* Mobile Close Button */}
-                <button
-                    onClick={() => setIsOpen(false)}
-                    className="md:hidden absolute top-4 right-4 p-2 text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
-                >
-                    <X className="w-5 h-5" />
-                </button>
-
-                <div className="p-8 pb-4">
-                    <div className="flex items-center gap-3 mb-1">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
-                            <span className="font-bold text-white text-xs">CB</span>
-                        </div>
-                        <h1 className="text-lg font-bold text-blue-950 dark:text-white tracking-wide transition-colors truncate">Crazy Boxing</h1>
-                    </div>
-                    <p className="text-xs text-blue-900/70 dark:text-white/40 font-medium pl-11 transition-colors truncate">{user.full_name || user.email || 'Admin User'}</p>
+                {/* Sidebar Background Texture */}
+                <div className="absolute inset-0 z-0 opacity-0 dark:opacity-40 pointer-events-none">
+                    <img
+                        src="/assets/sections/testimonials-bg.png"
+                        alt="Sidebar Texture"
+                        className="w-full h-full object-cover mix-blend-overlay"
+                    />
+                    <div className="absolute inset-0 bg-blue-900/30 mix-blend-color" />
                 </div>
-
-                <div className="h-px bg-gradient-to-r from-transparent via-blue-900/10 dark:via-white/10 to-transparent mx-8 mb-6 transition-colors shrink-0" />
-
-                <nav className="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar overscroll-contain">
-                    <NavLink href="/admin" icon="home">
-                        Dashboard
-                    </NavLink>
-                    <NavLink href="/admin/hours" icon="clock">
-                        Horarios
-                    </NavLink>
-                    <NavLink href="/admin/gallery" icon="image">
-                        Galería
-                    </NavLink>
-                    <NavLink href="/admin/enrollments" icon="users">
-                        Inscripciones
-                    </NavLink>
-                    <NavLink href="/admin/plans" icon="list">
-                        Planes M.
-                    </NavLink>
-
-                    <NavLink href="/admin/conversations" icon="chat">
-                        Conversaciones
-                    </NavLink>
-                    <NavLink href="/admin/analytics" icon="chart">
-                        Analíticas
-                    </NavLink>
-                    <NavLink href="/admin/redemption" icon="ticket">
-                        Validar Citas
-                    </NavLink>
-                    <NavLink href="/admin/settings" icon="settings">
-                        Configuración
-                    </NavLink>
-                </nav>
-
-                <div className="px-8 pb-4 shrink-0">
-                    <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-black/40 dark:text-white/40 font-medium uppercase tracking-wider">Modo</span>
-                        <ThemeToggle />
-                    </div>
-                </div>
-
-                <div className="p-4 mx-4 mb-4 mt-2 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 space-y-3 relative overflow-hidden group transition-colors shrink-0">
-                    {/* Glow effect on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    <Link
-                        href="/"
-                        className="flex items-center gap-3 text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white text-xs font-medium transition-colors relative z-10"
+                <div className="relative z-10 flex flex-col h-full">
+                    {/* Mobile Close Button */}
+                    <button
+                        onClick={() => setIsOpen(false)}
+                        className="md:hidden absolute top-4 right-4 p-2 text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
                     >
-                        <div className="p-1.5 rounded-md bg-black/5 dark:bg-white/5 text-black/40 dark:text-white/40 group-hover:text-black dark:group-hover:text-white transition-colors">
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                        </div>
-                        Volver al Sitio
-                    </Link>
+                        <X className="w-5 h-5" />
+                    </button>
 
-                    <form action={signout} className="relative z-10">
-                        <button
-                            type="submit"
-                            className="flex items-center gap-3 text-indigo-500/70 hover:text-indigo-500 dark:text-indigo-400/70 dark:hover:text-indigo-300 text-xs font-medium transition-colors w-full"
+                    <div className="p-8 pb-4">
+                        <div className="flex items-center gap-3 mb-1">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
+                                <span className="font-bold text-white text-xs">CB</span>
+                            </div>
+                            <h1 className="text-lg font-bold text-blue-950 dark:text-white tracking-wide transition-colors truncate">Crazy Boxing</h1>
+                        </div>
+                        <p className="text-xs text-blue-900/70 dark:text-white/40 font-medium pl-11 transition-colors truncate">{user.full_name || user.email || 'Admin User'}</p>
+                    </div>
+
+                    <div className="h-px bg-gradient-to-r from-transparent via-blue-900/10 dark:via-white/10 to-transparent mx-8 mb-6 transition-colors shrink-0" />
+
+                    <nav className="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar overscroll-contain">
+                        <NavLink href="/admin" icon="home">
+                            Dashboard
+                        </NavLink>
+                        <NavLink href="/admin/hours" icon="clock">
+                            Horarios
+                        </NavLink>
+                        <NavLink href="/admin/gallery" icon="image">
+                            Galería
+                        </NavLink>
+                        <NavLink href="/admin/enrollments" icon="users">
+                            Inscripciones
+                        </NavLink>
+                        <NavLink href="/admin/plans" icon="list">
+                            Planes M.
+                        </NavLink>
+
+                        <NavLink href="/admin/conversations" icon="chat">
+                            Conversaciones
+                        </NavLink>
+                        <NavLink href="/admin/analytics" icon="chart">
+                            Analíticas
+                        </NavLink>
+                        <NavLink href="/admin/redemption" icon="ticket">
+                            Validar Citas
+                        </NavLink>
+                        <NavLink href="/admin/settings" icon="settings">
+                            Configuración
+                        </NavLink>
+                    </nav>
+
+                    <div className="px-8 pb-4 shrink-0">
+                        <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-black/40 dark:text-white/40 font-medium uppercase tracking-wider">Modo</span>
+                            <ThemeToggle />
+                        </div>
+                    </div>
+
+                    <div className="p-4 mx-4 mb-4 mt-2 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 space-y-3 relative overflow-hidden group transition-colors shrink-0">
+                        {/* Glow effect on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        <Link
+                            href="/"
+                            className="flex items-center gap-3 text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white text-xs font-medium transition-colors relative z-10"
                         >
-                            <div className="p-1.5 rounded-md bg-indigo-500/10 text-indigo-500/60 transition-colors">
+                            <div className="p-1.5 rounded-md bg-black/5 dark:bg-white/5 text-black/40 dark:text-white/40 group-hover:text-black dark:group-hover:text-white transition-colors">
                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
                             </div>
-                            Cerrar Sesión
-                        </button>
-                    </form>
+                            Volver al Sitio
+                        </Link>
+
+                        <form action={signout} className="relative z-10">
+                            <button
+                                type="submit"
+                                className="flex items-center gap-3 text-indigo-500/70 hover:text-indigo-500 dark:text-indigo-400/70 dark:hover:text-indigo-300 text-xs font-medium transition-colors w-full"
+                            >
+                                <div className="p-1.5 rounded-md bg-indigo-500/10 text-indigo-500/60 transition-colors">
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                    </svg>
+                                </div>
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </aside>
         </>
