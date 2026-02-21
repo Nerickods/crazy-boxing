@@ -217,103 +217,32 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                         </ul>
                     </motion.div>
 
+                    {/* 2. THE VAULT (Interactive Gallery) */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 1, delay: 0.2 }}
                         viewport={{ once: true }}
-                        id="horarios-card"
-                        className="relative scroll-mt-32"
+                        className="relative group lg:pl-12"
                     >
-                        {/* Decorative Elements */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
+                        {/* SUPER HIGH ANCHOR for Navigation */}
+                        <div id="battleground" className="absolute -top-64 left-0 w-full h-1 pointer-events-none scroll-mt-[300px]" />
 
-                        <div className="relative bg-sky-950/30 backdrop-blur-md border border-sky-500/20 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)] h-full flex flex-col justify-center">
-                            <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
-                                <div className="text-center w-full">
-                                    <h3 className="text-2xl font-black text-white uppercase italic text-pretty">TU EXCUSA DE "NO TENGO TIEMPO" MUERE AQUÍ</h3>
-                                    <p className="text-sm text-gray-400 mt-2">Mañanas para despertar al guerrero. Tardes para matar el estrés.</p>
-                                </div>
-                                <div className="w-12 h-12 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)]">
-                                    <FaClock size={24} />
-                                </div>
-                            </div>
+                        {/* Premium Button Aura */}
+                        <div className="absolute -inset-4 bg-[var(--accent)]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                            <div className="space-y-6 flex-grow">
-                                {gymHours.map((hour) => (
-                                    <div key={hour.id} className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white font-bold text-sm shrink-0">
-                                            {hour.label}
-                                        </div>
-                                        <div>
-                                            <h4 className="text-white font-bold uppercase tracking-wider mb-1">{hour.title}</h4>
-                                            <div className="space-y-1">
-                                                {hour.schedule.map((time, idx) => (
-                                                    <p key={idx} className="text-[var(--accent)] font-mono text-lg font-bold">
-                                                        {time}
-                                                    </p>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="mt-10 pt-8 border-t border-white/10">
-                                <button
-                                    onClick={() => document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="w-full bg-[var(--accent)] text-black font-black uppercase tracking-widest py-4 rounded-xl hover:bg-white hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(255,215,0,0.3)] flex items-center justify-center gap-2 group"
-                                >
-                                    Agendar Clase de Prueba
-                                    <FaFistRaised className="group-hover:rotate-12 transition-transform" />
-                                </button>
-                                <p className="text-center text-xs text-gray-500 mt-4">
-                                    * La primera clase es cortesía de la casa.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Ambient Glows */}
-                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-[var(--accent)]/10 blur-[100px] z-0" />
-                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[var(--accent)]/10 blur-[100px] z-0" />
-                    </motion.div>
-                </div>
-
-
-
-                {/* 2. THE VAULT (Interactive Gallery) */}
-                <div className="relative">
-                    {/* SUPER HIGH ANCHOR for Navigation */}
-                    <div id="battleground" className="absolute -top-64 left-0 w-full h-1 pointer-events-none scroll-mt-[300px]" />
-                    <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
-                        >
-                            <h3 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-4">
+                        <div className="flex flex-col items-center text-center">
+                            <h3 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">
                                 THE BATTLEGROUND
                             </h3>
-                            <div className="w-24 h-1 bg-[var(--accent)] mx-auto mb-6" />
-                            <p className="text-cyan-400 font-black uppercase tracking-[0.3em] text-xs md:text-sm mb-12 drop-shadow-[0_0_15px_rgba(37,99,235,0.9)]">
+                            <div className="w-16 h-1 bg-[var(--accent)] mx-auto mb-6" />
+                            <p className="text-cyan-400 font-black uppercase tracking-[0.3em] text-[10px] mb-10 drop-shadow-[0_0_15px_rgba(37,99,235,0.9)]">
                                 Donde las excusas vienen a morir
                             </p>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, delay: 0.2 }}
-                            viewport={{ once: true }}
-                            className="relative group"
-                        >
-                            {/* Premium Button Aura */}
-                            <div className="absolute -inset-4 bg-[var(--accent)]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                             <button
                                 onClick={openFullGallery}
-                                className="relative flex flex-col items-center gap-4 px-12 py-8 bg-sky-900/20 backdrop-blur-sm border border-sky-500/20 rounded-2xl hover:border-sky-400 hover:bg-sky-900/40 transition-all duration-500 group shadow-[0_0_30px_-5px_rgba(14,165,233,0.1)]"
+                                className="relative flex flex-col items-center gap-4 px-12 py-8 bg-sky-900/20 backdrop-blur-sm border border-sky-500/20 rounded-2xl hover:border-sky-400 hover:bg-sky-900/40 transition-all duration-500 group shadow-[0_0_30px_-5px_rgba(14,165,233,0.1)] w-full"
                             >
                                 <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[var(--accent)] group-hover:scale-110 transition-all duration-500">
                                     <FaExpand className="text-white group-hover:text-black transition-colors text-xl" />
@@ -327,10 +256,73 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                     </span>
                                 </div>
                             </button>
-                        </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+
+
+
+                {/* 1. EL HORARIO (Tu Excusa Muere Aquí) */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                    id="horarios-card"
+                    className="relative scroll-mt-32 max-w-4xl mx-auto mb-32"
+                >
+                    {/* Decorative Elements */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
+
+                    <div className="relative bg-sky-950/30 backdrop-blur-md border border-sky-500/20 rounded-3xl p-8 md:p-12 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)]">
+                        <div className="flex flex-col md:flex-row items-center justify-between mb-12 border-b border-white/10 pb-8 gap-6">
+                            <div className="text-center md:text-left">
+                                <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic text-pretty leading-tight">TU EXCUSA DE "NO TENGO TIEMPO" MUERE AQUÍ</h3>
+                                <p className="text-lg text-gray-400 mt-3">Mañanas para despertar al guerrero. Tardes para matar el estrés.</p>
+                            </div>
+                            <div className="w-16 h-16 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] shrink-0">
+                                <FaClock size={32} />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                            {gymHours.map((hour) => (
+                                <div key={hour.id} className="flex items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-[var(--accent)]/30 transition-colors">
+                                    <div className="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] font-black text-xl shrink-0">
+                                        {hour.label}
+                                    </div>
+                                    <div>
+                                        <h4 className="text-white font-black uppercase tracking-widest mb-2 text-lg">{hour.title}</h4>
+                                        <div className="space-y-1">
+                                            {hour.schedule.map((time, idx) => (
+                                                <p key={idx} className="text-[var(--accent)] font-mono text-2xl font-bold">
+                                                    {time}
+                                                </p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-12 pt-10 border-t border-white/10 text-center">
+                            <button
+                                onClick={() => document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[var(--accent)] text-black font-black uppercase tracking-widest rounded-xl hover:bg-white hover:scale-[1.02] transition-all shadow-[0_0_30px_rgba(255,215,0,0.3)] group text-lg"
+                            >
+                                Agendar Clase de Prueba
+                                <FaFistRaised className="group-hover:rotate-12 transition-transform text-2xl" />
+                            </button>
+                            <p className="text-gray-500 mt-6 font-bold uppercase tracking-widest text-xs">
+                                * La primera clase es cortesía de la casa.
+                            </p>
+                        </div>
                     </div>
 
-                </div>
+                    {/* Ambient Glows */}
+                    <div className="absolute -top-10 -right-10 w-64 h-64 bg-[var(--accent)]/10 blur-[100px] z-0" />
+                    <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[var(--accent)]/10 blur-[100px] z-0" />
+                </motion.div>
 
                 {/* 3. THE SQUAD (TEAM) */}
                 <div id="mentores" className="max-w-6xl mx-auto mt-32 scroll-mt-32">

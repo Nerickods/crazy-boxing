@@ -2,26 +2,13 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    FaFistRaised,
-    FaClock, FaStar
-} from 'react-icons/fa';
+import { FaFistRaised } from 'react-icons/fa';
 import { Brain, Fingerprint, Mountain, Eye } from 'lucide-react';
-import { useSnapCarousel } from '@/shared/hooks/use-snap-carousel';
 import { cn } from '@/shared/utils/cn';
 
-
-
-
-
 export default function TrainingProgramSection() {
-
-    // Mobile Carousel Logic
-    const { scrollRef, activeIndex, scrollTo } = useSnapCarousel();
-
-    const handleReserve = () => {
-        document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
-    };
+    // PILLARS DATA moved from EssenceSection
+    const [activePillar, setActivePillar] = useState<string | null>(null);
 
     // CRAZY BOXING IDENTITY DATA
     const activeDisciplineInfo = {
@@ -60,9 +47,6 @@ export default function TrainingProgramSection() {
         icon: FaFistRaised
     };
 
-    // PILLARS DATA moved from EssenceSection
-    const [activePillar, setActivePillar] = useState<string | null>(null);
-
     const pillars = [
         {
             key: 'mindset',
@@ -92,6 +76,16 @@ export default function TrainingProgramSection() {
             subtitle: "De la ceguera al propósito",
             copy: "Entrena tu mente para ver caminos donde otros solo ven muros. Desarrolla la capacidad de anticipar, reaccionar y avanzar, tanto esquivando golpes como superando problemas diarios."
         }
+    ];
+
+    // Multiplicate benefits for a seamless marquee loop
+    const marqueeItems = [
+        ...activeDisciplineInfo.benefits,
+        ...activeDisciplineInfo.benefits,
+        ...activeDisciplineInfo.benefits,
+        ...activeDisciplineInfo.benefits,
+        ...activeDisciplineInfo.benefits,
+        ...activeDisciplineInfo.benefits
     ];
 
     return (
@@ -154,56 +148,49 @@ export default function TrainingProgramSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="bg-sky-500/5 backdrop-blur-md border border-sky-500/20 p-8 md:p-12 rounded-3xl relative overflow-hidden group hover:border-sky-500/40 transition-colors duration-500 mb-12 text-center"
+                        className="bg-black/20 backdrop-blur-md border border-white/5 p-8 md:p-12 rounded-3xl relative overflow-hidden group hover:border-[var(--accent)]/30 transition-all duration-500 mb-20 text-center"
                     >
                         <div className="absolute -right-10 -top-10 text-white/5 text-[15rem] rotate-12 pointer-events-none">
                             <FaFistRaised />
                         </div>
 
-                        <h3 className="text-2xl md:text-3xl font-black text-white mb-6 relative z-10 uppercase italic">
+                        <h3 className="text-2xl md:text-3xl font-black text-white mb-6 relative z-10 uppercase italic leading-tight">
                             {activeDisciplineInfo.subtitle}
                         </h3>
-                        <div className="text-gray-300 leading-relaxed relative z-10 text-lg md:text-xl font-light max-w-3xl mx-auto space-y-6">
+                        <div className="text-gray-300 leading-relaxed relative z-10 text-base md:text-lg font-light max-w-3xl mx-auto space-y-6">
                             {activeDisciplineInfo.description}
                         </div>
                     </motion.div>
 
-                    {/* BENEFITS GRID (3 Columns) - Mobile Carousel */}
-                    <div
-                        ref={scrollRef}
-                        className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide"
-                    >
-                        {activeDisciplineInfo.benefits.map((benefit, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="bg-sky-900/20 border border-sky-500/20 p-8 rounded-2xl hover:bg-sky-500/10 hover:border-sky-500/50 transition-all group cursor-default text-center hover:-translate-y-2 duration-300 min-w-[85vw] md:min-w-0 snap-center flex flex-col items-center justify-center"
-                            >
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/5 mb-6 group-hover:bg-[var(--accent)] group-hover:text-black transition-colors text-3xl shrink-0">
-                                    {benefit.icon}
+                    {/* BENEFITS MARQUEE */}
+                    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-10">
+                        <div className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s]">
+                            {/* Duplicate twice for infinite loop */}
+                            {[1, 2].map((set) => (
+                                <div key={set} className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full">
+                                    {marqueeItems.map((benefit, i) => (
+                                        <div
+                                            key={`${set}-${i}`}
+                                            className="bg-black/25 backdrop-blur-sm border border-white/5 p-8 rounded-xl hover:border-[var(--accent)]/50 hover:bg-black/60 hover:shadow-[0_0_30px_-10px_rgba(0,255,255,0.15)] transition-all duration-500 group/card cursor-default text-center w-[280px] sm:w-[320px] shrink-0 h-full flex flex-col items-center justify-center"
+                                        >
+                                            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/5 mb-6 group-hover/card:bg-[var(--accent)] group-hover/card:text-black transition-colors text-2xl shrink-0">
+                                                {benefit.icon}
+                                            </div>
+                                            <h4 className="font-bold text-white text-lg mb-3 group-hover/card:text-[var(--accent)] transition-colors uppercase italic leading-tight">
+                                                {benefit.title}
+                                            </h4>
+                                            <p className="text-sm text-gray-400 leading-relaxed font-light group-hover/card:text-gray-200 transition-colors">
+                                                {benefit.text}
+                                            </p>
+                                        </div>
+                                    ))}
                                 </div>
-                                <h4 className="font-bold text-white text-xl mb-3 group-hover:text-[var(--accent)] transition-colors uppercase italic">{benefit.title}</h4>
-                                <p className="text-sm text-gray-400 leading-relaxed">{benefit.text}</p>
-                            </motion.div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
 
-                    {/* Mobile Scroll Indicators */}
-                    <div className="flex justify-center gap-2 mb-8 md:hidden">
-                        {activeDisciplineInfo.benefits.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => scrollTo(i)}
-                                className={cn(
-                                    "h-1.5 rounded-full transition-all duration-300",
-                                    activeIndex === i ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-white/20"
-                                )}
-                                aria-label={`Go to slide ${i + 1}`}
-                            />
-                        ))}
+                        {/* Fade Edges */}
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-20" />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent z-20" />
                     </div>
 
                 </div>
@@ -236,17 +223,16 @@ export default function TrainingProgramSection() {
                                             relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center border transition-all duration-300
                                             ${isActive
                                             ? 'bg-[var(--accent)] border-[var(--accent)] text-black shadow-[0_0_30px_-5px_var(--accent)]'
-                                            : 'bg-sky-900/20 border-sky-500/20 text-gray-400 hover:border-sky-500/50 hover:text-white'
+                                            : 'bg-white/5 border-white/5 text-gray-400 hover:border-[var(--accent)]/30 hover:text-white'
                                         }
                                         `}
                                 >
                                     {pillar.icon}
 
-                                    {/* Tooltip Label (Visible only when NOT active & Hovered? Optional, keeping simple) */}
                                     {isActive && (
                                         <motion.div
                                             layoutId="active-dot"
-                                            className="absolute -bottom-3 w-1.5 h-1.5 rounded-full bg-[var(--accent)]"
+                                            className="absolute -bottom-3 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_white]"
                                         />
                                     )}
                                 </motion.button>
@@ -255,7 +241,7 @@ export default function TrainingProgramSection() {
                     </div>
 
                     {/* --- DETAIL PANEL (EXPANDER) --- */}
-                    <div className="h-[200px] md:h-[150px] relative">
+                    <div className="h-[220px] md:h-[180px] relative">
                         <AnimatePresence mode="wait">
                             {activePillar ? (
                                 (() => {
@@ -267,15 +253,15 @@ export default function TrainingProgramSection() {
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: -10, scale: 0.95 }}
                                             transition={{ duration: 0.3 }}
-                                            className="text-center max-w-2xl mx-auto p-6 rounded-2xl border border-sky-500/20 bg-sky-900/20 backdrop-blur-md"
+                                            className="text-center max-w-2xl mx-auto p-8 rounded-2xl border border-white/5 bg-black/40 backdrop-blur-md"
                                         >
-                                            <h3 className="text-2xl font-black text-white mb-2 uppercase tracking-tight">
+                                            <h3 className="text-2xl font-black text-white mb-2 uppercase tracking-tight italic">
                                                 {pillar.title}
                                             </h3>
                                             <p className="text-[var(--accent)] text-xs font-bold uppercase tracking-widest mb-4">
                                                 {pillar.subtitle}
                                             </p>
-                                            <p className="text-gray-300 leading-relaxed font-light">
+                                            <p className="text-gray-300 leading-relaxed font-light text-sm md:text-base">
                                                 {pillar.copy}
                                             </p>
                                         </motion.div>
@@ -286,12 +272,12 @@ export default function TrainingProgramSection() {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    className="flex flex-col items-center justify-center h-full text-gray-600 gap-2"
+                                    className="flex flex-col items-center justify-center h-full text-gray-600 gap-4"
                                 >
-                                    <span className="text-sm uppercase tracking-widest">
+                                    <span className="text-[10px] uppercase font-bold tracking-[0.4em] opacity-40">
                                         Selecciona un pilar
                                     </span>
-                                    <div className="w-1 h-8 bg-gradient-to-b from-gray-800 to-transparent" />
+                                    <div className="w-px h-12 bg-gradient-to-b from-gray-800 to-transparent" />
                                 </motion.div>
                             )}
                         </AnimatePresence>

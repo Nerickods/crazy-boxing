@@ -1,14 +1,24 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
+/**
+ * Creates a Supabase client for Server Components, Server Actions, and Route Handlers.
+ * Optimized for Next.js 16 and Turbopack.
+ */
 export async function createClient() {
     const cookieStore = await cookies()
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    // Defensive check for Turbopack resolution issues
+    if (typeof createServerClient !== 'function') {
+        console.error("Critical: createServerClient is not a function. Check @supabase/ssr installation.");
+        throw new Error("Supabase initialization failed: createServerClient is undefined");
+    }
 
     if (!supabaseUrl || !supabaseAnonKey) {
-        console.warn("Supabase Security: Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. Using fallback for build/preview to prevent crash.");
+        console.warn("Supabase Security: Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY.");
     }
 
     return createServerClient(

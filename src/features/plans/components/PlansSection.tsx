@@ -3,22 +3,14 @@ import { useState, useEffect } from 'react';
 import PlanCard from './PlanCard';
 import { motion } from 'framer-motion';
 import { cn } from '@/shared/utils/cn';
-import { Check } from 'lucide-react';
-import { useScrollAnchor } from '@/shared/hooks/use-scroll-anchor';
-import { useSnapCarousel } from '@/shared/hooks/use-snap-carousel';
 import UiverseButton from '@/shared/components/UiverseButton';
-import { GlassCard } from '@/shared/components/ui/GlassCard';
 import { plansService } from '../services/plansService';
-import { Plan, SectionConfig } from '../types/plan';
+import { Plan } from '../types/plan';
 import { PLANS as STATIC_PLANS } from '../data/plans'; // Fallback
 
 function PlansSection() {
     const [plans, setPlans] = useState<Plan[]>([]);
     const [loading, setLoading] = useState(true);
-    const [isPlansExpanded, setIsPlansExpanded] = useState(false);
-
-    // Mobile Carousel Logic
-    const { scrollRef, activeIndex, scrollTo } = useSnapCarousel();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,7 +31,14 @@ function PlansSection() {
         fetchData();
     }, []);
 
-    const plansAnchorRef = useScrollAnchor(isPlansExpanded, 100);
+    const marqueeItems = [...plans, ...plans, ...plans, ...plans];
+
+    const handleGlobalCtaClick = () => {
+        const formulario = document.getElementById('formulario');
+        if (formulario) {
+            formulario.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return (
         <section id="planes" className="py-16 md:py-32 bg-black relative overflow-hidden min-h-[100dvh] flex flex-col items-center justify-start">
@@ -62,7 +61,7 @@ function PlansSection() {
             </div>
 
             <div className="container mx-auto px-6 relative z-20">
-                <div ref={plansAnchorRef} className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-center max-w-3xl mx-auto mb-16">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -92,53 +91,56 @@ function PlansSection() {
                     </motion.p>
                 </div>
 
-                {/* Standard Plans Grid - Adjusted for Mobile Carousel */}
-                <div
-                    ref={scrollRef}
-                    className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch mb-8 md:mb-24 min-h-[500px] overflow-x-auto snap-x snap-mandatory pt-12 pb-8 -mx-6 px-6 md:mx-0 md:px-0 md:overflow-visible scrollbar-hide"
-                >
+                {/* Marquee Section */}
+                <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-16 mb-12">
                     {loading ? (
-                        <div className="col-span-full flex justify-center items-center text-white/50 w-full">Cargando planes...</div>
+                        <div className="flex justify-center items-center text-white/50 w-full py-20">Cargando planes...</div>
                     ) : (
-                        plans.map((plan, index) => (
-                            <div
-                                key={plan.id}
-                                className={cn(
-                                    "flex flex-col min-w-[85vw] md:min-w-0 snap-center"
-                                    // Always flex (visible)
-                                )}
-                            >
-                                <PlanCard plan={plan} index={index} />
+                        <div className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s]">
+                            <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full">
+                                {marqueeItems.map((plan, i) => (
+                                    <PlanCard
+                                        key={`p1-${i}`}
+                                        plan={plan}
+                                        index={i}
+                                    />
+                                ))}
                             </div>
-                        ))
+                            <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full" aria-hidden="true">
+                                {marqueeItems.map((plan, i) => (
+                                    <PlanCard
+                                        key={`p2-${i}`}
+                                        plan={plan}
+                                        index={i}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     )}
+
+                    {/* Fade Edges */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-20" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent z-20" />
                 </div>
 
-                {/* Mobile Scroll Indicators */}
-                <div className="flex justify-center gap-2 mb-16 md:hidden">
-                    {plans.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => scrollTo(i)}
-                            className={cn(
-                                "h-1.5 rounded-full transition-all duration-300",
-                                activeIndex === i ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-white/20"
-                            )}
-                            aria-label={`Go to slide ${i + 1}`}
+                {/* Global CTA */}
+                <div className="flex flex-col items-center gap-6 mt-8">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 }}
+                        viewport={{ once: true }}
+                    >
+                        <UiverseButton
+                            text="¡EMPIEZA TU TRANSFORMACIÓN AHORA!"
+                            onClick={handleGlobalCtaClick}
+                            className="w-full sm:w-auto px-12 h-16 text-lg font-black"
                         />
-                    ))}
+                    </motion.div>
+                    <p className="text-zinc-500 text-[10px] font-bold tracking-[0.3em] uppercase opacity-50">
+                        Plazas limitadas para nuevos alumnos
+                    </p>
                 </div>
-                {isPlansExpanded && (
-                    <div className="text-center md:hidden -mt-16 mb-24">
-                        <button
-                            onClick={() => setIsPlansExpanded(false)}
-                            className="text-zinc-500 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors"
-                        >
-                            Mostrar menos
-                        </button>
-                    </div>
-                )}
-
             </div>
         </section>
     );

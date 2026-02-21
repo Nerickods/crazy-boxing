@@ -16,10 +16,6 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
     const isHighlight = plan.highlight;
     const isPopular = plan.isPopular;
 
-    const handleCtaClick = () => {
-        scrollToElement('formulario');
-    };
-
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -27,37 +23,27 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
             className={cn(
-                "relative group flex flex-col p-8 rounded-3xl border transition-all duration-500 h-full pt-12", // Increased pt-12 to accommodate badge
-                "backdrop-blur-sm backdrop-saturate-150", // Reduced blur significantly
-                isHighlight
-                    ? "bg-sky-500/[0.02] border-sky-500/40 shadow-[0_0_40px_-10px_rgba(14,165,233,0.2)] scale-100 md:scale-105 z-10"
-                    : "bg-transparent border-sky-500/20 hover:border-sky-500/30 hover:bg-sky-500/[0.02]"
+                "relative group flex flex-col rounded-xl border",
+                "bg-black/20 backdrop-blur-sm border-white/5",
+                "p-8 text-start",
+                "hover:border-[var(--accent)]/50 hover:bg-black/60 hover:shadow-[0_0_30px_-10px_rgba(0,255,255,0.15)]",
+                "w-[350px] sm:w-[400px] shrink-0 h-full", // Fixed width for marquee consistency
+                "transition-all duration-500 group/card",
+                isHighlight && "ring-1 ring-sky-500/30"
             )}
         >
-            {/* Ambient Accent Glow (only for highlighted or popular) */}
-            {(isHighlight || isPopular) && (
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-[var(--accent)]/10 blur-[80px] z-0" />
-            )}
-
-            {/* Layer 1: Premium Surface Overlays - Moved inside to avoid spilling without overflow-hidden on main container */}
-            <div className="absolute inset-0 z-0 overflow-hidden rounded-3xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-30" />
-                {/* Subtle inner border for depth */}
-                <div className="absolute inset-[1px] rounded-[23px] z-0 pointer-events-none border border-white/5" />
-            </div>
-
             {/* Layer 3: Content Container */}
             <div className="relative z-10 flex flex-col h-full">
 
                 {/* Popular Badge */}
                 {isPopular && (
-                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] flex items-center gap-2 shadow-2xl shadow-[var(--accent)]/40 whitespace-nowrap z-20">
+                    <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] flex items-center gap-2 shadow-2xl shadow-[var(--accent)]/40 whitespace-nowrap z-20">
                         <Star size={12} fill="currentColor" />
-                        MÁS POPULAR
+                        EL MÁS POPULAR
                     </div>
                 )}
 
-                {/* Savings Badge - Relocated for better title space */}
+                {/* Savings Badge */}
                 {plan.savings && (
                     <div className="mb-4 self-start text-[10px] font-bold text-[var(--accent)] bg-[var(--accent)]/10 border border-[var(--accent)]/30 px-3 py-1 rounded-md backdrop-blur-md">
                         {plan.savings}
@@ -65,7 +51,7 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
                 )}
 
                 <div className="mb-8">
-                    <h3 className="text-xl md:text-2xl font-black text-white mb-3 tracking-tight group-hover:text-[var(--accent)] transition-all duration-300 uppercase break-words leading-tight">
+                    <h3 className="text-xl md:text-2xl font-black text-white mb-3 tracking-tight group-hover/card:text-[var(--accent)] transition-all duration-300 uppercase break-words leading-tight">
                         {plan.name}
                     </h3>
                     <div className="flex items-baseline gap-1.5">
@@ -82,7 +68,7 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
                 </div>
 
                 {/* Features list */}
-                <div className="flex-1 mb-10">
+                <div className="flex-1 mb-6">
                     <ul className="space-y-4">
                         {plan.features.map((feature, i) => (
                             <li key={i} className="flex items-start gap-4 text-sm text-zinc-300 group/item">
@@ -105,38 +91,12 @@ export default function PlanCard({ plan, index }: PlanCardProps) {
                     </ul>
                 </div>
 
-                {/* Action Section */}
-                <div className="mt-auto">
-                    <UiverseButton
-                        text={
-                            plan.ctaText ||
-                            (plan.key === 'visita' ? 'RESERVAR 1 CLASE' :
-                                plan.key === 'semanal' ? 'COMPRAR SEMANA' :
-                                    plan.key === 'mensual' ? 'QUIERO TRANSFORMARME' :
-                                        plan.key === 'pareja' ? 'PROMO PAREJAS' :
-                                            'NO DISPONIBLE ONLINE')
-                        }
-                        onClick={handleCtaClick}
-                        style={{
-                            '--pulse-hue': plan.highlight ? '130deg' : '0deg', // Pulse green if highlighted
-                            '--btn-font-size': '12px',
-                            cursor: 'pointer' // Always actionable
-                        } as React.CSSProperties}
-                        className={cn(
-                            "w-full transition-all duration-300 hover:scale-[1.02]"
-                        )}
-                    />
-
-                    {plan.period === 'semana' && (
-                        <p className="text-[10px] text-zinc-500 text-center mt-3 font-bold tracking-widest uppercase">
-                            7 días naturales
-                        </p>
-                    )}
-                    {plan.period === 'visita' && (
-                        <p className="text-[10px] text-zinc-500 text-center mt-3 font-bold tracking-widest uppercase">
-                            Sin compromisos
-                        </p>
-                    )}
+                {/* Info Text (Optional fallback for context) */}
+                <div className="mt-auto pt-4 border-t border-white/5 opacity-50 group-hover/card:opacity-100 transition-opacity">
+                    <p className="text-[10px] text-zinc-500 text-center font-bold tracking-widest uppercase">
+                        {plan.period === 'semana' ? '7 días naturales' :
+                            plan.period === 'visita' ? 'Sin compromisos' : 'Acceso Total'}
+                    </p>
                 </div>
             </div>
         </motion.div>
