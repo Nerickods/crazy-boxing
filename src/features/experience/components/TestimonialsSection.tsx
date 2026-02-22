@@ -23,8 +23,6 @@ export function TestimonialsSection({
     const marqueeItems = [...testimonials, ...testimonials, ...testimonials, ...testimonials, ...testimonials, ...testimonials];
     const [isPaused, setIsPaused] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [isReversed, setIsReversed] = useState(false);
-    const [touchStart, setTouchStart] = useState<{ x: number, y: number } | null>(null);
 
     const effectivelyPaused = isPaused || isHovered;
 
@@ -76,31 +74,11 @@ export function TestimonialsSection({
                             }
                         }}
                         onMouseLeave={() => setIsHovered(false)}
-                        onPointerDown={(e) => {
-                            setTouchStart({ x: e.clientX, y: e.clientY });
-                        }}
-                        onPointerUp={(e) => {
-                            if (!touchStart) return;
-                            const deltaX = e.clientX - touchStart.x;
-                            const deltaY = Math.abs(e.clientY - touchStart.y);
-
-                            if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 50) {
-                                if (deltaX > 0) {
-                                    setIsReversed(true);
-                                } else {
-                                    setIsReversed(false);
-                                }
-                            }
-                            setTouchStart(null);
-                        }}
-                        className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s] cursor-pointer select-none"
+                        className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s] cursor-pointer"
                     >
                         <div
                             className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
-                            style={{
-                                animationPlayState: effectivelyPaused ? 'paused' : 'running',
-                                animationDirection: isReversed ? 'reverse' : 'normal'
-                            }}
+                            style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                         >
                             {marqueeItems.map((testimonial, i) => (
                                 <TestimonialCard
@@ -122,10 +100,7 @@ export function TestimonialsSection({
                         <div
                             className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
                             aria-hidden="true"
-                            style={{
-                                animationPlayState: effectivelyPaused ? 'paused' : 'running',
-                                animationDirection: isReversed ? 'reverse' : 'normal'
-                            }}
+                            style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                         >
                             {marqueeItems.map((testimonial, i) => (
                                 <TestimonialCard

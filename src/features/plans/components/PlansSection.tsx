@@ -13,8 +13,6 @@ function PlansSection() {
     const [loading, setLoading] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [isReversed, setIsReversed] = useState(false);
-    const [touchStart, setTouchStart] = useState<{ x: number, y: number } | null>(null);
 
     const effectivelyPaused = isPaused || isHovered;
 
@@ -105,55 +103,18 @@ function PlansSection() {
                         <div
                             onClick={() => setIsPaused(!isPaused)}
                             onMouseEnter={() => {
+                                // Only trigger hover pause if the device supports actual hover (Desktop)
+                                // This prevents iOS from "sticking" the hover state on touch
                                 if (window.matchMedia('(hover: hover)').matches) {
                                     setIsHovered(true);
                                 }
                             }}
                             onMouseLeave={() => setIsHovered(false)}
-                            onPointerDown={(e) => {
-                                setTouchStart({ x: e.clientX, y: e.clientY });
-                            }}
-                            onPointerUp={(e) => {
-                                if (!touchStart) return;
-                                const deltaX = e.clientX - touchStart.x;
-                                const deltaY = Math.abs(e.clientY - touchStart.y);
-
-                                // Thresholds: Swipe must be primarily horizontal and move enough distance
-                                // Swipe Right (deltaX > 50) -> Reverse
-                                // Swipe Left (deltaX < -50) -> Normal
-                                if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 50) {
-                                    if (deltaX > 0) {
-                                        setIsReversed(true);
-                                    } else {
-                                        setIsReversed(false);
-                                    }
-                                }
-                                setTouchStart(null);
-                            }}
-                            className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer select-none"
+                            className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
                         >
                             <div
                                 className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
-                                style={{
-                                    animationPlayState: effectivelyPaused ? 'paused' : 'running',
-                                    animationDirection: isReversed ? 'reverse' : 'normal'
-                                }}
-                            >
-                                {marqueeItems.map((plan, i) => (
-                                    <PlanCard
-                                        key={`p1-${i}`}
-                                        plan={plan}
-                                        index={i}
-                                    />
-                                ))}
-                            </div>
-                            <div
-                                className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
-                                aria-hidden="true"
-                                style={{
-                                    animationPlayState: effectivelyPaused ? 'paused' : 'running',
-                                    animationDirection: isReversed ? 'reverse' : 'normal'
-                                }}
+                                style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                             >
                                 {marqueeItems.map((plan, i) => (
                                     <PlanCard

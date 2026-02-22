@@ -11,8 +11,6 @@ export default function TrainingProgramSection() {
     const [activePillar, setActivePillar] = useState<string | null>(null);
     const [isPaused, setIsPaused] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [isReversed, setIsReversed] = useState(false);
-    const [touchStart, setTouchStart] = useState<{ x: number, y: number } | null>(null);
 
     const effectivelyPaused = isPaused || isHovered;
 
@@ -178,34 +176,14 @@ export default function TrainingProgramSection() {
                                 }
                             }}
                             onMouseLeave={() => setIsHovered(false)}
-                            onPointerDown={(e) => {
-                                setTouchStart({ x: e.clientX, y: e.clientY });
-                            }}
-                            onPointerUp={(e) => {
-                                if (!touchStart) return;
-                                const deltaX = e.clientX - touchStart.x;
-                                const deltaY = Math.abs(e.clientY - touchStart.y);
-
-                                if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 50) {
-                                    if (deltaX > 0) {
-                                        setIsReversed(true);
-                                    } else {
-                                        setIsReversed(false);
-                                    }
-                                }
-                                setTouchStart(null);
-                            }}
-                            className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer select-none"
+                            className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
                         >
                             {/* Duplicate twice for infinite loop */}
                             {[1, 2].map((set) => (
                                 <div
                                     key={set}
                                     className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
-                                    style={{
-                                        animationPlayState: effectivelyPaused ? 'paused' : 'running',
-                                        animationDirection: isReversed ? 'reverse' : 'normal'
-                                    }}
+                                    style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                                 >
                                     {marqueeItems.map((benefit, i) => (
                                         <div
