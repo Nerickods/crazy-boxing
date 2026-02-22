@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { cn } from "@/shared/lib/utils"
 import { TestimonialCard, TestimonialAuthor } from "@/shared/components/ui/testimonial-card"
 
@@ -20,6 +21,7 @@ export function TestimonialsSection({
 }: TestimonialsSectionProps) {
     // Triple the testimonials to ensure seamless loop
     const marqueeItems = [...testimonials, ...testimonials, ...testimonials, ...testimonials, ...testimonials, ...testimonials];
+    const [isPaused, setIsPaused] = useState(false);
 
     return (
         <section className={cn(
@@ -61,8 +63,14 @@ export function TestimonialsSection({
                 {/* Marquee Container */}
                 <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-10">
 
-                    <div className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s]">
-                        <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full">
+                    <div
+                        onClick={() => setIsPaused(!isPaused)}
+                        className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s] cursor-pointer"
+                    >
+                        <div
+                            className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
+                            style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                        >
                             {marqueeItems.map((testimonial, i) => (
                                 <TestimonialCard
                                     key={`t1-${i}`}
@@ -80,7 +88,11 @@ export function TestimonialsSection({
                  Here we are using tailwind `animate-marquee` which usually goes 0 to -100%.
                  We need TWO copies of the content in the flex container.
              */}
-                        <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full" aria-hidden="true">
+                        <div
+                            className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
+                            aria-hidden="true"
+                            style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                        >
                             {marqueeItems.map((testimonial, i) => (
                                 <TestimonialCard
                                     key={`t2-${i}`}

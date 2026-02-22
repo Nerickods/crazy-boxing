@@ -11,6 +11,7 @@ import { PLANS as STATIC_PLANS } from '../data/plans'; // Fallback
 function PlansSection() {
     const [plans, setPlans] = useState<Plan[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isPaused, setIsPaused] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -96,8 +97,14 @@ function PlansSection() {
                     {loading ? (
                         <div className="flex justify-center items-center text-white/50 w-full py-20">Cargando planes...</div>
                     ) : (
-                        <div className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s]">
-                            <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full">
+                        <div
+                            onClick={() => setIsPaused(!isPaused)}
+                            className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
+                        >
+                            <div
+                                className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
+                                style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                            >
                                 {marqueeItems.map((plan, i) => (
                                     <PlanCard
                                         key={`p1-${i}`}
@@ -106,7 +113,11 @@ function PlansSection() {
                                     />
                                 ))}
                             </div>
-                            <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full" aria-hidden="true">
+                            <div
+                                className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
+                                aria-hidden="true"
+                                style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                            >
                                 {marqueeItems.map((plan, i) => (
                                     <PlanCard
                                         key={`p2-${i}`}

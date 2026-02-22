@@ -9,6 +9,7 @@ import { cn } from '@/shared/utils/cn';
 export default function TrainingProgramSection() {
     // PILLARS DATA moved from EssenceSection
     const [activePillar, setActivePillar] = useState<string | null>(null);
+    const [isPaused, setIsPaused] = useState(false);
 
     // CRAZY BOXING IDENTITY DATA
     const activeDisciplineInfo = {
@@ -164,10 +165,17 @@ export default function TrainingProgramSection() {
 
                     {/* BENEFITS MARQUEE */}
                     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-10">
-                        <div className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s]">
+                        <div
+                            onClick={() => setIsPaused(!isPaused)}
+                            className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
+                        >
                             {/* Duplicate twice for infinite loop */}
                             {[1, 2].map((set) => (
-                                <div key={set} className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full">
+                                <div
+                                    key={set}
+                                    className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
+                                    style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                                >
                                     {marqueeItems.map((benefit, i) => (
                                         <div
                                             key={`${set}-${i}`}
