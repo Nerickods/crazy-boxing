@@ -102,7 +102,13 @@ function PlansSection() {
                     ) : (
                         <div
                             onClick={() => setIsPaused(!isPaused)}
-                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseEnter={() => {
+                                // Only trigger hover pause if the device supports actual hover (Desktop)
+                                // This prevents iOS from "sticking" the hover state on touch
+                                if (window.matchMedia('(hover: hover)').matches) {
+                                    setIsHovered(true);
+                                }
+                            }}
                             onMouseLeave={() => setIsHovered(false)}
                             className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
                         >

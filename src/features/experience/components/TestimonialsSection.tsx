@@ -68,7 +68,11 @@ export function TestimonialsSection({
 
                     <div
                         onClick={() => setIsPaused(!isPaused)}
-                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseEnter={() => {
+                            if (window.matchMedia('(hover: hover)').matches) {
+                                setIsHovered(true);
+                            }
+                        }}
                         onMouseLeave={() => setIsHovered(false)}
                         className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s] cursor-pointer"
                     >

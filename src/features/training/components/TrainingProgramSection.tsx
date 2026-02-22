@@ -170,7 +170,11 @@ export default function TrainingProgramSection() {
                     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-10">
                         <div
                             onClick={() => setIsPaused(!isPaused)}
-                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseEnter={() => {
+                                if (window.matchMedia('(hover: hover)').matches) {
+                                    setIsHovered(true);
+                                }
+                            }}
                             onMouseLeave={() => setIsHovered(false)}
                             className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
                         >
