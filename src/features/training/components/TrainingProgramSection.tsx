@@ -166,8 +166,11 @@ export default function TrainingProgramSection() {
                     {/* BENEFITS MARQUEE */}
                     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-10">
                         <div
-                            onClick={() => setIsPaused(!isPaused)}
-                            className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
+                            onPointerDown={(e) => {
+                                e.preventDefault();
+                                setIsPaused(!isPaused);
+                            }}
+                            className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer touch-none select-none"
                         >
                             {/* Duplicate twice for infinite loop */}
                             {[1, 2].map((set) => (

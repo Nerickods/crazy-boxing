@@ -98,8 +98,12 @@ function PlansSection() {
                         <div className="flex justify-center items-center text-white/50 w-full py-20">Cargando planes...</div>
                     ) : (
                         <div
-                            onClick={() => setIsPaused(!isPaused)}
-                            className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
+                            onPointerDown={(e) => {
+                                // Prevent dragging or other default behaviors that might interrupt the toggle
+                                e.preventDefault();
+                                setIsPaused(!isPaused);
+                            }}
+                            className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer touch-none select-none"
                         >
                             <div
                                 className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
