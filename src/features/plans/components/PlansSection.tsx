@@ -12,6 +12,9 @@ function PlansSection() {
     const [plans, setPlans] = useState<Plan[]>([]);
     const [loading, setLoading] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+
+    const effectivelyPaused = isPaused || isHovered;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -99,15 +102,16 @@ function PlansSection() {
                     ) : (
                         <div
                             onPointerDown={(e) => {
-                                // Prevent dragging or other default behaviors that might interrupt the toggle
                                 e.preventDefault();
                                 setIsPaused(!isPaused);
                             }}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
                             className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer touch-none select-none"
                         >
                             <div
-                                className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
-                                style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                                className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
+                                style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                             >
                                 {marqueeItems.map((plan, i) => (
                                     <PlanCard
@@ -118,9 +122,9 @@ function PlansSection() {
                                 ))}
                             </div>
                             <div
-                                className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
+                                className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
                                 aria-hidden="true"
-                                style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                                style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                             >
                                 {marqueeItems.map((plan, i) => (
                                     <PlanCard

@@ -22,6 +22,9 @@ export function TestimonialsSection({
     // Triple the testimonials to ensure seamless loop
     const marqueeItems = [...testimonials, ...testimonials, ...testimonials, ...testimonials, ...testimonials, ...testimonials];
     const [isPaused, setIsPaused] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+
+    const effectivelyPaused = isPaused || isHovered;
 
     return (
         <section className={cn(
@@ -68,11 +71,13 @@ export function TestimonialsSection({
                             e.preventDefault();
                             setIsPaused(!isPaused);
                         }}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
                         className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s] cursor-pointer touch-none select-none"
                     >
                         <div
-                            className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
-                            style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                            className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
+                            style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                         >
                             {marqueeItems.map((testimonial, i) => (
                                 <TestimonialCard
@@ -92,9 +97,9 @@ export function TestimonialsSection({
                  We need TWO copies of the content in the flex container.
              */}
                         <div
-                            className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
+                            className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
                             aria-hidden="true"
-                            style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                            style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                         >
                             {marqueeItems.map((testimonial, i) => (
                                 <TestimonialCard

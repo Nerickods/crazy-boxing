@@ -10,6 +10,9 @@ export default function TrainingProgramSection() {
     // PILLARS DATA moved from EssenceSection
     const [activePillar, setActivePillar] = useState<string | null>(null);
     const [isPaused, setIsPaused] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+
+    const effectivelyPaused = isPaused || isHovered;
 
     // CRAZY BOXING IDENTITY DATA
     const activeDisciplineInfo = {
@@ -170,14 +173,16 @@ export default function TrainingProgramSection() {
                                 e.preventDefault();
                                 setIsPaused(!isPaused);
                             }}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
                             className="group flex overflow-hidden p-2 [--gap:1.5rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer touch-none select-none"
                         >
                             {/* Duplicate twice for infinite loop */}
                             {[1, 2].map((set) => (
                                 <div
                                     key={set}
-                                    className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused] min-w-full"
-                                    style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+                                    className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
+                                    style={{ animationPlayState: effectivelyPaused ? 'paused' : 'running' }}
                                 >
                                     {marqueeItems.map((benefit, i) => (
                                         <div
