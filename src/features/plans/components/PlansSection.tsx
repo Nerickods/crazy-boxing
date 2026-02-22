@@ -101,13 +101,10 @@ function PlansSection() {
                         <div className="flex justify-center items-center text-white/50 w-full py-20">Cargando planes...</div>
                     ) : (
                         <div
-                            onPointerDown={(e) => {
-                                e.preventDefault();
-                                setIsPaused(!isPaused);
-                            }}
+                            onClick={() => setIsPaused(!isPaused)}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
-                            className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer touch-none select-none"
+                            className="group flex overflow-hidden pt-20 pb-4 px-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:50s] cursor-pointer"
                         >
                             <div
                                 className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"

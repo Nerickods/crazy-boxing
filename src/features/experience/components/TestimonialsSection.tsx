@@ -67,13 +67,10 @@ export function TestimonialsSection({
                 <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-10">
 
                     <div
-                        onPointerDown={(e) => {
-                            e.preventDefault();
-                            setIsPaused(!isPaused);
-                        }}
+                        onClick={() => setIsPaused(!isPaused)}
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
-                        className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s] cursor-pointer touch-none select-none"
+                        className="group flex overflow-hidden p-2 [--gap:2rem] [gap:var(--gap)] flex-row w-full [--duration:40s] cursor-pointer"
                     >
                         <div
                             className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row min-w-full"
