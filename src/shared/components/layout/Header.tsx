@@ -24,9 +24,21 @@ export default function Header() {
 
   const scrollToSection = (sectionId: string) => {
     if (pathname !== '/') {
+      // If we are not on the home page, we need to go to the home page with the hash
       router.push(`/#${sectionId}`);
     } else {
-      scrollToElement(sectionId);
+      // Access the global lenis instance if available
+      const lenis = (window as any).lenis;
+      if (lenis) {
+        lenis.scrollTo(`#${sectionId}`, {
+          offset: -80, // Space for the floating header
+          duration: 1.5,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+      } else {
+        // Fallback to utility or native if lenis is not ready
+        scrollToElement(sectionId);
+      }
     }
     setIsMenuOpen(false);
   };
