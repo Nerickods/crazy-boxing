@@ -120,11 +120,11 @@ export default function LandingPageContent({ gymHours, galleryImages }: LandingP
                 {/* 4. PLANES - Pricing */}
                 <PlansSection />
 
-                {/* 2. MISIÓN - Rediseñada con esencia ACE */}
-                <MissionSection />
-
                 {/* 7. FAQ - Preguntas que separan campeones de víctimas */}
                 <FAQSection />
+
+                {/* 2. MISIÓN - Rediseñada con esencia ACE */}
+                <MissionSection />
 
                 {/* 8. FORMULARIO - Optimizado con fondo de Vestidor */}
                 <section id="formulario" className="relative py-24 md:py-40 overflow-hidden">

@@ -262,152 +262,183 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
 
 
 
-                {/* 1. EL HORARIO (Tu Excusa Muere Aquí) */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    id="horarios-card"
-                    className="relative scroll-mt-32 max-w-4xl mx-auto mb-32"
-                >
-                    {/* Decorative Elements */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
+                {/* 1 & 3. HORARIOS Y ESCUADRÓN (Side-by-side on Desktop) */}
+                <div className="max-w-7xl mx-auto px-6 lg:px-0 lg:grid lg:grid-cols-12 lg:gap-12 mt-32">
 
-                    <div className="relative bg-sky-950/30 backdrop-blur-md border border-sky-500/20 rounded-3xl p-8 md:p-12 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)]">
-                        <div className="flex flex-col md:flex-row items-center justify-between mb-12 border-b border-white/10 pb-8 gap-6">
-                            <div className="text-center md:text-left">
-                                <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic text-pretty leading-tight">TU EXCUSA DE "NO TENGO TIEMPO" MUERE AQUÍ</h3>
-                                <p className="text-lg text-gray-400 mt-3">Mañanas para despertar al guerrero. Tardes para matar el estrés.</p>
+                    {/* COLUMNA IZQUIERDA: HORARIOS */}
+                    <div className="lg:col-span-5 mb-32 lg:mb-0">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                            id="horarios-card"
+                            className="relative scroll-mt-32 h-full"
+                        >
+                            {/* Decorative Elements */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
+
+                            <div className="relative bg-sky-950/30 backdrop-blur-md border border-sky-500/20 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)] h-full flex flex-col justify-between">
+                                <div className="flex flex-col items-center md:items-start justify-between mb-10 border-b border-white/10 pb-8 gap-6">
+                                    <div className="text-center md:text-left">
+                                        <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic text-pretty leading-tight">TU EXCUSA MUERE AQUÍ</h3>
+                                        <p className="text-sm text-gray-400 mt-2">Mañanas para despertar al guerrero. Tardes para matar el estrés.</p>
+                                    </div>
+                                    <div className="w-12 h-12 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] shrink-0">
+                                        <FaClock size={24} />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-6">
+                                    {gymHours.map((hour) => (
+                                        <div key={hour.id} className="flex items-start gap-4 bg-white/5 p-5 rounded-2xl border border-white/5 hover:border-[var(--accent)]/30 transition-colors">
+                                            <div className="w-10 h-10 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] font-black text-lg shrink-0">
+                                                {hour.label}
+                                            </div>
+                                            <div>
+                                                <h4 className="text-white font-black uppercase tracking-widest mb-1 text-sm">{hour.title}</h4>
+                                                <div className="space-y-1">
+                                                    {hour.schedule.map((time, idx) => (
+                                                        <p key={idx} className="text-[var(--accent)] font-mono text-xl font-bold leading-none">
+                                                            {time}
+                                                        </p>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="mt-10 pt-8 border-t border-white/10 text-center">
+                                    <button
+                                        onClick={() => document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })}
+                                        className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-[var(--accent)] text-black font-black uppercase tracking-widest rounded-xl hover:bg-white hover:scale-[1.02] transition-all shadow-[0_0_30px_rgba(255,215,0,0.3)] group text-sm"
+                                    >
+                                        Clase de Prueba
+                                        <FaFistRaised className="group-hover:rotate-12 transition-transform text-xl" />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="w-16 h-16 rounded-full bg-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)] shrink-0">
-                                <FaClock size={32} />
+
+                            {/* Ambient Glows */}
+                            <div className="absolute -top-10 -right-10 w-48 h-48 bg-[var(--accent)]/10 blur-[80px] z-0" />
+                            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-[var(--accent)]/10 blur-[80px] z-0" />
+                        </motion.div>
+                    </div>
+
+                    {/* COLUMNA DERECHA: EL ESCUADRÓN (Carousel) */}
+                    <div id="mentores" className="lg:col-span-7 flex flex-col justify-center scroll-mt-32">
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="w-1 h-10 bg-[var(--accent)]" />
+                            <div>
+                                <h3 className="text-4xl font-black text-white uppercase tracking-tight italic">
+                                    El Escuadrón
+                                </h3>
+                                <p className="text-zinc-500 text-sm font-bold tracking-[0.3em] uppercase">
+                                    Kill or Be Killed
+                                </p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                            {gymHours.map((hour) => (
-                                <div key={hour.id} className="flex items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-[var(--accent)]/30 transition-colors">
-                                    <div className="w-12 h-12 rounded-xl bg-[var(--accent)]/10 flex items-center justify-center text-[var(--accent)] font-black text-xl shrink-0">
-                                        {hour.label}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-black uppercase tracking-widest mb-2 text-lg">{hour.title}</h4>
-                                        <div className="space-y-1">
-                                            {hour.schedule.map((time, idx) => (
-                                                <p key={idx} className="text-[var(--accent)] font-mono text-2xl font-bold">
-                                                    {time}
-                                                </p>
-                                            ))}
+                        {/* Unified Carousel Container */}
+                        <div className="relative group/carousel">
+                            <div
+                                ref={scrollRef}
+                                className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-10 scrollbar-hide scroll-smooth"
+                                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            >
+                                {coaches.map((coach, index) => (
+                                    <motion.div
+                                        key={coach.id}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1, duration: 0.5 }}
+                                        viewport={{ once: true }}
+                                        className={cn(
+                                            glass.card,
+                                            "group relative aspect-[4/5] overflow-hidden rounded-xl bg-zinc-900 border-none block w-[280px] min-w-[280px] md:w-[320px] md:min-w-[320px] snap-center shrink-0 shadow-2xl"
+                                        )}
+                                    >
+                                        {/* Image wrapper with zoom */}
+                                        <div className="absolute inset-0 overflow-hidden">
+                                            <img
+                                                src={coach.image}
+                                                alt={coach.name}
+                                                className="w-full h-full object-cover opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-out"
+                                                style={{ objectPosition: 'center 20%' }}
+                                            />
                                         </div>
-                                    </div>
-                                </div>
+
+                                        {/* Overlay Gradient (Overlay more aggressive) */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-80" />
+
+                                        {/* Content */}
+                                        <div className="absolute bottom-0 left-0 w-full p-8">
+                                            <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                                                <div className="inline-block px-3 py-1 bg-[var(--accent)] text-black text-[10px] font-black uppercase mb-3 shadow-[0_0_15px_rgba(255,215,0,0.5)]">
+                                                    {coach.record}
+                                                </div>
+                                                <h4 className="text-3xl font-black text-white italic uppercase mb-1 leading-none tracking-tighter">
+                                                    {coach.name}
+                                                </h4>
+                                                <p className="text-[var(--accent)] text-xs font-black tracking-[0.2em] uppercase mb-6">
+                                                    {coach.role}
+                                                </p>
+
+                                                {/* Socials & Info (Reveal on Hover) */}
+                                                <div className="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                                    <div className="flex gap-4">
+                                                        <a href={coach.social.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[var(--accent)] hover:text-black flex items-center justify-center text-white transition-all">
+                                                            <Instagram size={18} />
+                                                        </a>
+                                                        <a href={coach.social.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[var(--accent)] hover:text-black flex items-center justify-center text-white transition-all">
+                                                            <Facebook size={18} />
+                                                        </a>
+                                                    </div>
+                                                    <div className="text-white/20 font-mono text-4xl font-black italic select-none">
+                                                        #{index + 1}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Desktop Click Navigation (Overlay Arrows) */}
+                            <div className="hidden lg:block">
+                                <button
+                                    onClick={() => scrollRef.current?.scrollBy({ left: -400, behavior: 'smooth' })}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity hover:bg-[var(--accent)] hover:text-black z-10"
+                                >
+                                    <FaChevronLeft size={20} />
+                                </button>
+                                <button
+                                    onClick={() => scrollRef.current?.scrollBy({ left: 400, behavior: 'smooth' })}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity hover:bg-[var(--accent)] hover:text-black z-10"
+                                >
+                                    <FaChevronRight size={20} />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Scroll Indicators (Shared for all screens) */}
+                        <div className="flex justify-center lg:justify-start gap-3 mt-4">
+                            {coaches.map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => scrollTo(i)}
+                                    className={cn(
+                                        "h-1 rounded-full transition-all duration-500",
+                                        activeIndex === i ? "w-12 bg-[var(--accent)]" : "w-4 bg-white/10"
+                                    )}
+                                    aria-label={`Go to slide ${i + 1}`}
+                                />
                             ))}
                         </div>
-
-                        <div className="mt-12 pt-10 border-t border-white/10 text-center">
-                            <button
-                                onClick={() => document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[var(--accent)] text-black font-black uppercase tracking-widest rounded-xl hover:bg-white hover:scale-[1.02] transition-all shadow-[0_0_30px_rgba(255,215,0,0.3)] group text-lg"
-                            >
-                                Agendar Clase de Prueba
-                                <FaFistRaised className="group-hover:rotate-12 transition-transform text-2xl" />
-                            </button>
-                            <p className="text-gray-500 mt-6 font-bold uppercase tracking-widest text-xs">
-                                * La primera clase es cortesía de la casa.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Ambient Glows */}
-                    <div className="absolute -top-10 -right-10 w-64 h-64 bg-[var(--accent)]/10 blur-[100px] z-0" />
-                    <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[var(--accent)]/10 blur-[100px] z-0" />
-                </motion.div>
-
-                {/* 3. THE SQUAD (TEAM) */}
-                <div id="mentores" className="max-w-6xl mx-auto mt-32 scroll-mt-32">
-                    <div className="flex items-center gap-4 mb-12">
-                        <div className="w-1 h-12 bg-[var(--accent)]" />
-                        <div>
-                            <h3 className="text-3xl font-black text-white uppercase tracking-tight">
-                                El Escuadrón
-                            </h3>
-                            <p className="text-zinc-500 text-sm font-medium tracking-widest uppercase">
-                                Mentores de Élite
-                            </p>
-                        </div>
-                    </div>
-
-                    <div
-                        ref={scrollRef}
-                        className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide"
-                    >
-                        {coaches.map((coach, index) => (
-                            <motion.div
-                                key={coach.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className={cn(
-                                    glass.card,
-                                    "group relative aspect-[3/4] overflow-hidden rounded-sm bg-zinc-900 border-none block w-[280px] min-w-[280px] md:w-auto md:min-w-0 snap-center shrink-0"
-                                )}
-                            >
-                                {/* Image */}
-                                <img
-                                    src={coach.image}
-                                    alt={coach.name}
-                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                                    style={{ objectPosition: 'center 20%' }}
-                                />
-
-                                {/* Overlay Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-
-                                {/* Content */}
-                                <div className="absolute bottom-0 left-0 w-full p-6">
-                                    <div className="transform translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                        <div className="inline-block px-2 py-1 bg-[var(--accent)] text-black text-xs font-black uppercase mb-3">
-                                            {coach.record}
-                                        </div>
-                                        <h4 className="text-2xl font-black text-white italic uppercase mb-1 leading-none">
-                                            {coach.name}
-                                        </h4>
-                                        <p className="text-[var(--accent)] text-xs font-bold tracking-widest uppercase mb-4">
-                                            {coach.role}
-                                        </p>
-
-                                        {/* Socials (Reveal on Hover) */}
-                                        <div className="flex gap-4 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                            <a href={coach.social.instagram} className="text-white hover:text-[var(--accent)] transition-colors">
-                                                <Instagram size={20} />
-                                            </a>
-                                            <a href={coach.social.facebook} className="text-white hover:text-[var(--accent)] transition-colors">
-                                                <Facebook size={20} />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* Mobile Scroll Indicators */}
-                    <div className="flex justify-center gap-2 mb-8 md:hidden">
-                        {coaches.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => scrollTo(i)}
-                                className={cn(
-                                    "h-1.5 rounded-full transition-all duration-300",
-                                    activeIndex === i ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-white/20"
-                                )}
-                                aria-label={`Go to slide ${i + 1}`}
-                            />
-                        ))}
                     </div>
                 </div>
+
             </div>
 
             {/* Lightbox Modal (Mobile-Optimized) */}
