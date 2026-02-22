@@ -114,17 +114,11 @@ export default function LandingPageContent({ gymHours, galleryImages }: LandingP
                     testimonials={testimonials}
                 />
 
-                {/* 2. INSTALACIONES - Bento Grid con Lightbox */}
-                <FacilitiesSection gymHours={gymHours} galleryImages={galleryImages} />
-
                 {/* 4. PLANES - Pricing */}
                 <PlansSection />
 
                 {/* 7. FAQ - Preguntas que separan campeones de víctimas */}
                 <FAQSection />
-
-                {/* 2. MISIÓN - Rediseñada con esencia ACE */}
-                <MissionSection />
 
                 {/* 8. FORMULARIO - Optimizado con fondo de Vestidor */}
                 <section id="formulario" className="relative py-24 md:py-40 overflow-hidden">
