@@ -105,7 +105,7 @@ const AchievementCard: React.FC<AchievementCardProps> = memo(({ achievement, del
 
   const getLevelColor = (level: Achievement['level']) => {
     switch (level) {
-      case 'world': return 'from-sky-400 to-cyan-500';
+      case 'world': return 'from-blue-700 to-blue-500';
       case 'international': return 'from-blue-400 to-purple-500';
       case 'national': return 'from-green-400 to-blue-500';
       case 'local': return 'from-gray-400 to-gray-600';
@@ -163,7 +163,7 @@ const ReviewCard: React.FC<ReviewCardProps> = memo(({ review, delay }) => {
                 <Star
                   key={i}
                   className={`w-3 h-3 ${i < review.rating
-                    ? 'fill-[var(--brand-red)] text-[var(--brand-red)]'
+                    ? 'fill-blue-600 text-blue-600'
                     : 'fill-gray-300 text-gray-300'
                     }`}
                 />
@@ -187,7 +187,7 @@ const ReviewCard: React.FC<ReviewCardProps> = memo(({ review, delay }) => {
             )}
           </div>
           {review.response && (
-            <div className="mt-3 p-3 bg-[var(--brand-red)]/10 rounded-lg border border-[var(--brand-red)]/20">
+            <div className="mt-3 p-3 bg-blue-600/10 rounded-lg border border-blue-600/20">
               <p className="text-xs font-medium text-black/60 mb-1">Respuesta del entrenador:</p>
               <p className="text-sm text-black/80">{review.response.text}</p>
             </div>
@@ -450,7 +450,7 @@ const TrainerModal: React.FC<TrainerModalProps> = memo(({
                     {trainer.nickname && (
                       <p className="text-lg font-medium opacity-90 mb-1">"{trainer.nickname}"</p>
                     )}
-                    <p className="text-xl font-bold text-[var(--brand-red)]">{trainer.role}</p>
+                    <p className="text-xl font-bold text-blue-600">{trainer.role}</p>
                     <div className="flex items-center gap-4 mt-3">
                       <div className="flex items-center gap-1">
                         {[...Array(5)].map((_, i) => (
@@ -536,7 +536,7 @@ const TrainerModal: React.FC<TrainerModalProps> = memo(({
                           {trainer.disciplines.map((discipline) => (
                             <span
                               key={discipline}
-                              className="px-3 py-1 bg-[var(--brand-red)]/20 text-black rounded-full text-sm font-medium"
+                              className="px-3 py-1 bg-blue-600/20 text-black rounded-full text-sm font-medium"
                             >
                               {getDisciplineDisplayName(discipline)}
                             </span>

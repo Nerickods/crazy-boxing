@@ -178,7 +178,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                         </span>
                         <h2 className="text-4xl sm:text-5xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8 uppercase">
                             EL TEMPLO <br />
-                            <span className="text-cyan-400 font-outline">DEL TRABAJO</span> <br />
+                            <span className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-400 bg-clip-text text-transparent font-outline">DEL TRABAJO</span> <br />
                             SILENCIOSO
                         </h2>
                         <p className="text-zinc-400 text-xl md:text-2xl font-medium leading-relaxed max-w-xl mb-10">
@@ -236,7 +236,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                 THE BATTLEGROUND
                             </h3>
                             <div className="w-16 h-1 bg-[var(--accent)] mx-auto mb-6" />
-                            <p className="text-cyan-400 font-black uppercase tracking-[0.3em] text-[10px] mb-10 drop-shadow-[0_0_15px_rgba(37,99,235,0.9)]">
+                            <p className="bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent font-black uppercase tracking-[0.3em] text-[10px] mb-10 drop-shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                                 Donde las excusas vienen a morir
                             </p>
 
@@ -278,7 +278,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                             {/* Decorative Elements */}
                             <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-purple-600 rounded-3xl blur opacity-20 animate-pulse" />
 
-                            <div className="relative bg-sky-950/30 backdrop-blur-md border border-sky-500/20 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(14,165,233,0.2)] h-full flex flex-col justify-between">
+                            <div className="relative bg-cyan-950/20 backdrop-blur-md border border-cyan-500/30 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(34,211,238,0.2)] h-full flex flex-col justify-between">
                                 <div className="flex flex-col items-center md:items-start justify-between mb-10 border-b border-white/10 pb-8 gap-6">
                                     <div className="text-center md:text-left">
                                         <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic text-pretty leading-tight">TU EXCUSA MUERE AQUÍ</h3>
@@ -299,7 +299,7 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                                 <h4 className="text-white font-black uppercase tracking-widest mb-1 text-sm">{hour.title}</h4>
                                                 <div className="space-y-1">
                                                     {hour.schedule.map((time, idx) => (
-                                                        <p key={idx} className="text-[var(--accent)] font-mono text-xl font-bold leading-none">
+                                                        <p key={idx} className="text-cyan-400 font-mono text-xl font-bold leading-none">
                                                             {time}
                                                         </p>
                                                     ))}
@@ -375,13 +375,13 @@ export default function FacilitiesSection({ gymHours, galleryImages = [] }: Faci
                                         {/* Content */}
                                         <div className="absolute bottom-0 left-0 w-full p-8">
                                             <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                                                <div className="inline-block px-3 py-1 bg-[var(--accent)] text-black text-[10px] font-black uppercase mb-3 shadow-[0_0_15px_rgba(255,215,0,0.5)]">
+                                                <div className="inline-block px-3 py-1 bg-[var(--accent)] text-black text-[10px] font-black uppercase mb-3 shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                                                     {coach.record}
                                                 </div>
                                                 <h4 className="text-3xl font-black text-white italic uppercase mb-1 leading-none tracking-tighter">
                                                     {coach.name}
                                                 </h4>
-                                                <p className="text-[var(--accent)] text-xs font-black tracking-[0.2em] uppercase mb-6">
+                                                <p className="text-blue-600 text-xs font-black tracking-[0.2em] uppercase mb-6">
                                                     {coach.role}
                                                 </p>
 

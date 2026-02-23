@@ -170,7 +170,7 @@ const ExperienceFilter: React.FC = memo(() => {
     [ExperienceLevel.INTERMEDIATE]: 'bg-blue-500',
     [ExperienceLevel.ADVANCED]: 'bg-purple-500',
     [ExperienceLevel.PROFESSIONAL]: 'bg-indigo-500',
-    [ExperienceLevel.ELITE]: 'bg-gradient-to-r from-sky-400 to-indigo-500'
+    [ExperienceLevel.ELITE]: 'bg-gradient-to-r from-blue-700 to-indigo-500'
   };
 
   return (

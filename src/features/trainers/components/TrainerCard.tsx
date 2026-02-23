@@ -84,8 +84,8 @@ const StarRating: React.FC<StarRatingProps> = memo(({
           <Star
             key={star}
             className={`${sizeClasses[size]} ${star <= rating
-                ? 'fill-current text-current'
-                : 'fill-gray-300 text-gray-300'
+              ? 'fill-current text-current'
+              : 'fill-gray-300 text-gray-300'
               } transition-colors duration-200`}
             style={{
               color: star <= rating ? colors.accent.primary : undefined
@@ -140,7 +140,7 @@ const ExperienceBadge: React.FC<ExperienceBadgeProps> = memo(({ level }) => {
     [ExperienceLevel.INTERMEDIATE]: 'bg-blue-500',
     [ExperienceLevel.ADVANCED]: 'bg-purple-500',
     [ExperienceLevel.PROFESSIONAL]: 'bg-indigo-500',
-    [ExperienceLevel.ELITE]: 'bg-gradient-to-r from-sky-400 to-indigo-500'
+    [ExperienceLevel.ELITE]: 'bg-gradient-to-r from-blue-700 to-indigo-500'
   };
 
   return (
@@ -211,8 +211,8 @@ const QuickActions: React.FC<QuickActionsProps> = memo(({
         whileTap={{ scale: 0.9 }}
         onClick={handleFavorite}
         className={`w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 ${isFavorite(trainer.id)
-            ? 'bg-indigo-500 text-white'
-            : 'bg-black/80 text-white hover:bg-white/90 hover:text-black'
+          ? 'bg-indigo-500 text-white'
+          : 'bg-black/80 text-white hover:bg-white/90 hover:text-black'
           }`}
         title={isFavorite(trainer.id) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
       >
@@ -479,7 +479,7 @@ const TrainerCard: React.FC<TrainerCardProps> = memo(({
               <ExperienceBadge level={trainer.experience} />
             </div>
 
-            <p className="text-sm font-bold text-black/80 uppercase tracking-wide">
+            <p className="text-blue-600 text-xs font-black tracking-[0.2em] uppercase mb-6">
               {trainer.role}
             </p>
           </div>
