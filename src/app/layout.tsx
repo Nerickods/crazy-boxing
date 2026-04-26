@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import ChatWidget from "@/features/chat/components/ChatWidget";
+import { GlobalChatOrchestrator } from "@/features/chat/components/GlobalChatOrchestrator";
 import { ThemeProvider } from "@/shared/components/ThemeProvider";
 
 const geistSans = localFont({
@@ -50,8 +50,10 @@ export default function RootLayout({
           <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-sky-500/10 blur-[120px] rounded-full pointer-events-none z-[-1] animate-pulse-slow opacity-100 dark:opacity-0" />
           <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none z-[-1] animate-pulse-slow opacity-100 dark:opacity-0" style={{ animationDelay: '2s' }} />
 
-          {children}
-          <ChatWidget />
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+          <GlobalChatOrchestrator />
         </ThemeProvider>
       </body>
     </html>

@@ -47,7 +47,7 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  const { toggleOpen } = useChatStore();
+  const { setOpen } = useChatStore();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
@@ -160,7 +160,7 @@ export default function FAQSection() {
               <span className="text-xs uppercase tracking-widest mt-2 block opacity-70">Sin esperas. Sin música de ascensor.</span>
             </p>
             <button
-              onClick={toggleOpen}
+              onClick={() => setOpen(true)}
               className="px-8 py-4 bg-white text-black font-black uppercase tracking-widest text-sm hover:bg-[var(--accent)] hover:scale-105 transition-all duration-300 rounded-sm inline-flex items-center gap-3 group/btn"
             >
               🥊 HABLAR CON EL COACH DIGITAL
